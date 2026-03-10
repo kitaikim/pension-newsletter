@@ -1,0 +1,42 @@
+name: 국민연금 뉴스레터
+
+on:
+  schedule:
+    - cron: '0 0 * * 1-5'  # 평일 09:00 KST (= 00:00 UTC)
+  workflow_dispatch:        # 수동 실행 버튼
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 뉴스레터 실행
+        env:
+          NPS_API_KEY: ${{ secrets.NPS_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python newsletter.py
+
+      - name: 발송 상태 저장 (last_sent.json 커밋)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add last_sent.json
+          git diff --cached --quiet || git commit -m "chore: update last_sent.json [skip ci]"
+          git push
