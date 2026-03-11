@@ -11,10 +11,18 @@ from pykrx import stock as krx_stock
 
 load_dotenv()
 
-API_KEY = os.getenv("NPS_API_KEY")
-SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-SENDER_EMAIL = os.getenv("SENDER_EMAIL")
-RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
+def _get_secret(key):
+    """로컬은 .env, Streamlit Cloud는 st.secrets에서 읽기"""
+    try:
+        import streamlit as st
+        return st.secrets.get(key) or os.getenv(key)
+    except Exception:
+        return os.getenv(key)
+
+API_KEY = _get_secret("NPS_API_KEY")
+SENDGRID_API_KEY = _get_secret("SENDGRID_API_KEY")
+SENDER_EMAIL = _get_secret("SENDER_EMAIL")
+RECIPIENT_EMAIL = _get_secret("RECIPIENT_EMAIL")
 
 API_BASE = "https://api.odcloud.kr/api"
 DART_API_BASE = "https://opendart.fss.or.kr/api"
@@ -95,7 +103,7 @@ def parse_items(data):
 
 def fetch_dart_nps_trades(days=30, sent_rcept_nos=None):
     """최근 N일간 국민연금의 지분공시 전체 스캔 → 미발송 매수/매도 내역 반환"""
-    dart_key = os.getenv("DART_API_KEY")
+    dart_key = _get_secret("DART_API_KEY")
     end_de = date.today()
     # bgn_de는 당해 연도 1월 1일 이상으로 제한 (DART API 제약)
     year_start = date(end_de.year, 1, 1)
