@@ -152,20 +152,20 @@ else:
             return 0
         filtered = sorted(filtered, key=_ratio_delta, reverse=True)
 
-    # 반응형 HTML 테이블로 렌더링
-    rows_html = ""
+    cards_html = ""
     for t in filtered:
         is_buy = t["direction"] == "매수"
         badge_color = "#1b5e20" if is_buy else "#b71c1c"
         badge_bg = "#e8f5e9" if is_buy else "#ffebee"
+        border_color = "#a5d6a7" if is_buy else "#ef9a9a"
         badge_text = "▲ 매수" if is_buy else "▼ 매도"
 
         prev = t.get("prev_ratio")
         curr = t.get("curr_ratio")
         if prev is not None and curr is not None:
-            ratio_text = f"{round(prev,2):.2f}% → {round(curr,2):.2f}%"
+            ratio_text = f"{round(prev,2):.2f}% → <b>{round(curr,2):.2f}%</b>"
         elif curr is not None:
-            ratio_text = f"{round(curr,2):.2f}%"
+            ratio_text = f"<b>{round(curr,2):.2f}%</b>"
         else:
             ratio_text = "-"
 
@@ -173,37 +173,24 @@ else:
         amount_text = f"{int(t['total_amount']/1e8):,}억원" if t.get("total_amount") else "-"
         dart_url = t.get("url", "#")
 
-        rows_html += f"""
-        <tr>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; color:#666; font-size:13px; white-space:nowrap;">{t['date']}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-weight:600; font-size:14px;">
-            <a href="{dart_url}" target="_blank" style="color:#1a237e; text-decoration:none;">{t['corp_name']}</a>
-          </td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center; white-space:nowrap;">
-            <span style="background:{badge_bg}; color:{badge_color}; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px;">{badge_text}</span>
-          </td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap;">{ratio_text}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap; color:#555;">{qty_text}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap; font-weight:600; color:#1a237e;">{amount_text}</td>
-        </tr>"""
+        cards_html += f"""
+<div style="border:1px solid {border_color}; border-left:4px solid {badge_color};
+            border-radius:10px; padding:14px 16px; margin-bottom:10px; background:#fff;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+    <a href="{dart_url}" target="_blank"
+       style="font-size:16px; font-weight:700; color:#1a237e; text-decoration:none;">{t['corp_name']}</a>
+    <span style="background:{badge_bg}; color:{badge_color}; font-size:12px; font-weight:700;
+                 padding:3px 12px; border-radius:12px; white-space:nowrap;">{badge_text}</span>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:12px; font-size:13px; color:#555;">
+    <span>📅 {t['date']}</span>
+    <span>📊 보유비율 {ratio_text}</span>
+    <span>📦 {qty_text}</span>
+    <span style="font-weight:600; color:#1a237e;">💰 {amount_text}</span>
+  </div>
+</div>"""
 
-    st.markdown(f"""
-<div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
-<table style="width:100%; border-collapse:collapse; font-family:inherit;">
-  <thead>
-    <tr style="background:#f5f7ff;">
-      <th style="padding:10px 12px; text-align:left; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">공시일</th>
-      <th style="padding:10px 12px; text-align:left; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
-      <th style="padding:10px 12px; text-align:center; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">구분</th>
-      <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">보유비율</th>
-      <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
-      <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
-    </tr>
-  </thead>
-  <tbody>{rows_html}</tbody>
-</table>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown(cards_html, unsafe_allow_html=True)
 
 # ── 푸터 ──────────────────────────────────────────────
 st.markdown("---")
