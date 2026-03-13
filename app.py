@@ -7,6 +7,7 @@ from newsletter import (
     fetch_portfolio_data,
     parse_items,
     fetch_dart_nps_trades,
+    load_trades_cache,
 )
 
 st.set_page_config(
@@ -65,9 +66,13 @@ def load_portfolio():
 
 @st.cache_data(ttl=3600)
 def load_trades():
-    # 대시보드에서는 주가 조회 생략 (속도 개선)
-    trades, _ = fetch_dart_nps_trades(days=90, sent_rcept_nos=None, fetch_prices=False)
-    return trades
+    # GitHub Actions가 저장한 캐시 파일 우선 사용 (빠름)
+    trades, updated = load_trades_cache()
+    if trades:
+        return trades, updated
+    # 캐시 없으면 API 직접 호출 (주가 제외, 30일만)
+    trades, _ = fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=False)
+    return trades, None
 
 
 # ── 포트폴리오 현황 ────────────────────────────────────
@@ -121,8 +126,11 @@ st.markdown("---")
 st.subheader("📋 최근 90일 국민연금 매수/매도 내역")
 st.caption("출처: DART 주식등의대량보유상황보고서")
 
-with st.spinner("공시 내역 불러오는 중... (30초 내외 소요)"):
-    trades = load_trades()
+with st.spinner("공시 내역 불러오는 중..."):
+    trades, cache_updated = load_trades()
+
+if cache_updated:
+    st.caption(f"캐시 기준: {cache_updated}")
 
 if not trades:
     st.info("최근 90일 내 공시 내역이 없습니다.")
@@ -162,6 +170,7 @@ else:
             ratio_text = "-"
 
         qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") else "-"
+        amount_text = f"{int(t['total_amount']/1e8):,}억원" if t.get("total_amount") else "-"
         dart_url = t.get("url", "#")
 
         rows_html += f"""
@@ -175,6 +184,7 @@ else:
           </td>
           <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap;">{ratio_text}</td>
           <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap; color:#555;">{qty_text}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; text-align:right; white-space:nowrap; font-weight:600; color:#1a237e;">{amount_text}</td>
         </tr>"""
 
     st.markdown(f"""
@@ -187,6 +197,7 @@ else:
       <th style="padding:10px 12px; text-align:center; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">구분</th>
       <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">보유비율</th>
       <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
+      <th style="padding:10px 12px; text-align:right; font-size:12px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
     </tr>
   </thead>
   <tbody>{rows_html}</tbody>

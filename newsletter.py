@@ -27,6 +27,22 @@ RECIPIENT_EMAIL = _get_secret("RECIPIENT_EMAIL")
 API_BASE = "https://api.odcloud.kr/api"
 DART_API_BASE = "https://opendart.fss.or.kr/api"
 STATE_FILE = os.path.join(os.path.dirname(__file__), "last_sent.json")
+TRADES_CACHE_FILE = os.path.join(os.path.dirname(__file__), "trades_cache.json")
+
+
+def load_trades_cache():
+    """대시보드용 캐시 로드"""
+    if not os.path.exists(TRADES_CACHE_FILE):
+        return [], None
+    with open(TRADES_CACHE_FILE, encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("trades", []), data.get("updated")
+
+
+def save_trades_cache(trades):
+    """대시보드용 캐시 저장"""
+    with open(TRADES_CACHE_FILE, "w", encoding="utf-8") as f:
+        json.dump({"trades": trades, "updated": date.today().isoformat()}, f, ensure_ascii=False, indent=2)
 
 
 def load_sent_rcept_nos():
@@ -446,7 +462,7 @@ def main():
     sent_rcept_nos = load_sent_rcept_nos()
     print(f"[1/4] 기발송 공시 {len(sent_rcept_nos)}건 로드")
 
-    # 2. 신규 공시 조회
+    # 2. 신규 공시 조회 (이메일 발송용)
     print("[2/4] DART 신규 공시 스캔 중...")
     trades, new_rcept_nos = fetch_dart_nps_trades(days=30, sent_rcept_nos=sent_rcept_nos)
 
@@ -472,6 +488,11 @@ def main():
 
     # 5. 발송 상태 저장
     save_sent_rcept_nos(sent_rcept_nos | new_rcept_nos)
+
+    # 6. 대시보드 캐시 갱신 (90일치 전체, 주가 포함)
+    print("[5/5] 대시보드 캐시 갱신 중...")
+    all_trades, _ = fetch_dart_nps_trades(days=90, sent_rcept_nos=None, fetch_prices=True)
+    save_trades_cache(all_trades)
     print("완료!")
 
 
