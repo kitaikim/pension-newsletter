@@ -182,9 +182,9 @@ else:
     <span style="background:{badge_bg}; color:{badge_color}; font-size:12px; font-weight:700;
                  padding:3px 12px; border-radius:12px; white-space:nowrap;">{badge_text}</span>
   </div>
-  <div style="display:flex; flex-wrap:wrap; gap:12px; font-size:13px; color:#555;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; font-size:13px; color:#555; margin-top:4px;">
     <span>📅 {t['date']}</span>
-    <span>📊 보유비율 {ratio_text}</span>
+    <span>📊 {ratio_text}</span>
     <span>📦 {qty_text}</span>
     <span style="font-weight:600; color:#1a237e;">💰 {amount_text}</span>
   </div>
