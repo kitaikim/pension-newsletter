@@ -171,6 +171,7 @@ else:
 
         qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") else "-"
         amount_text = f"{int(t['total_amount']/1e8):,}억원" if t.get("total_amount") else "-"
+        price_text = f"{t['price']:,}원" if t.get("price") else "-"
         dart_url = t.get("url", "#")
 
         cards_html += f"""
@@ -187,6 +188,7 @@ else:
     <span>📊 {ratio_text}</span>
     <span>📦 {qty_text}</span>
     <span style="font-weight:600; color:#1a237e;">💰 {amount_text}</span>
+    <span style="grid-column:1/-1; color:#888;">🏷️ 주당가격 <b style="color:#333;">{price_text}</b></span>
   </div>
 </div>"""
 
