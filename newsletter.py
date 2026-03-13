@@ -101,7 +101,7 @@ def parse_items(data):
     return result, value_col
 
 
-def fetch_dart_nps_trades(days=30, sent_rcept_nos=None):
+def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
     """최근 N일간 국민연금의 지분공시 전체 스캔 → 미발송 매수/매도 내역 반환"""
     dart_key = _get_secret("DART_API_KEY")
     end_de = date.today()
@@ -175,7 +175,10 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None):
         direction, prev_ratio, curr_ratio, qty_change = detail
 
         stock_code = item.get("stock_code", "")
-        price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
+        if fetch_prices:
+            price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
+        else:
+            price, total_amount = None, None
 
         trades.append({
             "corp_name": corp_name,
