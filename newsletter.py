@@ -68,9 +68,16 @@ MASTER_UDDI = "21294cf5-01db-4d34-bcbe-92460145f5d0"
 def get_latest_endpoint():
     """마스터 데이터셋에서 최신 기간 레이블 파싱"""
     url = f"{API_BASE}/15106894/v1/uddi:{MASTER_UDDI}"
-    resp = requests.get(url, params={"serviceKey": API_KEY, "perPage": 1, "returnType": "JSON"}, timeout=10)
-    resp.raise_for_status()
-    data = resp.json()
+    for attempt in range(2):
+        try:
+            resp = requests.get(url, params={"serviceKey": API_KEY, "perPage": 1, "returnType": "JSON"}, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+            break
+        except Exception as e:
+            if attempt == 1:
+                raise
+            print(f"  [재시도] 엔드포인트 조회 실패: {e}")
     items = data.get("data", [])
     if not items:
         raise RuntimeError("포트폴리오 데이터를 불러오지 못했습니다.")
@@ -91,9 +98,17 @@ def get_latest_endpoint():
 
 
 def fetch_portfolio_data(url):
-    resp = requests.get(url, params={"serviceKey": API_KEY, "page": 1, "perPage": 100, "returnType": "JSON"}, timeout=15)
-    resp.raise_for_status()
-    return resp.json()
+    params = {"serviceKey": API_KEY, "page": 1, "perPage": 100, "returnType": "JSON"}
+    for attempt in range(2):
+        try:
+            resp = requests.get(url, params=params, timeout=30)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            if attempt == 1:
+                raise
+            print(f"  [재시도] 포트폴리오 조회 실패: {e}")
+    return None
 
 
 def parse_items(data):
