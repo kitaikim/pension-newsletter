@@ -284,7 +284,6 @@ def _get_stock_price_and_amount(stock_code, rcept_dt, qty_change):
     if not stock_code or qty_change is None:
         return (None, None)
     try:
-        # 공시일부터 최대 5 영업일 앞뒤로 시도 (휴장일 대응)
         from datetime import datetime
         dt = datetime.strptime(rcept_dt, "%Y%m%d")
         start = (dt - timedelta(days=7)).strftime("%Y%m%d")
@@ -294,11 +293,13 @@ def _get_stock_price_and_amount(stock_code, rcept_dt, qty_change):
         if df.empty:
             return (None, None)
 
-        close_price = int(df["종가"].iloc[-1])  # 공시일 또는 직전 거래일 종가
+        close_price = int(df["종가"].iloc[-1])
         total = abs(qty_change) * close_price
         return (close_price, total)
     except Exception:
         return (None, None)
+
+
 
 
 def _parse_ratio(val):

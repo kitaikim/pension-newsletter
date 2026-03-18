@@ -174,6 +174,7 @@ else:
         price_text = f"{t['price']:,}원" if t.get("price") else "-"
         dart_url = t.get("url", "#")
 
+
         cards_html += f"""
 <div style="border:1px solid {border_color}; border-left:4px solid {badge_color};
             border-radius:10px; padding:14px 16px; margin-bottom:10px; background:#fff;">
