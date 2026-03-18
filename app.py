@@ -174,6 +174,15 @@ else:
         price_text = f"{t['price']:,}원" if t.get("price") else "-"
         dart_url = t.get("url", "#")
 
+        fn = t.get("foreign_net")
+        if fn is not None:
+            fn_abs = abs(int(fn)) // 100  # 백만원 → 억원
+            fn_sign = "▲ 순매수" if fn > 0 else "▼ 순매도"
+            fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
+            fn_text = f"<b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b>"
+        else:
+            fn_text = None
+
 
         cards_html += f"""
 <div style="border:1px solid {border_color}; border-left:4px solid {badge_color};
@@ -190,6 +199,7 @@ else:
     <span>📦 {qty_text}</span>
     <span style="font-weight:600; color:#1a237e;">💰 {amount_text}</span>
     <span style="grid-column:1/-1; color:#888;">🏷️ 주당가격 <b style="color:#333;">{price_text}</b></span>
+    {"<span style='grid-column:1/-1; color:#888;'>🌏 외국인(5일) " + fn_text + "</span>" if fn_text else ""}
   </div>
 </div>"""
 

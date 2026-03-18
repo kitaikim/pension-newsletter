@@ -26,6 +26,8 @@ RECIPIENT_EMAIL = _get_secret("RECIPIENT_EMAIL")
 
 API_BASE = "https://api.odcloud.kr/api"
 DART_API_BASE = "https://opendart.fss.or.kr/api"
+KIS_BASE = "https://openapi.koreainvestment.com:9443"
+KIS_TOKEN_FILE = os.path.join(os.path.dirname(__file__), "kis_token.json")
 STATE_FILE = os.path.join(os.path.dirname(__file__), "last_sent.json")
 TRADES_CACHE_FILE = os.path.join(os.path.dirname(__file__), "trades_cache.json")
 
@@ -208,8 +210,10 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
+            foreign_net = _get_foreign_trading_kis(stock_code, rcept_dt)
         else:
             price, total_amount = None, None
+            foreign_net = None
 
         trades.append({
             "corp_name": corp_name,
@@ -220,6 +224,7 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             "qty_change": qty_change,
             "price": price,
             "total_amount": total_amount,
+            "foreign_net": foreign_net,
             "url": dart_url,
         })
 
@@ -277,6 +282,72 @@ def _fetch_majorstock_detail(dart_key, corp_code, rcept_no, report_nm=""):
         return (direction, prev_ratio, curr_ratio, qty_change)
     except Exception:
         return ("변동", None, None, None)
+
+
+def _get_kis_token():
+    """KIS OAuth 토큰 발급 (하루 캐시)"""
+    appkey = _get_secret("KIS_APPKEY")
+    appsecret = _get_secret("KIS_APPSECRET")
+    if not appkey or not appsecret:
+        return None, None, None
+
+    # 캐시된 토큰 확인
+    if os.path.exists(KIS_TOKEN_FILE):
+        with open(KIS_TOKEN_FILE) as f:
+            cached = json.load(f)
+        if cached.get("expires", "") >= date.today().isoformat():
+            return cached["access_token"], appkey, appsecret
+
+    # 새 토큰 발급
+    try:
+        resp = requests.post(
+            f"{KIS_BASE}/oauth2/tokenP",
+            json={"grant_type": "client_credentials", "appkey": appkey, "appsecret": appsecret},
+            timeout=10,
+        )
+        token = resp.json().get("access_token")
+        if not token:
+            return None, None, None
+        with open(KIS_TOKEN_FILE, "w") as f:
+            json.dump({"access_token": token, "expires": (date.today() + timedelta(days=1)).isoformat()}, f)
+        return token, appkey, appsecret
+    except Exception:
+        return None, None, None
+
+
+def _get_foreign_trading_kis(stock_code, rcept_dt):
+    """KIS API로 공시일 기준 최근 5일 외국인 순매수 금액 합산 (원 단위)"""
+    if not stock_code:
+        return None
+    token, appkey, appsecret = _get_kis_token()
+    if not token:
+        return None
+    try:
+        resp = requests.get(
+            f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/inquire-investor",
+            headers={
+                "authorization": f"Bearer {token}",
+                "appkey": appkey,
+                "appsecret": appsecret,
+                "tr_id": "FHKST01010900",
+            },
+            params={"fid_cond_mrkt_div_code": "J", "fid_input_iscd": stock_code},
+            timeout=10,
+        )
+        data = resp.json()
+        if data.get("rt_cd") != "0":
+            return None
+        output = data.get("output", [])
+        if not output:
+            return None
+        # 최근 5일 외국인 순매수 금액 합산 (단위: 백만원, 빈 문자열 제외)
+        total = sum(
+            int(v) for item in output[:5]
+            if (v := item.get("frgn_ntby_tr_pbmn", "")) not in ("", None)
+        )
+        return total if total != 0 else None
+    except Exception:
+        return None
 
 
 def _get_stock_price_and_amount(stock_code, rcept_dt, qty_change):

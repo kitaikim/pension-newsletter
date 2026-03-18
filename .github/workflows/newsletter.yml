@@ -34,6 +34,8 @@ jobs:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
+          KIS_APPKEY: ${{ secrets.KIS_APPKEY }}
+          KIS_APPSECRET: ${{ secrets.KIS_APPSECRET }}
         run: python newsletter.py
 
       - name: 발송 상태 저장 (last_sent.json 커밋)
