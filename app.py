@@ -179,9 +179,9 @@ else:
             fn_abs = abs(int(fn)) // 100  # 백만원 → 억원
             fn_sign = "▲ 순매수" if fn > 0 else "▼ 순매도"
             fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
-            fn_text = f"<b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b>"
+            fn_row = f"<span style='grid-column:1/-1; color:#888;'>🌏 외국인(5일) <b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b></span>"
         else:
-            fn_text = None
+            fn_row = ""
 
 
         cards_html += f"""
@@ -199,7 +199,7 @@ else:
     <span>📦 {qty_text}</span>
     <span style="font-weight:600; color:#1a237e;">💰 {amount_text}</span>
     <span style="grid-column:1/-1; color:#888;">🏷️ 주당가격 <b style="color:#333;">{price_text}</b></span>
-    {"<span style='grid-column:1/-1; color:#888;'>🌏 외국인(5일) " + fn_text + "</span>" if fn_text else ""}
+    {fn_row}
   </div>
 </div>"""
 
