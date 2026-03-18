@@ -1,6 +1,72 @@
 {
   "trades": [
     {
+      "corp_name": "한미약품",
+      "date": "2026.03.17",
+      "direction": "매도",
+      "prev_ratio": 11.04,
+      "curr_ratio": 10.0,
+      "qty_change": -133857.0,
+      "price": 520000,
+      "total_amount": 69605640000.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000680"
+    },
+    {
+      "corp_name": "한화비전",
+      "date": "2026.03.17",
+      "direction": "매도",
+      "prev_ratio": 10.010000000000002,
+      "curr_ratio": 9.88,
+      "qty_change": -64823.0,
+      "price": 76900,
+      "total_amount": 4984888700.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000478"
+    },
+    {
+      "corp_name": "현대엘리베이터",
+      "date": "2026.03.17",
+      "direction": "매도",
+      "prev_ratio": 10.68,
+      "curr_ratio": 9.98,
+      "qty_change": -273409.0,
+      "price": 87100,
+      "total_amount": 23813923900.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000475"
+    },
+    {
+      "corp_name": "한국카본",
+      "date": "2026.03.17",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.49,
+      "qty_change": 5447548.0,
+      "price": 48650,
+      "total_amount": 265023210200.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000472"
+    },
+    {
+      "corp_name": "아모레퍼시픽",
+      "date": "2026.03.17",
+      "direction": "매도",
+      "prev_ratio": 8.47,
+      "curr_ratio": 8.42,
+      "qty_change": -26749.0,
+      "price": 132700,
+      "total_amount": 3549592300.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000461"
+    },
+    {
+      "corp_name": "호텔신라",
+      "date": "2026.03.17",
+      "direction": "매도",
+      "prev_ratio": 7.02,
+      "curr_ratio": 6.75,
+      "qty_change": -109319.0,
+      "price": 42850,
+      "total_amount": 4684319150.0,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000451"
+    },
+    {
       "corp_name": "HDC현대산업개발",
       "date": "2026.03.13",
       "direction": "매수",
@@ -21,17 +87,6 @@
       "price": 65300,
       "total_amount": 1412439000.0,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260313000364"
-    },
-    {
-      "corp_name": "한화비전",
-      "date": "2026.03.13",
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 10.01,
-      "qty_change": 5054073.0,
-      "price": 76700,
-      "total_amount": 387647399100.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260313000359"
     },
     {
       "corp_name": "영원무역",
@@ -100,17 +155,6 @@
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303002567"
     },
     {
-      "corp_name": "한미약품",
-      "date": "2026.03.03",
-      "direction": "매도",
-      "prev_ratio": 11.25,
-      "curr_ratio": 11.04,
-      "qty_change": -26604.0,
-      "price": 571000,
-      "total_amount": 15190884000.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303002547"
-    },
-    {
       "corp_name": "CJ대한통운",
       "date": "2026.03.03",
       "direction": "매수",
@@ -131,17 +175,6 @@
       "price": 388000,
       "total_amount": 18598392000.0,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303002517"
-    },
-    {
-      "corp_name": "아모레퍼시픽",
-      "date": "2026.03.03",
-      "direction": "매수",
-      "prev_ratio": 7.420000000000001,
-      "curr_ratio": 8.47,
-      "qty_change": 610439.0,
-      "price": 138600,
-      "total_amount": 84606845400.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303002510"
     },
     {
       "corp_name": "HMM",
@@ -296,40 +329,7 @@
       "price": 1913000,
       "total_amount": 77285200000.0,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260105000330"
-    },
-    {
-      "corp_name": "HD건설기계",
-      "date": "2026.01.05",
-      "direction": "매도",
-      "prev_ratio": 13.46,
-      "curr_ratio": 13.38,
-      "qty_change": -13658.0,
-      "price": 102100,
-      "total_amount": 1394481800.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260105000321"
-    },
-    {
-      "corp_name": "코스메카코리아",
-      "date": "2026.01.05",
-      "direction": "매수",
-      "prev_ratio": 11.93,
-      "curr_ratio": 11.99,
-      "qty_change": 6320.0,
-      "price": 70400,
-      "total_amount": 444928000.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260105000315"
-    },
-    {
-      "corp_name": "HL만도",
-      "date": "2026.01.05",
-      "direction": "매수",
-      "prev_ratio": 10.01,
-      "curr_ratio": 12.76,
-      "qty_change": 1290946.0,
-      "price": 60700,
-      "total_amount": 78360422200.0,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260105000312"
     }
   ],
-  "updated": "2026-03-17"
+  "updated": "2026-03-18"
 }
