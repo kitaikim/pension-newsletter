@@ -2,15 +2,51 @@
   "trades": [
     {
       "corp_name": "대주전자재료",
-      "date": "2026.04.07",
+      "date": "2026.04.10",
       "direction": "매도",
       "prev_ratio": 10.040000000000001,
       "curr_ratio": 9.98,
       "qty_change": -9745.0,
-      "price": 113400,
-      "total_amount": 1105083000.0,
-      "foreign_net": 8900,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260407002738"
+      "price": 126700,
+      "total_amount": 1234691500.0,
+      "foreign_net": 14375,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260410000202"
+    },
+    {
+      "corp_name": "금호석유화학",
+      "date": "2026.04.10",
+      "direction": "매수",
+      "prev_ratio": 9.66,
+      "curr_ratio": 10.28,
+      "qty_change": 90986.0,
+      "price": 131100,
+      "total_amount": 11928264600.0,
+      "foreign_net": 13802,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260410000194"
+    },
+    {
+      "corp_name": "효성티앤씨",
+      "date": "2026.04.10",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.02,
+      "qty_change": 433440.0,
+      "price": 464500,
+      "total_amount": 201332880000.0,
+      "foreign_net": -624,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260410000187"
+    },
+    {
+      "corp_name": "씨에스윈드",
+      "date": "2026.04.10",
+      "direction": "매도",
+      "prev_ratio": 10.05,
+      "curr_ratio": 9.82,
+      "qty_change": -96478.0,
+      "price": 67200,
+      "total_amount": 6483321600.0,
+      "foreign_net": -15348,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260410000177"
     },
     {
       "corp_name": "한올바이오파마",
@@ -21,20 +57,8 @@
       "qty_change": 5248964.0,
       "price": 46000,
       "total_amount": 241452344000.0,
-      "foreign_net": -20618,
+      "foreign_net": -5911,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260407002729"
-    },
-    {
-      "corp_name": "효성티앤씨",
-      "date": "2026.04.02",
-      "direction": "매도",
-      "prev_ratio": 10.02,
-      "curr_ratio": 9.91,
-      "qty_change": -4471.0,
-      "price": 366500,
-      "total_amount": 1638621500.0,
-      "foreign_net": -3341,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002469"
     },
     {
       "corp_name": "코오롱인더",
@@ -45,7 +69,7 @@
       "qty_change": 18823.0,
       "price": 79300,
       "total_amount": 1492663900.0,
-      "foreign_net": -5629,
+      "foreign_net": -6984,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002458"
     },
     {
@@ -57,7 +81,7 @@
       "qty_change": 2410103.0,
       "price": 76100,
       "total_amount": 183408838300.0,
-      "foreign_net": -5410,
+      "foreign_net": -4734,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002408"
     },
     {
@@ -69,7 +93,7 @@
       "qty_change": 9318.0,
       "price": 53400,
       "total_amount": 497581200.0,
-      "foreign_net": 836,
+      "foreign_net": 16931,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002376"
     },
     {
@@ -81,7 +105,7 @@
       "qty_change": 664527.0,
       "price": 80300,
       "total_amount": 53361518100.0,
-      "foreign_net": -13459,
+      "foreign_net": -6872,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002297"
     },
     {
@@ -93,7 +117,7 @@
       "qty_change": 25765.0,
       "price": 2518000,
       "total_amount": 64876270000.0,
-      "foreign_net": -21021,
+      "foreign_net": 67640,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002275"
     },
     {
@@ -105,7 +129,7 @@
       "qty_change": 3596051.0,
       "price": 140500,
       "total_amount": 505245165500.0,
-      "foreign_net": -30510,
+      "foreign_net": -50476,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002254"
     },
     {
@@ -117,7 +141,7 @@
       "qty_change": 57280.0,
       "price": 77800,
       "total_amount": 4456384000.0,
-      "foreign_net": 3325,
+      "foreign_net": 3130,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002223"
     },
     {
@@ -129,7 +153,7 @@
       "qty_change": -851964.0,
       "price": 47800,
       "total_amount": 40723879200.0,
-      "foreign_net": 8372,
+      "foreign_net": 11291,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002168"
     },
     {
@@ -141,7 +165,7 @@
       "qty_change": -57627.0,
       "price": 194500,
       "total_amount": 11208451500.0,
-      "foreign_net": 293,
+      "foreign_net": -1761,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002149"
     },
     {
@@ -153,7 +177,7 @@
       "qty_change": 107890.0,
       "price": 505000,
       "total_amount": 54484450000.0,
-      "foreign_net": 670,
+      "foreign_net": -1019,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002136"
     },
     {
@@ -165,7 +189,7 @@
       "qty_change": 76171.0,
       "price": 80700,
       "total_amount": 6146999700.0,
-      "foreign_net": 2520,
+      "foreign_net": 111,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002080"
     },
     {
@@ -177,7 +201,7 @@
       "qty_change": -112792.0,
       "price": 213500,
       "total_amount": 24081092000.0,
-      "foreign_net": -8500,
+      "foreign_net": 4613,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002067"
     },
     {
@@ -189,7 +213,7 @@
       "qty_change": -172178.0,
       "price": 76400,
       "total_amount": 13154399200.0,
-      "foreign_net": 8398,
+      "foreign_net": 11055,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002047"
     },
     {
@@ -201,7 +225,7 @@
       "qty_change": 303172.0,
       "price": 156200,
       "total_amount": 47355466400.0,
-      "foreign_net": 4250,
+      "foreign_net": 24982,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002037"
     },
     {
@@ -213,7 +237,7 @@
       "qty_change": 48816.0,
       "price": 404000,
       "total_amount": 19721664000.0,
-      "foreign_net": 13072,
+      "foreign_net": 3763,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002025"
     },
     {
@@ -225,7 +249,7 @@
       "qty_change": 1340121.0,
       "price": 16490,
       "total_amount": 22098595290.0,
-      "foreign_net": -6238,
+      "foreign_net": 7836,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402002015"
     },
     {
@@ -249,7 +273,7 @@
       "qty_change": 57656.0,
       "price": 16320,
       "total_amount": 940945920.0,
-      "foreign_net": 23325,
+      "foreign_net": 11568,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001965"
     },
     {
@@ -261,7 +285,7 @@
       "qty_change": 180852.0,
       "price": 102300,
       "total_amount": 18501159600.0,
-      "foreign_net": -1751,
+      "foreign_net": -5749,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001942"
     },
     {
@@ -273,7 +297,7 @@
       "qty_change": -56588.0,
       "price": 39600,
       "total_amount": 2240884800.0,
-      "foreign_net": -17086,
+      "foreign_net": -10755,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001930"
     },
     {
@@ -285,7 +309,7 @@
       "qty_change": 185.0,
       "price": 92600,
       "total_amount": 17131000.0,
-      "foreign_net": 3031,
+      "foreign_net": 24208,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001914"
     },
     {
@@ -297,20 +321,8 @@
       "qty_change": -34232.0,
       "price": 269500,
       "total_amount": 9225524000.0,
-      "foreign_net": 17515,
+      "foreign_net": 11383,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001793"
-    },
-    {
-      "corp_name": "금호석유화학",
-      "date": "2026.04.02",
-      "direction": "매수",
-      "prev_ratio": 9.66,
-      "curr_ratio": 10.28,
-      "qty_change": 90986.0,
-      "price": 118000,
-      "total_amount": 10736348000.0,
-      "foreign_net": 14063,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001772"
     },
     {
       "corp_name": "OCI홀딩스",
@@ -321,7 +333,7 @@
       "qty_change": 189631.0,
       "price": 205000,
       "total_amount": 38874355000.0,
-      "foreign_net": -21367,
+      "foreign_net": 4591,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001757"
     },
     {
@@ -333,7 +345,7 @@
       "qty_change": -342263.0,
       "price": 417000,
       "total_amount": 142723671000.0,
-      "foreign_net": 230936,
+      "foreign_net": 67590,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001748"
     },
     {
@@ -345,21 +357,9 @@
       "qty_change": 234540.0,
       "price": 101800,
       "total_amount": 23876172000.0,
-      "foreign_net": 18245,
+      "foreign_net": 5661,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001734"
-    },
-    {
-      "corp_name": "대한유화",
-      "date": "2026.04.02",
-      "direction": "매수",
-      "prev_ratio": 10.07,
-      "curr_ratio": 11.76,
-      "qty_change": 110063.0,
-      "price": 123300,
-      "total_amount": 13570767900.0,
-      "foreign_net": 5638,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260402001721"
     }
   ],
-  "updated": "2026-04-08"
+  "updated": "2026-04-10"
 }
