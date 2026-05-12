@@ -4,7 +4,10 @@
 import os
 import sys
 import json
+import smtplib
 import requests
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from datetime import date, timedelta
 from dotenv import load_dotenv
 from pykrx import stock as krx_stock
@@ -20,8 +23,8 @@ def _get_secret(key):
         return os.getenv(key)
 
 API_KEY = _get_secret("NPS_API_KEY")
-SENDGRID_API_KEY = _get_secret("SENDGRID_API_KEY")
-SENDER_EMAIL = _get_secret("SENDER_EMAIL")
+GMAIL_USER = _get_secret("GMAIL_USER")
+GMAIL_APP_PASSWORD = _get_secret("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = _get_secret("RECIPIENT_EMAIL")
 
 API_BASE = "https://api.odcloud.kr/api"
@@ -427,6 +430,14 @@ def build_html(items, period_label, value_col, trades=None):
             qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") is not None else "-"
             price_text = f"{t['price']:,}원" if t.get("price") else "-"
             amount_text = f"{int(t['total_amount'] / 1e8):,}억원" if t.get("total_amount") else "-"
+            fn = t.get("foreign_net")
+            if fn is not None:
+                fn_abs = abs(int(fn)) // 100
+                fn_sign = "▲" if fn > 0 else "▼"
+                fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
+                fn_text = f"<span style='color:{fn_color}; font-weight:700;'>{fn_sign} {fn_abs:,}억원</span>"
+            else:
+                fn_text = "<span style='color:#bbb;'>-</span>"
             trade_rows += f"""
             <tr>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
@@ -440,13 +451,14 @@ def build_html(items, period_label, value_col, trades=None):
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{qty_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{price_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#333; text-align:right; white-space:nowrap;">{amount_text}</td>
+              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
             </tr>"""
         dart_section = f"""
     <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">최근 30일 국민연금 매수/매도 내역</h2>
-      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 주가: 공시일 종가 기준</p>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 주가: 공시일 종가 기준 &nbsp;|&nbsp; 외국인: KIS API 5일 순매수</p>
       <div style="overflow-x:auto;">
-      <table style="width:100%; min-width:560px; border-collapse:collapse;">
+      <table style="width:100%; min-width:620px; border-collapse:collapse;">
         <thead>
           <tr style="background:#f5f7ff;">
             <th style="padding:8px 10px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">공시일</th>
@@ -456,6 +468,7 @@ def build_html(items, period_label, value_col, trades=None):
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">주당가격</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
+            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인(5일)</th>
           </tr>
         </thead>
         <tbody>{trade_rows}</tbody>
@@ -515,27 +528,22 @@ def build_html(items, period_label, value_col, trades=None):
 
 
 def send_email(html_content, subject):
-    payload = {
-        "personalizations": [{"to": [{"email": RECIPIENT_EMAIL}]}],
-        "from": {"email": SENDER_EMAIL},
-        "subject": subject,
-        "content": [{"type": "text/html", "value": html_content}],
-    }
-    resp = requests.post(
-        "https://api.sendgrid.com/v3/mail/send",
-        headers={"Authorization": f"Bearer {SENDGRID_API_KEY}", "Content-Type": "application/json"},
-        data=json.dumps(payload),
-        timeout=15,
-    )
-    if resp.status_code == 202:
-        print(f"  이메일 전송 완료 → {RECIPIENT_EMAIL}")
-    else:
-        print(f"  [오류] SendGrid 응답: {resp.status_code} {resp.text}")
-        sys.exit(1)
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = GMAIL_USER
+    msg["To"] = RECIPIENT_EMAIL
+    msg.attach(MIMEText(html_content, "html", "utf-8"))
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+        smtp.sendmail(GMAIL_USER, RECIPIENT_EMAIL, msg.as_string())
+    print(f"  이메일 전송 완료 → {RECIPIENT_EMAIL}")
 
 
 def check_env():
-    missing = [k for k in ["NPS_API_KEY", "SENDGRID_API_KEY", "SENDER_EMAIL", "RECIPIENT_EMAIL", "DART_API_KEY"] if not os.getenv(k)]
+    missing = [k for k in ["NPS_API_KEY", "GMAIL_USER", "GMAIL_APP_PASSWORD", "RECIPIENT_EMAIL", "DART_API_KEY"] if not os.getenv(k)]
     if missing:
         print(f"[오류] .env 파일에 다음 항목이 없습니다: {', '.join(missing)}")
         sys.exit(1)
