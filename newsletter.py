@@ -625,18 +625,27 @@ def build_html(items, period_label, value_col, trades=None):
 
 
 def send_email(html_content, subject):
+    # RECIPIENT_EMAIL은 콤마 구분 다중 주소 지원 (예: "primary@x.com,a@y.com,b@z.com")
+    # 첫 번째 주소는 To 헤더에 노출, 나머지는 BCC (헤더 미노출)
+    recipients = [e.strip() for e in (RECIPIENT_EMAIL or "").split(",") if e.strip()]
+    if not recipients:
+        raise RuntimeError("RECIPIENT_EMAIL이 비어있습니다.")
+
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = GMAIL_USER
-    msg["To"] = RECIPIENT_EMAIL
+    msg["To"] = recipients[0]  # 대표 수신자만 헤더 노출, 친구들은 BCC로 숨김
     msg.attach(MIMEText(html_content, "html", "utf-8"))
 
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-        smtp.sendmail(GMAIL_USER, RECIPIENT_EMAIL, msg.as_string())
-    print(f"  이메일 전송 완료 → {RECIPIENT_EMAIL}")
+        # 실제 전송 대상은 To + BCC 전부 (sendmail의 to_addrs로 전달)
+        smtp.sendmail(GMAIL_USER, recipients, msg.as_string())
+    bcc_count = len(recipients) - 1
+    extra = f" + BCC {bcc_count}명" if bcc_count > 0 else ""
+    print(f"  이메일 전송 완료 → {recipients[0]}{extra} (총 {len(recipients)}명)")
 
 
 def check_env():
