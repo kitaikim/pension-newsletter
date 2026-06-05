@@ -213,9 +213,11 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
-            foreign_net = _get_foreign_trading_kis(stock_code, rcept_dt)
+            foreign_daily = _get_foreign_daily_kis(stock_code, num_days=5)
+            foreign_net = sum(d["net"] for d in foreign_daily) if foreign_daily else None
         else:
             price, total_amount = None, None
+            foreign_daily = []
             foreign_net = None
 
         trades.append({
@@ -228,6 +230,7 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             "price": price,
             "total_amount": total_amount,
             "foreign_net": foreign_net,
+            "foreign_daily": foreign_daily,
             "url": dart_url,
         })
 
@@ -318,13 +321,15 @@ def _get_kis_token():
         return None, None, None
 
 
-def _get_foreign_trading_kis(stock_code, rcept_dt):
-    """KIS API로 공시일 기준 최근 5일 외국인 순매수 금액 합산 (원 단위)"""
+def _get_foreign_daily_kis(stock_code, num_days=5):
+    """KIS API로 종목별 최근 N 거래일 외국인 일별 순매수 (단위: 백만원).
+    Returns: [{"date": "MMDD", "net": int}, ...] 최신순. 실패/없음 시 빈 리스트.
+    """
     if not stock_code:
-        return None
+        return []
     token, appkey, appsecret = _get_kis_token()
     if not token:
-        return None
+        return []
     try:
         resp = requests.get(
             f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/inquire-investor",
@@ -339,18 +344,33 @@ def _get_foreign_trading_kis(stock_code, rcept_dt):
         )
         data = resp.json()
         if data.get("rt_cd") != "0":
-            return None
+            return []
         output = data.get("output", [])
-        if not output:
-            return None
-        # 최근 5일 외국인 순매수 금액 합산 (단위: 백만원, 빈 문자열 제외)
-        total = sum(
-            int(v) for item in output[:5]
-            if (v := item.get("frgn_ntby_tr_pbmn", "")) not in ("", None)
-        )
-        return total if total != 0 else None
+        daily = []
+        # 장중에는 첫 항목이 빈 값일 수 있어 num_days만큼 유효값 채울 때까지 스캔
+        for item in output:
+            if len(daily) >= num_days:
+                break
+            v = item.get("frgn_ntby_tr_pbmn", "")
+            d = item.get("stck_bsop_date", "")
+            if v in ("", None) or not d or len(d) != 8:
+                continue
+            try:
+                daily.append({"date": d[4:8], "net": int(v)})  # MMDD, 백만원
+            except (ValueError, TypeError):
+                continue
+        return daily
     except Exception:
+        return []
+
+
+def _get_foreign_trading_kis(stock_code, rcept_dt):
+    """[backward compat] 최근 5일 외국인 순매수 합산 (백만원). 새 코드는 _get_foreign_daily_kis 사용."""
+    daily = _get_foreign_daily_kis(stock_code, num_days=5)
+    if not daily:
         return None
+    total = sum(d["net"] for d in daily)
+    return total if total != 0 else None
 
 
 def _get_stock_price_and_amount(stock_code, rcept_dt, qty_change):
@@ -381,6 +401,78 @@ def _parse_ratio(val):
         return float(str(val).replace(",", "").replace("%", "").strip())
     except (ValueError, TypeError):
         return 0.0
+
+
+def _build_foreign_daily_section(trades):
+    """외국인 일별 매매 매트릭스 섹션 — 종목 × 거래일 5컬럼.
+
+    상위 20종목 (5거래일 합 절대값 큰 순) 표시.
+    날짜 헤더는 trades 전체에서 가장 흔한 5거래일을 추출 (휴장일 보정).
+    """
+    rows_data = [t for t in (trades or []) if t.get("foreign_daily")]
+    if not rows_data:
+        return ""
+
+    from collections import Counter
+    date_counter = Counter()
+    for t in rows_data:
+        for d in t["foreign_daily"]:
+            date_counter[d["date"]] += 1
+    top_dates = sorted([d for d, _ in date_counter.most_common(5)])  # 오래된 → 최신
+    if not top_dates:
+        return ""
+
+    sorted_trades = sorted(rows_data, key=lambda t: abs(t.get("foreign_net") or 0), reverse=True)[:20]
+
+    def _fmt_cell(net):
+        if net is None:
+            return '<td style="padding:7px 8px; border-bottom:1px solid #f0f0f0; text-align:right; font-size:12px; color:#ccc;">·</td>'
+        eok = net // 100
+        if eok > 0:
+            return f'<td style="padding:7px 8px; border-bottom:1px solid #f0f0f0; text-align:right; font-size:12px; color:#1b5e20; font-weight:700;">▲{eok:,}</td>'
+        if eok < 0:
+            return f'<td style="padding:7px 8px; border-bottom:1px solid #f0f0f0; text-align:right; font-size:12px; color:#b71c1c; font-weight:700;">▼{abs(eok):,}</td>'
+        return '<td style="padding:7px 8px; border-bottom:1px solid #f0f0f0; text-align:right; font-size:12px; color:#999;">-</td>'
+
+    def _fmt_sum(fn):
+        eok = (fn or 0) // 100
+        color = "#1b5e20" if eok > 0 else "#b71c1c" if eok < 0 else "#888"
+        sign = "▲" if eok > 0 else "▼" if eok < 0 else ""
+        return f'<td style="padding:7px 10px; border-bottom:1px solid #f0f0f0; border-left:1px solid #e3e8f0; text-align:right; font-size:12px; font-weight:700; color:{color}; background:#fafbff;">{sign}{abs(eok):,}억</td>'
+
+    body_rows = ""
+    for t in sorted_trades:
+        daily_map = {d["date"]: d["net"] for d in t["foreign_daily"]}
+        cells = "".join(_fmt_cell(daily_map.get(d)) for d in top_dates)
+        body_rows += f"""
+        <tr>
+          <td style="padding:7px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#1a237e; white-space:nowrap;">{t['corp_name']}</td>
+          {cells}
+          {_fmt_sum(t.get('foreign_net'))}
+        </tr>"""
+
+    date_headers = "".join(
+        f'<th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">{d[:2]}.{d[2:]}</th>'
+        for d in top_dates
+    )
+
+    return f"""
+    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">🌏 외국인 일별 매매 (NPS 종목)</h2>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: KIS Open API · 최근 5거래일 일별 외국인 순매수 (단위: 억원, 절대값 큰 순 상위 20)</p>
+      <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; min-width:480px;">
+        <thead>
+          <tr style="background:#f5f7ff;">
+            <th style="padding:8px 10px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
+            {date_headers}
+            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; border-left:1px solid #e3e8f0; white-space:nowrap; background:#fafbff;">합계</th>
+          </tr>
+        </thead>
+        <tbody>{body_rows}</tbody>
+      </table>
+      </div>
+    </div>"""
 
 
 def build_html(items, period_label, value_col, trades=None):
@@ -430,12 +522,13 @@ def build_html(items, period_label, value_col, trades=None):
             qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") is not None else "-"
             price_text = f"{t['price']:,}원" if t.get("price") else "-"
             amount_text = f"{int(t['total_amount'] / 1e8):,}억원" if t.get("total_amount") else "-"
+            # 외국인 5거래일 합산만 (일별은 아래 별도 섹션에서)
             fn = t.get("foreign_net")
             if fn is not None:
-                fn_abs = abs(int(fn)) // 100
-                fn_sign = "▲" if fn > 0 else "▼"
-                fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
-                fn_text = f"<span style='color:{fn_color}; font-weight:700;'>{fn_sign} {fn_abs:,}억원</span>"
+                fn_eok = int(fn) // 100
+                fn_sign = "▲" if fn_eok > 0 else "▼" if fn_eok < 0 else ""
+                fn_color = "#1b5e20" if fn_eok > 0 else "#b71c1c" if fn_eok < 0 else "#888"
+                fn_text = f"<span style='color:{fn_color}; font-weight:700;'>{fn_sign}{abs(fn_eok):,}억</span>"
             else:
                 fn_text = "<span style='color:#bbb;'>-</span>"
             trade_rows += f"""
@@ -456,7 +549,7 @@ def build_html(items, period_label, value_col, trades=None):
         dart_section = f"""
     <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">최근 30일 국민연금 매수/매도 내역</h2>
-      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 주가: 공시일 종가 기준 &nbsp;|&nbsp; 외국인: KIS API 5일 순매수</p>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 주가: 공시일 종가 기준 &nbsp;|&nbsp; 외국인: 최근 5거래일 합산 (자세한 일별은 아래 섹션 참고)</p>
       <div style="overflow-x:auto;">
       <table style="width:100%; min-width:620px; border-collapse:collapse;">
         <thead>
@@ -468,7 +561,7 @@ def build_html(items, period_label, value_col, trades=None):
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">주당가격</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인(5일)</th>
+            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인 5일합</th>
           </tr>
         </thead>
         <tbody>{trade_rows}</tbody>
@@ -481,6 +574,8 @@ def build_html(items, period_label, value_col, trades=None):
       <p style="font-size:13px; color:#9e9e9e; margin:0;">최근 30일간 국민연금 대량보유 공시 내역이 없습니다.</p>
     </div>"""
 
+    foreign_daily_section = _build_foreign_daily_section(trades)
+
     return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -491,7 +586,7 @@ def build_html(items, period_label, value_col, trades=None):
   <div style="max-width:640px; margin:40px auto; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
 
     <div style="background:linear-gradient(135deg, #0d1b4b 0%, #1a237e 60%, #283593 100%); padding:44px 36px 36px; text-align:center;">
-      <div style="display:inline-block; background:rgba(255,255,255,0.12); border-radius:8px; padding:4px 14px; font-size:11px; color:#90caf9; letter-spacing:2px; margin-bottom:14px;">MONTHLY NEWSLETTER</div>
+      <div style="display:inline-block; background:rgba(255,255,255,0.12); border-radius:8px; padding:4px 14px; font-size:11px; color:#90caf9; letter-spacing:2px; margin-bottom:14px;">DAILY NEWSLETTER</div>
       <h1 style="margin:0 0 10px; color:#fff; font-size:26px; font-weight:800;">국민연금 포트폴리오 현황</h1>
       <p style="margin:0; color:#90caf9; font-size:14px;">{period_label} 기준 &nbsp;|&nbsp; 발송일 {today.strftime('%Y.%m.%d')}</p>
     </div>
@@ -518,9 +613,11 @@ def build_html(items, period_label, value_col, trades=None):
 
     {dart_section}
 
+    {foreign_daily_section}
+
     <div style="background:#f5f7ff; padding:20px 36px; border-top:1px solid #e3e8f0; text-align:center;">
       <p style="margin:0 0 4px; font-size:12px; color:#9e9e9e;">출처: 국민연금공단 &nbsp;|&nbsp; 공공데이터포털 (data.go.kr) &nbsp;|&nbsp; DART 전자공시</p>
-      <p style="margin:0; font-size:11px; color:#bdbdbd;">이 메일은 매월 1일 자동 발송됩니다.</p>
+      <p style="margin:0; font-size:11px; color:#bdbdbd;">이 메일은 평일 매일 자동 발송됩니다 (휴장일 제외).</p>
     </div>
   </div>
 </body>
@@ -551,44 +648,48 @@ def check_env():
 
 def main():
     check_env()
-    print("국민연금 공시 알림 확인 중...")
 
-    # 1. 이미 발송된 공시 로드
-    sent_rcept_nos = load_sent_rcept_nos()
-    print(f"[1/4] 기발송 공시 {len(sent_rcept_nos)}건 로드")
-
-    # 2. 신규 공시 조회 (이메일 발송용)
-    print("[2/4] DART 신규 공시 스캔 중...")
-    trades, new_rcept_nos = fetch_dart_nps_trades(days=30, sent_rcept_nos=sent_rcept_nos)
-
-    if not trades:
-        print("  → 신규 공시 없음. 발송 생략.")
+    # 휴장일(주말) 발송 생략. 한국 공휴일은 별도 처리 미적용 — 다음 작업으로 분리.
+    today = date.today()
+    if today.weekday() >= 5:
+        print(f"휴장일({today.strftime('%Y-%m-%d %a')}) — 발송 생략")
         return
 
-    print(f"  → 신규 공시 {len(trades)}건 발견. 이메일 발송 진행.")
+    print("국민연금 일별 뉴스레터 처리 시작...")
 
-    # 3. 포트폴리오 현황 조회 (컨텍스트용)
-    print("[3/4] 포트폴리오 현황 조회 중...")
+    # 1. 이미 발송된 공시 로드 (신규 공시 강조용)
+    sent_rcept_nos = load_sent_rcept_nos()
+    print(f"[1/5] 기발송 공시 {len(sent_rcept_nos)}건 로드")
+
+    # 2. 대시보드 캐시 갱신 (90일치, 외국인 일별 포함) — 메일은 이 캐시에서 가져옴
+    print("[2/5] 최근 90일 NPS 공시 + 외국인 일별 수집 중...")
+    all_trades, all_rcept_nos = fetch_dart_nps_trades(days=90, sent_rcept_nos=None, fetch_prices=True)
+    save_trades_cache(all_trades)
+    print(f"  → 공시 {len(all_trades)}건 (각 종목 외국인 최근 5거래일 포함)")
+
+    # 3. 신규 공시 산출 (제목 표기·발송 상태 추적용)
+    new_rcept_nos = all_rcept_nos - sent_rcept_nos
+    n_new = len(new_rcept_nos)
+
+    # 4. 포트폴리오 현황 조회
+    print("[3/5] 포트폴리오 현황 조회 중...")
     url, period_label = get_latest_endpoint()
     data = fetch_portfolio_data(url)
     items, value_col = parse_items(data)
     print(f"  {len(items)}개 항목 조회 완료")
 
-    # 4. 이메일 발송
-    print("[4/4] 이메일 발송 중...")
-    latest_date = trades[0]["date"]
-    subject = f"[국민연금] 매수/매도 공시 알림 - {latest_date}"
-    html = build_html(items, period_label, value_col, trades=trades)
+    # 5. 이메일 발송 — 평일은 무조건 발송 (공시 없는 날도 외국인 일별 표시)
+    print("[4/5] 이메일 발송 중...")
+    if n_new > 0:
+        subject = f"[국민연금] 신규 공시 {n_new}건 + 외국인 일별 - {today.strftime('%Y.%m.%d')}"
+    else:
+        subject = f"[국민연금] 외국인 일별 매매 ({today.strftime('%Y.%m.%d')})"
+    html = build_html(items, period_label, value_col, trades=all_trades[:30])
     send_email(html, subject)
 
-    # 5. 발송 상태 저장
+    # 6. 발송 상태 저장 (신규 공시 rcept_no 합치기)
     save_sent_rcept_nos(sent_rcept_nos | new_rcept_nos)
-
-    # 6. 대시보드 캐시 갱신 (90일치 전체, 주가 포함)
-    print("[5/5] 대시보드 캐시 갱신 중...")
-    all_trades, _ = fetch_dart_nps_trades(days=90, sent_rcept_nos=None, fetch_prices=True)
-    save_trades_cache(all_trades)
-    print("완료!")
+    print("[5/5] 완료!")
 
 
 if __name__ == "__main__":

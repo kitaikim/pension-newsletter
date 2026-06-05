@@ -2,3 +2,4 @@
 __pycache__/
 *.pyc
 cron.log
+kis_token.json

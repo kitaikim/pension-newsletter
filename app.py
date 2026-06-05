@@ -70,8 +70,8 @@ def load_trades():
     trades, updated = load_trades_cache()
     if trades:
         return trades, updated
-    # 캐시 없으면 API 직접 호출 (주가 제외, 30일만)
-    trades, _ = fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=False)
+    # 캐시 없으면 API 직접 호출 (30일만)
+    trades, _ = fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True)
     return trades, None
 
 
@@ -135,56 +135,60 @@ if cache_updated:
 if not trades:
     st.info("최근 90일 내 공시 내역이 없습니다.")
 else:
-    col_filter1, col_filter2, _ = st.columns([1, 1, 4])
-    with col_filter1:
-        dir_filter = st.selectbox("구분", ["전체", "매수", "매도"])
-    with col_filter2:
-        sort_by = st.selectbox("정렬", ["날짜순", "비율변동순"])
+    tab_cards, tab_foreign = st.tabs(["📋 공시 카드", "🌏 외국인 일별 매매"])
 
-    filtered = trades
-    if dir_filter != "전체":
-        filtered = [t for t in filtered if t["direction"] == dir_filter]
-    if sort_by == "비율변동순":
-        def _ratio_delta(t):
-            p, c = t.get("prev_ratio"), t.get("curr_ratio")
-            if p is not None and c is not None:
-                return abs(c - p)
-            return 0
-        filtered = sorted(filtered, key=_ratio_delta, reverse=True)
+    # ── Tab 1: 공시 카드 ────────────────────────────────
+    with tab_cards:
+        col_filter1, col_filter2, _ = st.columns([1, 1, 4])
+        with col_filter1:
+            dir_filter = st.selectbox("구분", ["전체", "매수", "매도"])
+        with col_filter2:
+            sort_by = st.selectbox("정렬", ["날짜순", "비율변동순"])
 
-    cards_html = ""
-    for t in filtered:
-        is_buy = t["direction"] == "매수"
-        badge_color = "#1b5e20" if is_buy else "#b71c1c"
-        badge_bg = "#e8f5e9" if is_buy else "#ffebee"
-        border_color = "#a5d6a7" if is_buy else "#ef9a9a"
-        badge_text = "▲ 매수" if is_buy else "▼ 매도"
+        filtered = trades
+        if dir_filter != "전체":
+            filtered = [t for t in filtered if t["direction"] == dir_filter]
+        if sort_by == "비율변동순":
+            def _ratio_delta(t):
+                p, c = t.get("prev_ratio"), t.get("curr_ratio")
+                if p is not None and c is not None:
+                    return abs(c - p)
+                return 0
+            filtered = sorted(filtered, key=_ratio_delta, reverse=True)
 
-        prev = t.get("prev_ratio")
-        curr = t.get("curr_ratio")
-        if prev is not None and curr is not None:
-            ratio_text = f"{round(prev,2):.2f}% → <b>{round(curr,2):.2f}%</b>"
-        elif curr is not None:
-            ratio_text = f"<b>{round(curr,2):.2f}%</b>"
-        else:
-            ratio_text = "-"
+        cards_html = ""
+        for t in filtered:
+            is_buy = t["direction"] == "매수"
+            badge_color = "#1b5e20" if is_buy else "#b71c1c"
+            badge_bg = "#e8f5e9" if is_buy else "#ffebee"
+            border_color = "#a5d6a7" if is_buy else "#ef9a9a"
+            badge_text = "▲ 매수" if is_buy else "▼ 매도"
 
-        qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") else "-"
-        amount_text = f"{int(t['total_amount']/1e8):,}억원" if t.get("total_amount") else "-"
-        price_text = f"{t['price']:,}원" if t.get("price") else "-"
-        dart_url = t.get("url", "#")
+            prev = t.get("prev_ratio")
+            curr = t.get("curr_ratio")
+            if prev is not None and curr is not None:
+                ratio_text = f"{round(prev,2):.2f}% → <b>{round(curr,2):.2f}%</b>"
+            elif curr is not None:
+                ratio_text = f"<b>{round(curr,2):.2f}%</b>"
+            else:
+                ratio_text = "-"
 
-        fn = t.get("foreign_net")
-        if fn is not None:
-            fn_abs = abs(int(fn)) // 100  # 백만원 → 억원
-            fn_sign = "▲ 순매수" if fn > 0 else "▼ 순매도"
-            fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
-            fn_row = f"<span style='grid-column:1/-1; color:#888;'>🌏 외국인(5일) <b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b></span>"
-        else:
-            fn_row = ""
+            qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") else "-"
+            amount_text = f"{int(t['total_amount']/1e8):,}억원" if t.get("total_amount") else "-"
+            price_text = f"{t['price']:,}원" if t.get("price") else "-"
+            dart_url = t.get("url", "#")
+
+            fn = t.get("foreign_net")
+            if fn is not None:
+                fn_abs = abs(int(fn)) // 100  # 백만원 → 억원
+                fn_sign = "▲ 순매수" if fn > 0 else "▼ 순매도"
+                fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
+                fn_row = f"<span style='grid-column:1/-1; color:#888;'>🌏 외국인 5일합 <b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b></span>"
+            else:
+                fn_row = ""
 
 
-        cards_html += f"""
+            cards_html += f"""
 <div style="border:1px solid {border_color}; border-left:4px solid {badge_color};
             border-radius:10px; padding:14px 16px; margin-bottom:10px; background:#fff;">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -203,7 +207,60 @@ else:
   </div>
 </div>"""
 
-    st.markdown(cards_html, unsafe_allow_html=True)
+        st.markdown(cards_html, unsafe_allow_html=True)
+
+    # ── Tab 2: 외국인 일별 매매 매트릭스 ───────────────
+    with tab_foreign:
+        st.caption("출처: KIS Open API · 최근 5거래일 일별 외국인 순매수 (단위: 억원)")
+        rows_data = [t for t in trades if t.get("foreign_daily")]
+        if not rows_data:
+            st.info("외국인 일별 데이터가 아직 수집되지 않았습니다. 다음 cron 실행 후 표시됩니다.")
+        else:
+            # 모든 거래일 수집 → 정렬
+            all_dates = sorted({d["date"] for t in rows_data for d in t["foreign_daily"]})
+
+            rows = []
+            for t in rows_data:
+                daily_map = {d["date"]: d["net"] for d in t["foreign_daily"]}
+                row = {"종목": t["corp_name"], "구분": t["direction"]}
+                for date in all_dates:
+                    net = daily_map.get(date)
+                    row[f"{date[:2]}.{date[2:]}"] = (net // 100) if net is not None else None
+                row["합계(억)"] = (t.get("foreign_net") or 0) // 100
+                rows.append(row)
+
+            df = pd.DataFrame(rows)
+            # 절대값 큰 순 정렬
+            df = df.iloc[df["합계(억)"].abs().argsort()[::-1]].reset_index(drop=True)
+
+            # 색상 스타일링
+            num_cols = [c for c in df.columns if c not in ("종목", "구분")]
+
+            def _color(v):
+                if pd.isna(v):
+                    return "color: #ccc;"
+                if v > 0:
+                    return "color: #1b5e20; font-weight: 700;"
+                if v < 0:
+                    return "color: #b71c1c; font-weight: 700;"
+                return "color: #888;"
+
+            def _fmt(v):
+                if pd.isna(v):
+                    return "-"
+                v = int(v)
+                if v > 0:
+                    return f"▲{v:,}"
+                if v < 0:
+                    return f"▼{abs(v):,}"
+                return "0"
+
+            styled = (
+                df.style
+                .map(_color, subset=num_cols)
+                .format({c: _fmt for c in num_cols})
+            )
+            st.dataframe(styled, use_container_width=True, hide_index=True, height=600)
 
 # ── 푸터 ──────────────────────────────────────────────
 st.markdown("---")
