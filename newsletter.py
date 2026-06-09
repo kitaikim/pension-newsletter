@@ -412,6 +412,104 @@ def _get_foreign_daily_kis(stock_code, num_days=5):
     return [{"date": d["date"], "net": d["frgn"]} for d in _get_investor_daily_kis(stock_code, num_days)]
 
 
+def _fetch_market_cap_top_kis(market_iscd: str, limit: int = 30):
+    """KIS '국내주식 시가총액 상위'(FHPST01740000)로 종목 리스트 반환.
+
+    market_iscd: '0001'=KOSPI 전체, '1001'=KOSDAQ, '2001'=KOSPI200
+    한 번 호출에 30종목 반환 (페이지네이션 안 됨).
+    Returns: [{"code": "005930", "name": "삼성전자"}, ...]
+    """
+    token, appkey, appsecret = _get_kis_token()
+    if not token:
+        return []
+    try:
+        resp = requests.get(
+            f"{KIS_BASE}/uapi/domestic-stock/v1/ranking/market-cap",
+            headers={
+                "authorization": f"Bearer {token}",
+                "appkey": appkey,
+                "appsecret": appsecret,
+                "tr_id": "FHPST01740000",
+            },
+            params={
+                "fid_input_price_2": "",
+                "fid_cond_mrkt_div_code": "J",
+                "fid_cond_scr_div_code": "20174",
+                "fid_div_cls_code": "0",
+                "fid_input_iscd": market_iscd,
+                "fid_trgt_cls_code": "0",
+                "fid_trgt_exls_cls_code": "0",
+                "fid_input_price_1": "",
+                "fid_vol_cnt": "",
+            },
+            timeout=10,
+        )
+        data = resp.json()
+        if data.get("rt_cd") != "0":
+            return []
+        return [
+            {"code": it.get("mksc_shrn_iscd", ""), "name": it.get("hts_kor_isnm", "")}
+            for it in data.get("output", [])[:limit]
+            if it.get("mksc_shrn_iscd")
+        ]
+    except Exception:
+        return []
+
+
+def fetch_market_movers(top_n_per_market: int = 30, ranking_size: int = 5):
+    """KOSPI/KOSDAQ 시가총액 상위 종목 대상 외인/기관/금융투자 5일합 ranking.
+
+    Returns: {
+      "frgn": {"buy": [{"code","name","market","net"}], "sell": [...]},
+      "orgn": {"buy": [...], "sell": [...]},
+      "scrt": {"buy": [...], "sell": [...]},
+    }
+    net 단위: 백만원. 빈 dict 반환 가능 (KIS 토큰 없음 등).
+    """
+    kospi = _fetch_market_cap_top_kis("0001", top_n_per_market)
+    kosdaq = _fetch_market_cap_top_kis("1001", top_n_per_market)
+    if not kospi and not kosdaq:
+        return {}
+
+    universe = (
+        [{**s, "market": "KOSPI"} for s in kospi]
+        + [{**s, "market": "KOSDAQ"} for s in kosdaq]
+    )
+    print(f"  시장 종목 {len(universe)}개 ({len(kospi)} KOSPI + {len(kosdaq)} KOSDAQ)")
+
+    rows = []
+    for s in universe:
+        daily = _get_investor_daily_kis(s["code"], num_days=5)
+        if not daily:
+            continue
+        rows.append({
+            "code": s["code"],
+            "name": s["name"],
+            "market": s["market"],
+            "frgn": sum(d["frgn"] for d in daily),
+            "orgn": sum(d["orgn"] for d in daily),
+            "scrt": sum(d["scrt"] for d in daily),
+        })
+
+    if not rows:
+        return {}
+
+    result = {}
+    for key in ("frgn", "orgn", "scrt"):
+        sorted_rows = sorted(rows, key=lambda r: r[key], reverse=True)
+        result[key] = {
+            "buy": [
+                {"code": r["code"], "name": r["name"], "market": r["market"], "net": r[key]}
+                for r in sorted_rows[:ranking_size] if r[key] > 0
+            ],
+            "sell": [
+                {"code": r["code"], "name": r["name"], "market": r["market"], "net": r[key]}
+                for r in sorted_rows[-ranking_size:][::-1] if r[key] < 0
+            ],
+        }
+    return result
+
+
 def _get_foreign_trading_kis(stock_code, rcept_dt):
     """[backward compat] 최근 5일 외국인 순매수 합산 (백만원). 새 코드는 _get_investor_daily_kis 사용."""
     daily = _get_foreign_daily_kis(stock_code, num_days=5)
@@ -523,7 +621,74 @@ def _build_foreign_daily_section(trades):
     </div>"""
 
 
-def build_html(items, period_label, value_col, trades=None):
+def _build_market_movers_section(movers):
+    """시장 전체 매매 동향 섹션 — 외인/기관/금융투자 각 매수·매도 상위.
+
+    movers: fetch_market_movers() 결과 dict. 빈 dict이면 빈 문자열 반환.
+    """
+    if not movers:
+        return ""
+
+    labels = [
+        ("frgn", "🌏", "외국인"),
+        ("orgn", "🏛", "기관"),
+        ("scrt", "💼", "금융투자"),
+    ]
+
+    def _fmt_eok(net, color_pos="#1b5e20", color_neg="#b71c1c"):
+        eok = int(net) // 100
+        if eok > 0:
+            return f"<span style='color:{color_pos}; font-weight:700;'>▲{eok:,}억</span>"
+        if eok < 0:
+            return f"<span style='color:{color_neg}; font-weight:700;'>▼{abs(eok):,}억</span>"
+        return "<span style='color:#888;'>-</span>"
+
+    def _mini_table(items, key):
+        if not items:
+            return "<p style='color:#bbb; font-size:11px; margin:6px 0;'>해당 없음</p>"
+        out = "<table style='width:100%; border-collapse:collapse;'>"
+        for r in items:
+            mkt = "#1565c0" if r["market"] == "KOSPI" else "#558b2f"
+            out += f"""
+            <tr>
+              <td style="padding:5px 6px; border-bottom:1px solid #f0f0f0; font-size:10px;">
+                <span style="background:{mkt}; color:#fff; padding:1px 5px; border-radius:3px; font-weight:700;">{r['market']}</span>
+              </td>
+              <td style="padding:5px 6px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#1a237e;">{r['name']}</td>
+              <td style="padding:5px 6px; border-bottom:1px solid #f0f0f0; text-align:right; font-size:12px;">{_fmt_eok(r['net'])}</td>
+            </tr>"""
+        out += "</table>"
+        return out
+
+    blocks = ""
+    for key, emoji, name in labels:
+        m = movers.get(key, {})
+        blocks += f"""
+        <div style="margin:0 0 18px;">
+          <h3 style="font-size:13px; color:#1a237e; margin:0 0 8px; font-weight:700;">{emoji} {name}</h3>
+          <table style="width:100%; border-collapse:separate; border-spacing:8px 0;">
+            <tr>
+              <td style="vertical-align:top; width:50%;">
+                <p style="font-size:10px; color:#1b5e20; margin:0 0 4px; font-weight:700;">▲ 매수 상위</p>
+                {_mini_table(m.get("buy", []), key)}
+              </td>
+              <td style="vertical-align:top; width:50%;">
+                <p style="font-size:10px; color:#b71c1c; margin:0 0 4px; font-weight:700;">▼ 매도 상위</p>
+                {_mini_table(m.get("sell", []), key)}
+              </td>
+            </tr>
+          </table>
+        </div>"""
+
+    return f"""
+    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">📈 시장 전체 매매 동향</h2>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">KOSPI/KOSDAQ 시가총액 상위 60종목 · 최근 5거래일 합산 순매수 (단위: 억원)</p>
+      {blocks}
+    </div>"""
+
+
+def build_html(items, period_label, value_col, trades=None, market_movers=None):
     today = date.today()
     total = sum(i["value"] for i in items if "합계" not in i["name"] and i["name"] not in ("합 계",))
     colors = ["#1a237e", "#1565c0", "#0277bd", "#00838f", "#2e7d32",
@@ -634,6 +799,7 @@ def build_html(items, period_label, value_col, trades=None):
     </div>"""
 
     foreign_daily_section = _build_foreign_daily_section(trades)
+    market_movers_section = _build_market_movers_section(market_movers)
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -673,6 +839,8 @@ def build_html(items, period_label, value_col, trades=None):
     {dart_section}
 
     {foreign_daily_section}
+
+    {market_movers_section}
 
     <div style="background:#f5f7ff; padding:20px 36px; border-top:1px solid #e3e8f0; text-align:center;">
       <p style="margin:0 0 4px; font-size:12px; color:#9e9e9e;">출처: 국민연금공단 &nbsp;|&nbsp; 공공데이터포털 (data.go.kr) &nbsp;|&nbsp; DART 전자공시</p>
@@ -740,24 +908,29 @@ def main():
     n_new = len(new_rcept_nos)
 
     # 4. 포트폴리오 현황 조회
-    print("[3/5] 포트폴리오 현황 조회 중...")
+    print("[3/6] 포트폴리오 현황 조회 중...")
     url, period_label = get_latest_endpoint()
     data = fetch_portfolio_data(url)
     items, value_col = parse_items(data)
     print(f"  {len(items)}개 항목 조회 완료")
 
-    # 5. 이메일 발송 — 평일은 무조건 발송 (공시 없는 날도 외국인 일별 표시)
-    print("[4/5] 이메일 발송 중...")
+    # 5. 시장 전체 매매 동향 (KOSPI/KOSDAQ 시총 상위 60종목 외인/기관/금융투자)
+    print("[4/6] 시장 전체 매매 동향 수집 중...")
+    market_movers = fetch_market_movers(top_n_per_market=30, ranking_size=5)
+    print(f"  movers: {len(market_movers)}개 카테고리")
+
+    # 6. 이메일 발송 — 평일은 무조건 발송 (공시 없는 날도 시장 동향 표시)
+    print("[5/6] 이메일 발송 중...")
     if n_new > 0:
-        subject = f"[국민연금] 신규 공시 {n_new}건 + 외국인 일별 - {today.strftime('%Y.%m.%d')}"
+        subject = f"[국민연금] 신규 공시 {n_new}건 + 시장 매매 동향 - {today.strftime('%Y.%m.%d')}"
     else:
-        subject = f"[국민연금] 외국인 일별 매매 ({today.strftime('%Y.%m.%d')})"
-    html = build_html(items, period_label, value_col, trades=all_trades[:30])
+        subject = f"[국민연금] 일별 매매 동향 ({today.strftime('%Y.%m.%d')})"
+    html = build_html(items, period_label, value_col, trades=all_trades[:30], market_movers=market_movers)
     send_email(html, subject)
 
-    # 6. 발송 상태 저장 (신규 공시 rcept_no 합치기)
+    # 7. 발송 상태 저장 (신규 공시 rcept_no 합치기)
     save_sent_rcept_nos(sent_rcept_nos | new_rcept_nos)
-    print("[5/5] 완료!")
+    print("[6/6] 완료!")
 
 
 if __name__ == "__main__":
