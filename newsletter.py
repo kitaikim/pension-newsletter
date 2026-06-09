@@ -213,12 +213,19 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
-            foreign_daily = _get_foreign_daily_kis(stock_code, num_days=5)
-            foreign_net = sum(d["net"] for d in foreign_daily) if foreign_daily else None
+            investor_daily = _get_investor_daily_kis(stock_code, num_days=5)
+            foreign_daily = [{"date": d["date"], "net": d["frgn"]} for d in investor_daily]
+            foreign_net = sum(d["frgn"] for d in investor_daily) if investor_daily else None
+            org_net = sum(d["orgn"] for d in investor_daily) if investor_daily else None
+            prsn_net = sum(d["prsn"] for d in investor_daily) if investor_daily else None
+            scrt_net = sum(d["scrt"] for d in investor_daily) if investor_daily else None
         else:
             price, total_amount = None, None
             foreign_daily = []
             foreign_net = None
+            org_net = None
+            prsn_net = None
+            scrt_net = None
 
         trades.append({
             "corp_name": corp_name,
@@ -231,6 +238,9 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             "total_amount": total_amount,
             "foreign_net": foreign_net,
             "foreign_daily": foreign_daily,
+            "org_net": org_net,
+            "prsn_net": prsn_net,
+            "scrt_net": scrt_net,
             "url": dart_url,
         })
 
@@ -321,9 +331,18 @@ def _get_kis_token():
         return None, None, None
 
 
-def _get_foreign_daily_kis(stock_code, num_days=5):
-    """KIS API로 종목별 최근 N 거래일 외국인 일별 순매수 (단위: 백만원).
-    Returns: [{"date": "MMDD", "net": int}, ...] 최신순. 실패/없음 시 빈 리스트.
+def _get_investor_daily_kis(stock_code, num_days=5):
+    """KIS '종목별 투자자매매동향(일별)' (FHPTJ04160001) 으로 외국인/기관/금융투자/개인 일별 순매수.
+
+    한 번 호출로 약 30일치 list 반환됨 (output2). 단위: 백만원, 최신순.
+    Returns: [{"date": "MMDD", "frgn": int, "orgn": int, "prsn": int, "scrt": int}, ...]
+    실패/없음 시 빈 리스트.
+
+    필드 매핑:
+      frgn_ntby_tr_pbmn → frgn (외국인)
+      orgn_ntby_tr_pbmn → orgn (기관 합계 = 금융투자+투신+사모+보험+은행+연기금+기타금융)
+      prsn_ntby_tr_pbmn → prsn (개인)
+      scrt_ntby_tr_pbmn → scrt (금융투자, 증권사 자기매매)
     """
     if not stock_code:
         return []
@@ -331,32 +350,56 @@ def _get_foreign_daily_kis(stock_code, num_days=5):
     if not token:
         return []
     try:
+        # endpoint는 장 마감(15:40 KST) 후만 당일 데이터 제공 → 가장 최근 완료 거래일로 호출
+        # 토/일은 보정 (한국 공휴일은 별도 처리 안 함 — endpoint가 rt_cd!=0 반환하면 빈 결과)
+        d = date.today() - timedelta(days=1)
+        while d.weekday() >= 5:
+            d -= timedelta(days=1)
+        target_str = d.strftime("%Y%m%d")
         resp = requests.get(
-            f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/inquire-investor",
+            f"{KIS_BASE}/uapi/domestic-stock/v1/quotations/investor-trade-by-stock-daily",
             headers={
                 "authorization": f"Bearer {token}",
                 "appkey": appkey,
                 "appsecret": appsecret,
-                "tr_id": "FHKST01010900",
+                "tr_id": "FHPTJ04160001",
             },
-            params={"fid_cond_mrkt_div_code": "J", "fid_input_iscd": stock_code},
+            params={
+                "FID_COND_MRKT_DIV_CODE": "J",
+                "FID_INPUT_ISCD": stock_code,
+                "FID_INPUT_DATE_1": target_str,
+                "FID_ORG_ADJ_PRC": "",
+                "FID_ETC_CLS_CODE": "",
+            },
             timeout=10,
         )
         data = resp.json()
         if data.get("rt_cd") != "0":
             return []
-        output = data.get("output", [])
+        output = data.get("output2", [])
+        if not isinstance(output, list):
+            return []
         daily = []
-        # 장중에는 첫 항목이 빈 값일 수 있어 num_days만큼 유효값 채울 때까지 스캔
         for item in output:
             if len(daily) >= num_days:
                 break
-            v = item.get("frgn_ntby_tr_pbmn", "")
             d = item.get("stck_bsop_date", "")
-            if v in ("", None) or not d or len(d) != 8:
+            if not d or len(d) != 8:
+                continue
+            f_raw = item.get("frgn_ntby_tr_pbmn", "")
+            o_raw = item.get("orgn_ntby_tr_pbmn", "")
+            p_raw = item.get("prsn_ntby_tr_pbmn", "")
+            s_raw = item.get("scrt_ntby_tr_pbmn", "")
+            if all(v in ("", None) for v in (f_raw, o_raw, p_raw, s_raw)):
                 continue
             try:
-                daily.append({"date": d[4:8], "net": int(v)})  # MMDD, 백만원
+                daily.append({
+                    "date": d[4:8],
+                    "frgn": int(f_raw) if f_raw not in ("", None) else 0,
+                    "orgn": int(o_raw) if o_raw not in ("", None) else 0,
+                    "prsn": int(p_raw) if p_raw not in ("", None) else 0,
+                    "scrt": int(s_raw) if s_raw not in ("", None) else 0,
+                })
             except (ValueError, TypeError):
                 continue
         return daily
@@ -364,8 +407,13 @@ def _get_foreign_daily_kis(stock_code, num_days=5):
         return []
 
 
+def _get_foreign_daily_kis(stock_code, num_days=5):
+    """[backward compat] 외국인 일별만 반환. 새 코드는 _get_investor_daily_kis 사용."""
+    return [{"date": d["date"], "net": d["frgn"]} for d in _get_investor_daily_kis(stock_code, num_days)]
+
+
 def _get_foreign_trading_kis(stock_code, rcept_dt):
-    """[backward compat] 최근 5일 외국인 순매수 합산 (백만원). 새 코드는 _get_foreign_daily_kis 사용."""
+    """[backward compat] 최근 5일 외국인 순매수 합산 (백만원). 새 코드는 _get_investor_daily_kis 사용."""
     daily = _get_foreign_daily_kis(stock_code, num_days=5)
     if not daily:
         return None
@@ -522,15 +570,20 @@ def build_html(items, period_label, value_col, trades=None):
             qty_text = f"{abs(int(t['qty_change'])):,}주" if t.get("qty_change") is not None else "-"
             price_text = f"{t['price']:,}원" if t.get("price") else "-"
             amount_text = f"{int(t['total_amount'] / 1e8):,}억원" if t.get("total_amount") else "-"
-            # 외국인 5거래일 합산만 (일별은 아래 별도 섹션에서)
-            fn = t.get("foreign_net")
-            if fn is not None:
-                fn_eok = int(fn) // 100
-                fn_sign = "▲" if fn_eok > 0 else "▼" if fn_eok < 0 else ""
-                fn_color = "#1b5e20" if fn_eok > 0 else "#b71c1c" if fn_eok < 0 else "#888"
-                fn_text = f"<span style='color:{fn_color}; font-weight:700;'>{fn_sign}{abs(fn_eok):,}억</span>"
-            else:
-                fn_text = "<span style='color:#bbb;'>-</span>"
+            # 투자자별 5거래일 합산 (외국인/기관/개인) — 각 셀에 표시
+            def _fmt_investor_sum(val):
+                if val is None:
+                    return "<span style='color:#bbb;'>-</span>"
+                eok = int(val) // 100
+                if eok > 0:
+                    return f"<span style='color:#1b5e20; font-weight:700;'>▲{eok:,}</span>"
+                if eok < 0:
+                    return f"<span style='color:#b71c1c; font-weight:700;'>▼{abs(eok):,}</span>"
+                return "<span style='color:#888;'>·</span>"
+            fn_text = _fmt_investor_sum(t.get("foreign_net"))
+            org_text = _fmt_investor_sum(t.get("org_net"))
+            scrt_text = _fmt_investor_sum(t.get("scrt_net"))
+            prsn_text = _fmt_investor_sum(t.get("prsn_net"))
             trade_rows += f"""
             <tr>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
@@ -544,7 +597,10 @@ def build_html(items, period_label, value_col, trades=None):
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{qty_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{price_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#333; text-align:right; white-space:nowrap;">{amount_text}</td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
+              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
+              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{org_text}</td>
+              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{scrt_text}</td>
+              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{prsn_text}</td>
             </tr>"""
         dart_section = f"""
     <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
@@ -561,7 +617,10 @@ def build_html(items, period_label, value_col, trades=None):
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">주당가격</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인 5일합</th>
+            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인</th>
+            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🏛 기관</th>
+            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">💼 금융투자</th>
+            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">👤 개인</th>
           </tr>
         </thead>
         <tbody>{trade_rows}</tbody>
