@@ -135,7 +135,7 @@ if cache_updated:
 if not trades:
     st.info("최근 90일 내 공시 내역이 없습니다.")
 else:
-    tab_cards, tab_foreign = st.tabs(["📋 공시 카드", "🌏 외국인 일별 매매"])
+    tab_cards, tab_foreign = st.tabs(["📋 공시 카드", "📊 투자자별 매매"])
 
     # ── Tab 1: 공시 카드 ────────────────────────────────
     with tab_cards:
@@ -178,12 +178,25 @@ else:
             price_text = f"{t['price']:,}원" if t.get("price") else "-"
             dart_url = t.get("url", "#")
 
-            fn = t.get("foreign_net")
-            if fn is not None:
-                fn_abs = abs(int(fn)) // 100  # 백만원 → 억원
-                fn_sign = "▲ 순매수" if fn > 0 else "▼ 순매도"
-                fn_color = "#1b5e20" if fn > 0 else "#b71c1c"
-                fn_row = f"<span style='grid-column:1/-1; color:#888;'>🌏 외국인 5일합 <b style='color:{fn_color};'>{fn_sign} {fn_abs:,}억원</b></span>"
+            # 투자자별 5일합 (외/기/금투/개) 한 줄에 압축
+            def _fmt_inv(val, label, emoji):
+                if val is None:
+                    return f"{emoji} {label} <span style='color:#bbb;'>-</span>"
+                eok = int(val) // 100
+                if eok > 0:
+                    return f"{emoji} {label} <b style='color:#1b5e20;'>▲{eok:,}</b>"
+                if eok < 0:
+                    return f"{emoji} {label} <b style='color:#b71c1c;'>▼{abs(eok):,}</b>"
+                return f"{emoji} {label} <b style='color:#888;'>·</b>"
+
+            if any(t.get(k) is not None for k in ("foreign_net", "org_net", "scrt_net", "prsn_net")):
+                inv_parts = [
+                    _fmt_inv(t.get("foreign_net"), "외", "🌏"),
+                    _fmt_inv(t.get("org_net"), "기", "🏛"),
+                    _fmt_inv(t.get("scrt_net"), "금투", "💼"),
+                    _fmt_inv(t.get("prsn_net"), "개", "👤"),
+                ]
+                fn_row = f"<span style='grid-column:1/-1; color:#888; font-size:12px;'>{' · '.join(inv_parts)} (5일합·억)</span>"
             else:
                 fn_row = ""
 
@@ -209,33 +222,14 @@ else:
 
         st.markdown(cards_html, unsafe_allow_html=True)
 
-    # ── Tab 2: 외국인 일별 매매 매트릭스 ───────────────
+    # ── Tab 2: 투자자별 매매 (5일 합산 + 외국인 일별) ─────
     with tab_foreign:
-        st.caption("출처: KIS Open API · 최근 5거래일 일별 외국인 순매수 (단위: 억원)")
+        st.caption("출처: KIS Open API · 최근 5거래일 (단위: 억원)")
         rows_data = [t for t in trades if t.get("foreign_daily")]
         if not rows_data:
-            st.info("외국인 일별 데이터가 아직 수집되지 않았습니다. 다음 cron 실행 후 표시됩니다.")
+            st.info("투자자별 데이터가 아직 수집되지 않았습니다. 다음 cron 실행 후 표시됩니다.")
         else:
-            # 모든 거래일 수집 → 정렬
-            all_dates = sorted({d["date"] for t in rows_data for d in t["foreign_daily"]})
-
-            rows = []
-            for t in rows_data:
-                daily_map = {d["date"]: d["net"] for d in t["foreign_daily"]}
-                row = {"종목": t["corp_name"], "구분": t["direction"]}
-                for date in all_dates:
-                    net = daily_map.get(date)
-                    row[f"{date[:2]}.{date[2:]}"] = (net // 100) if net is not None else None
-                row["합계(억)"] = (t.get("foreign_net") or 0) // 100
-                rows.append(row)
-
-            df = pd.DataFrame(rows)
-            # 절대값 큰 순 정렬
-            df = df.iloc[df["합계(억)"].abs().argsort()[::-1]].reset_index(drop=True)
-
-            # 색상 스타일링
-            num_cols = [c for c in df.columns if c not in ("종목", "구분")]
-
+            # 공통 색상·포맷 함수
             def _color(v):
                 if pd.isna(v):
                     return "color: #ccc;"
@@ -255,12 +249,47 @@ else:
                     return f"▼{abs(v):,}"
                 return "0"
 
-            styled = (
-                df.style
-                .map(_color, subset=num_cols)
-                .format({c: _fmt for c in num_cols})
-            )
-            st.dataframe(styled, use_container_width=True, hide_index=True, height=600)
+            # ── 1) 투자자별 5일 합산 매트릭스 (외/기/금투/개) ──
+            st.subheader("최근 5거래일 합산")
+            sum_rows = []
+            for t in rows_data:
+                sum_rows.append({
+                    "종목": t["corp_name"],
+                    "구분": t["direction"],
+                    "🌏 외국인": (t.get("foreign_net") or 0) // 100,
+                    "🏛 기관": (t.get("org_net") or 0) // 100,
+                    "💼 금융투자": (t.get("scrt_net") or 0) // 100,
+                    "👤 개인": (t.get("prsn_net") or 0) // 100,
+                })
+            df_sum = pd.DataFrame(sum_rows)
+            num_cols_sum = ["🌏 외국인", "🏛 기관", "💼 금융투자", "👤 개인"]
+            # 절대값 max 기준 정렬
+            df_sum["__sort"] = df_sum[num_cols_sum].abs().max(axis=1)
+            df_sum = df_sum.sort_values("__sort", ascending=False).drop(columns=["__sort"]).reset_index(drop=True)
+            styled_sum = df_sum.style.map(_color, subset=num_cols_sum).format({c: _fmt for c in num_cols_sum})
+            st.dataframe(styled_sum, use_container_width=True, hide_index=True, height=400)
+
+            st.divider()
+
+            # ── 2) 외국인 일별 매트릭스 (5거래일 × 종목) ──
+            st.subheader("외국인 일별 (5거래일 분해)")
+            all_dates = sorted({d["date"] for t in rows_data for d in t["foreign_daily"]})
+
+            daily_rows = []
+            for t in rows_data:
+                daily_map = {d["date"]: d["net"] for d in t["foreign_daily"]}
+                row = {"종목": t["corp_name"], "구분": t["direction"]}
+                for date in all_dates:
+                    net = daily_map.get(date)
+                    row[f"{date[:2]}.{date[2:]}"] = (net // 100) if net is not None else None
+                row["합계(억)"] = (t.get("foreign_net") or 0) // 100
+                daily_rows.append(row)
+
+            df_daily = pd.DataFrame(daily_rows)
+            df_daily = df_daily.iloc[df_daily["합계(억)"].abs().argsort()[::-1]].reset_index(drop=True)
+            num_cols_daily = [c for c in df_daily.columns if c not in ("종목", "구분")]
+            styled_daily = df_daily.style.map(_color, subset=num_cols_daily).format({c: _fmt for c in num_cols_daily})
+            st.dataframe(styled_daily, use_container_width=True, hide_index=True, height=400)
 
 # ── 푸터 ──────────────────────────────────────────────
 st.markdown("---")
