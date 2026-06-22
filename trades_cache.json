@@ -1,4 +1,1115 @@
 {
-  "trades": [],
-  "updated": "2026-06-19"
+  "trades": [
+    {
+      "corp_name": "롯데관광개발",
+      "date": "2026.06.18",
+      "direction": "매도",
+      "prev_ratio": 10.05,
+      "curr_ratio": 9.91,
+      "qty_change": -114332.0,
+      "price": 17000,
+      "total_amount": 1943644000.0,
+      "foreign_net": -483,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 765
+        },
+        {
+          "date": "0618",
+          "net": -2052
+        },
+        {
+          "date": "0617",
+          "net": -86
+        },
+        {
+          "date": "0616",
+          "net": 714
+        },
+        {
+          "date": "0615",
+          "net": 176
+        }
+      ],
+      "org_net": -2717,
+      "prsn_net": 3034,
+      "scrt_net": 108,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618000152"
+    },
+    {
+      "corp_name": "효성중공업",
+      "date": "2026.06.18",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.01,
+      "qty_change": 933033.0,
+      "price": 3693000,
+      "total_amount": 3445690869000.0,
+      "foreign_net": 46876,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 67929
+        },
+        {
+          "date": "0618",
+          "net": -15199
+        },
+        {
+          "date": "0617",
+          "net": 4658
+        },
+        {
+          "date": "0616",
+          "net": 6708
+        },
+        {
+          "date": "0615",
+          "net": -17220
+        }
+      ],
+      "org_net": 52214,
+      "prsn_net": -101254,
+      "scrt_net": 15785,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618000151"
+    },
+    {
+      "corp_name": "KB금융",
+      "date": "2026.06.17",
+      "direction": "매도",
+      "prev_ratio": 8.94,
+      "curr_ratio": 9.33,
+      "qty_change": -240772.0,
+      "price": 164000,
+      "total_amount": 39486608000.0,
+      "foreign_net": 43268,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": -22862
+        },
+        {
+          "date": "0618",
+          "net": 33213
+        },
+        {
+          "date": "0617",
+          "net": -18654
+        },
+        {
+          "date": "0616",
+          "net": 22000
+        },
+        {
+          "date": "0615",
+          "net": 29571
+        }
+      ],
+      "org_net": -52533,
+      "prsn_net": 18507,
+      "scrt_net": 233,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000314"
+    },
+    {
+      "corp_name": "NH투자증권",
+      "date": "2026.06.17",
+      "direction": "매도",
+      "prev_ratio": 8.360000000000001,
+      "curr_ratio": 7.94,
+      "qty_change": -1484021.0,
+      "price": 32350,
+      "total_amount": 48008079350.0,
+      "foreign_net": 30008,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 5535
+        },
+        {
+          "date": "0618",
+          "net": 8603
+        },
+        {
+          "date": "0617",
+          "net": 2067
+        },
+        {
+          "date": "0616",
+          "net": 9988
+        },
+        {
+          "date": "0615",
+          "net": 3815
+        }
+      ],
+      "org_net": -31672,
+      "prsn_net": -14640,
+      "scrt_net": 2869,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000311"
+    },
+    {
+      "corp_name": "대한유화",
+      "date": "2026.06.10",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.09,
+      "qty_change": 655528.0,
+      "price": 119600,
+      "total_amount": 78401148800.0,
+      "foreign_net": -2148,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 66
+        },
+        {
+          "date": "0618",
+          "net": -194
+        },
+        {
+          "date": "0617",
+          "net": 1248
+        },
+        {
+          "date": "0616",
+          "net": -341
+        },
+        {
+          "date": "0615",
+          "net": -2927
+        }
+      ],
+      "org_net": 5573,
+      "prsn_net": -3470,
+      "scrt_net": 360,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000621"
+    },
+    {
+      "corp_name": "한미약품",
+      "date": "2026.06.10",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.11,
+      "qty_change": 1295586.0,
+      "price": 411500,
+      "total_amount": 533133639000.0,
+      "foreign_net": 6846,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 4591
+        },
+        {
+          "date": "0618",
+          "net": -2487
+        },
+        {
+          "date": "0617",
+          "net": -4802
+        },
+        {
+          "date": "0616",
+          "net": 3013
+        },
+        {
+          "date": "0615",
+          "net": 6531
+        }
+      ],
+      "org_net": -9388,
+      "prsn_net": 3043,
+      "scrt_net": 1413,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000619"
+    },
+    {
+      "corp_name": "삼성전기",
+      "date": "2026.06.05",
+      "direction": "매도",
+      "prev_ratio": 10.3,
+      "curr_ratio": 9.74,
+      "qty_change": -430543.0,
+      "price": 1757000,
+      "total_amount": 756464051000.0,
+      "foreign_net": 2398802,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 272509
+        },
+        {
+          "date": "0618",
+          "net": 426135
+        },
+        {
+          "date": "0617",
+          "net": 165134
+        },
+        {
+          "date": "0616",
+          "net": 579982
+        },
+        {
+          "date": "0615",
+          "net": 955042
+        }
+      ],
+      "org_net": -352146,
+      "prsn_net": -2010688,
+      "scrt_net": 39823,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000224"
+    },
+    {
+      "corp_name": "달바글로벌",
+      "date": "2026.06.05",
+      "direction": "매도",
+      "prev_ratio": 10.09,
+      "curr_ratio": 9.49,
+      "qty_change": -70055.0,
+      "price": 193900,
+      "total_amount": 13583664500.0,
+      "foreign_net": 25647,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 9238
+        },
+        {
+          "date": "0618",
+          "net": 4629
+        },
+        {
+          "date": "0617",
+          "net": 4841
+        },
+        {
+          "date": "0616",
+          "net": 390
+        },
+        {
+          "date": "0615",
+          "net": 6549
+        }
+      ],
+      "org_net": -1936,
+      "prsn_net": -13097,
+      "scrt_net": -331,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000221"
+    },
+    {
+      "corp_name": "씨에스윈드",
+      "date": "2026.06.01",
+      "direction": "매도",
+      "prev_ratio": 10.47,
+      "curr_ratio": 9.92,
+      "qty_change": -231759.0,
+      "price": 46750,
+      "total_amount": 10834733250.0,
+      "foreign_net": -56480,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 3568
+        },
+        {
+          "date": "0618",
+          "net": -6420
+        },
+        {
+          "date": "0617",
+          "net": -31291
+        },
+        {
+          "date": "0616",
+          "net": -19119
+        },
+        {
+          "date": "0615",
+          "net": -3218
+        }
+      ],
+      "org_net": 2403,
+      "prsn_net": 58342,
+      "scrt_net": -3307,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001504"
+    },
+    {
+      "corp_name": "금호석유화학",
+      "date": "2026.06.01",
+      "direction": "매도",
+      "prev_ratio": 9.84,
+      "curr_ratio": 9.75,
+      "qty_change": -26038.0,
+      "price": 129200,
+      "total_amount": 3364109600.0,
+      "foreign_net": -1140,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 2755
+        },
+        {
+          "date": "0618",
+          "net": 497
+        },
+        {
+          "date": "0617",
+          "net": -3322
+        },
+        {
+          "date": "0616",
+          "net": -1141
+        },
+        {
+          "date": "0615",
+          "net": 71
+        }
+      ],
+      "org_net": 8087,
+      "prsn_net": -7166,
+      "scrt_net": 1663,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001491"
+    },
+    {
+      "corp_name": "LIG디펜스앤에어로스페이스",
+      "date": "2026.06.01",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.06,
+      "qty_change": 2212945.0,
+      "price": 776000,
+      "total_amount": 1717245320000.0,
+      "foreign_net": 101529,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 32282
+        },
+        {
+          "date": "0618",
+          "net": 18318
+        },
+        {
+          "date": "0617",
+          "net": -26552
+        },
+        {
+          "date": "0616",
+          "net": 46288
+        },
+        {
+          "date": "0615",
+          "net": 31193
+        }
+      ],
+      "org_net": 59945,
+      "prsn_net": -167895,
+      "scrt_net": 38565,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001472"
+    },
+    {
+      "corp_name": "HL만도",
+      "date": "2026.06.01",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.14,
+      "qty_change": 4760920.0,
+      "price": 62400,
+      "total_amount": 297081408000.0,
+      "foreign_net": 41437,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 10957
+        },
+        {
+          "date": "0618",
+          "net": 1448
+        },
+        {
+          "date": "0617",
+          "net": -2577
+        },
+        {
+          "date": "0616",
+          "net": -5246
+        },
+        {
+          "date": "0615",
+          "net": 36855
+        }
+      ],
+      "org_net": 47129,
+      "prsn_net": -86946,
+      "scrt_net": -2023,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001463"
+    },
+    {
+      "corp_name": "효성티앤씨",
+      "date": "2026.06.01",
+      "direction": "매수",
+      "prev_ratio": 10.8,
+      "curr_ratio": 10.92,
+      "qty_change": 5062.0,
+      "price": 369000,
+      "total_amount": 1867878000.0,
+      "foreign_net": -1011,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 22
+        },
+        {
+          "date": "0618",
+          "net": 2389
+        },
+        {
+          "date": "0617",
+          "net": 181
+        },
+        {
+          "date": "0616",
+          "net": -49
+        },
+        {
+          "date": "0615",
+          "net": -3554
+        }
+      ],
+      "org_net": -4250,
+      "prsn_net": 6142,
+      "scrt_net": 712,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001447"
+    },
+    {
+      "corp_name": "삼양식품",
+      "date": "2026.06.01",
+      "direction": "매수",
+      "prev_ratio": 10.4,
+      "curr_ratio": 10.56,
+      "qty_change": 11310.0,
+      "price": 1166000,
+      "total_amount": 13187460000.0,
+      "foreign_net": 26689,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 16747
+        },
+        {
+          "date": "0618",
+          "net": -3174
+        },
+        {
+          "date": "0617",
+          "net": 786
+        },
+        {
+          "date": "0616",
+          "net": 4678
+        },
+        {
+          "date": "0615",
+          "net": 7652
+        }
+      ],
+      "org_net": -59185,
+      "prsn_net": 32473,
+      "scrt_net": -5783,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001437"
+    },
+    {
+      "corp_name": "하나머티리얼즈",
+      "date": "2026.06.01",
+      "direction": "매도",
+      "prev_ratio": 5.0,
+      "curr_ratio": 3.71,
+      "qty_change": -255162.0,
+      "price": 60400,
+      "total_amount": 15411784800.0,
+      "foreign_net": 4365,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 1604
+        },
+        {
+          "date": "0618",
+          "net": 3632
+        },
+        {
+          "date": "0617",
+          "net": -1255
+        },
+        {
+          "date": "0616",
+          "net": 1569
+        },
+        {
+          "date": "0615",
+          "net": -1185
+        }
+      ],
+      "org_net": -4752,
+      "prsn_net": 478,
+      "scrt_net": -3536,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001380"
+    },
+    {
+      "corp_name": "한국전력공사",
+      "date": "2026.06.01",
+      "direction": "매도",
+      "prev_ratio": 7.9,
+      "curr_ratio": 6.88,
+      "qty_change": -6535733.0,
+      "price": 38650,
+      "total_amount": 252606080450.0,
+      "foreign_net": -68748,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": -16448
+        },
+        {
+          "date": "0618",
+          "net": 25274
+        },
+        {
+          "date": "0617",
+          "net": -28442
+        },
+        {
+          "date": "0616",
+          "net": -23751
+        },
+        {
+          "date": "0615",
+          "net": -25381
+        }
+      ],
+      "org_net": 11623,
+      "prsn_net": 54976,
+      "scrt_net": -21838,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001366"
+    },
+    {
+      "corp_name": "CJ대한통운",
+      "date": "2026.06.01",
+      "direction": "매도",
+      "prev_ratio": 10.49,
+      "curr_ratio": 9.48,
+      "qty_change": -229841.0,
+      "price": 84400,
+      "total_amount": 19398580400.0,
+      "foreign_net": -311,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": -109
+        },
+        {
+          "date": "0618",
+          "net": 248
+        },
+        {
+          "date": "0617",
+          "net": -403
+        },
+        {
+          "date": "0616",
+          "net": -156
+        },
+        {
+          "date": "0615",
+          "net": 109
+        }
+      ],
+      "org_net": -2546,
+      "prsn_net": 1892,
+      "scrt_net": -720,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001331"
+    },
+    {
+      "corp_name": "케이씨씨",
+      "date": "2026.05.22",
+      "direction": "매도",
+      "prev_ratio": 10.16,
+      "curr_ratio": 9.97,
+      "qty_change": -17004.0,
+      "price": 537000,
+      "total_amount": 9131148000.0,
+      "foreign_net": 26448,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 2792
+        },
+        {
+          "date": "0618",
+          "net": 4550
+        },
+        {
+          "date": "0617",
+          "net": 4410
+        },
+        {
+          "date": "0616",
+          "net": 3522
+        },
+        {
+          "date": "0615",
+          "net": 11174
+        }
+      ],
+      "org_net": -21610,
+      "prsn_net": -3525,
+      "scrt_net": 1199,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260522000350"
+    },
+    {
+      "corp_name": "이수페타시스",
+      "date": "2026.05.22",
+      "direction": "매도",
+      "prev_ratio": 10.38,
+      "curr_ratio": 9.92,
+      "qty_change": -335010.0,
+      "price": 126100,
+      "total_amount": 42244761000.0,
+      "foreign_net": 60924,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 4351
+        },
+        {
+          "date": "0618",
+          "net": 31694
+        },
+        {
+          "date": "0617",
+          "net": -8584
+        },
+        {
+          "date": "0616",
+          "net": 13831
+        },
+        {
+          "date": "0615",
+          "net": 19632
+        }
+      ],
+      "org_net": -103513,
+      "prsn_net": 42876,
+      "scrt_net": -622,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260522000346"
+    },
+    {
+      "corp_name": "IPARK현대산업개발",
+      "date": "2026.05.19",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.08,
+      "qty_change": 6643185.0,
+      "price": 21200,
+      "total_amount": 140835522000.0,
+      "foreign_net": 4041,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 943
+        },
+        {
+          "date": "0618",
+          "net": 989
+        },
+        {
+          "date": "0617",
+          "net": 686
+        },
+        {
+          "date": "0616",
+          "net": 1505
+        },
+        {
+          "date": "0615",
+          "net": -82
+        }
+      ],
+      "org_net": -2943,
+      "prsn_net": -1167,
+      "scrt_net": -406,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000156"
+    },
+    {
+      "corp_name": "한화엔진",
+      "date": "2026.05.19",
+      "direction": "매도",
+      "prev_ratio": 10.02,
+      "curr_ratio": 9.98,
+      "qty_change": -33940.0,
+      "price": 66300,
+      "total_amount": 2250222000.0,
+      "foreign_net": -42570,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 4432
+        },
+        {
+          "date": "0618",
+          "net": -6402
+        },
+        {
+          "date": "0617",
+          "net": -19604
+        },
+        {
+          "date": "0616",
+          "net": -10942
+        },
+        {
+          "date": "0615",
+          "net": -10054
+        }
+      ],
+      "org_net": 14903,
+      "prsn_net": 28435,
+      "scrt_net": -8263,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000155"
+    },
+    {
+      "corp_name": "한국카본",
+      "date": "2026.05.19",
+      "direction": "매도",
+      "prev_ratio": 10.58,
+      "curr_ratio": 9.8,
+      "qty_change": -327144.0,
+      "price": 36250,
+      "total_amount": 11858970000.0,
+      "foreign_net": -15025,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 1488
+        },
+        {
+          "date": "0618",
+          "net": -4630
+        },
+        {
+          "date": "0617",
+          "net": -8274
+        },
+        {
+          "date": "0616",
+          "net": -2483
+        },
+        {
+          "date": "0615",
+          "net": -1126
+        }
+      ],
+      "org_net": 3642,
+      "prsn_net": 11097,
+      "scrt_net": -1138,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000152"
+    },
+    {
+      "corp_name": "엘앤에프",
+      "date": "2026.05.14",
+      "direction": "매도",
+      "prev_ratio": 10.02,
+      "curr_ratio": 9.99,
+      "qty_change": -860.0,
+      "price": 171700,
+      "total_amount": 147662000.0,
+      "foreign_net": 15211,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 14014
+        },
+        {
+          "date": "0618",
+          "net": -4444
+        },
+        {
+          "date": "0617",
+          "net": -183
+        },
+        {
+          "date": "0616",
+          "net": 4339
+        },
+        {
+          "date": "0615",
+          "net": 1485
+        }
+      ],
+      "org_net": -48150,
+      "prsn_net": 31532,
+      "scrt_net": 2782,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000962"
+    },
+    {
+      "corp_name": "두산",
+      "date": "2026.05.14",
+      "direction": "매도",
+      "prev_ratio": 7.77,
+      "curr_ratio": 7.75,
+      "qty_change": -3453.0,
+      "price": 1703000,
+      "total_amount": 5880459000.0,
+      "foreign_net": 35428,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 34866
+        },
+        {
+          "date": "0618",
+          "net": 15686
+        },
+        {
+          "date": "0617",
+          "net": 14998
+        },
+        {
+          "date": "0616",
+          "net": 19433
+        },
+        {
+          "date": "0615",
+          "net": -49555
+        }
+      ],
+      "org_net": -144130,
+      "prsn_net": 109987,
+      "scrt_net": -24145,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000946"
+    },
+    {
+      "corp_name": "NC",
+      "date": "2026.05.14",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.01,
+      "qty_change": 2155612.0,
+      "price": 279000,
+      "total_amount": 601415748000.0,
+      "foreign_net": 21320,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 3973
+        },
+        {
+          "date": "0618",
+          "net": 4936
+        },
+        {
+          "date": "0617",
+          "net": 3953
+        },
+        {
+          "date": "0616",
+          "net": 3679
+        },
+        {
+          "date": "0615",
+          "net": 4779
+        }
+      ],
+      "org_net": -8047,
+      "prsn_net": -12899,
+      "scrt_net": -385,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000915"
+    },
+    {
+      "corp_name": "현대글로비스",
+      "date": "2026.05.06",
+      "direction": "매도",
+      "prev_ratio": 10.09,
+      "curr_ratio": 9.05,
+      "qty_change": -779813.0,
+      "price": 220000,
+      "total_amount": 171558860000.0,
+      "foreign_net": 65843,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 28409
+        },
+        {
+          "date": "0618",
+          "net": 5899
+        },
+        {
+          "date": "0617",
+          "net": 13613
+        },
+        {
+          "date": "0616",
+          "net": 10750
+        },
+        {
+          "date": "0615",
+          "net": 7172
+        }
+      ],
+      "org_net": -44854,
+      "prsn_net": -20944,
+      "scrt_net": -2502,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260506000274"
+    },
+    {
+      "corp_name": "대주전자재료",
+      "date": "2026.04.30",
+      "direction": "매도",
+      "prev_ratio": 10.129999999999999,
+      "curr_ratio": 9.78,
+      "qty_change": -54439.0,
+      "price": 158500,
+      "total_amount": 8628581500.0,
+      "foreign_net": -738,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 8813
+        },
+        {
+          "date": "0618",
+          "net": -1786
+        },
+        {
+          "date": "0617",
+          "net": -10402
+        },
+        {
+          "date": "0616",
+          "net": 5475
+        },
+        {
+          "date": "0615",
+          "net": -2838
+        }
+      ],
+      "org_net": -25381,
+      "prsn_net": 26082,
+      "scrt_net": -2276,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430000904"
+    },
+    {
+      "corp_name": "SBS",
+      "date": "2026.04.30",
+      "direction": "매도",
+      "prev_ratio": 10.53,
+      "curr_ratio": 9.93,
+      "qty_change": -110357.0,
+      "price": 15900,
+      "total_amount": 1754676300.0,
+      "foreign_net": 0,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 0
+        },
+        {
+          "date": "0618",
+          "net": 0
+        },
+        {
+          "date": "0617",
+          "net": 0
+        },
+        {
+          "date": "0616",
+          "net": 0
+        },
+        {
+          "date": "0615",
+          "net": 0
+        }
+      ],
+      "org_net": -226,
+      "prsn_net": 237,
+      "scrt_net": -3,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430000899"
+    },
+    {
+      "corp_name": "현대건설",
+      "date": "2026.04.28",
+      "direction": "매도",
+      "prev_ratio": 10.23,
+      "curr_ratio": 9.93,
+      "qty_change": -340023.0,
+      "price": 167100,
+      "total_amount": 56817843300.0,
+      "foreign_net": -114747,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 20690
+        },
+        {
+          "date": "0618",
+          "net": -9086
+        },
+        {
+          "date": "0617",
+          "net": -28921
+        },
+        {
+          "date": "0616",
+          "net": -13819
+        },
+        {
+          "date": "0615",
+          "net": -83611
+        }
+      ],
+      "org_net": -27378,
+      "prsn_net": 138909,
+      "scrt_net": -36970,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260428000401"
+    },
+    {
+      "corp_name": "코오롱인더",
+      "date": "2026.04.27",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 9.22,
+      "qty_change": 3014931.0,
+      "price": 90000,
+      "total_amount": 271343790000.0,
+      "foreign_net": 17159,
+      "foreign_daily": [
+        {
+          "date": "0619",
+          "net": 6113
+        },
+        {
+          "date": "0618",
+          "net": 5584
+        },
+        {
+          "date": "0617",
+          "net": 1463
+        },
+        {
+          "date": "0616",
+          "net": 2282
+        },
+        {
+          "date": "0615",
+          "net": 1717
+        }
+      ],
+      "org_net": -15449,
+      "prsn_net": -1766,
+      "scrt_net": 480,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260427000086"
+    }
+  ],
+  "updated": "2026-06-22"
 }
