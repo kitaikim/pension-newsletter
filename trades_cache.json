@@ -1,6 +1,191 @@
 {
   "trades": [
     {
+      "corp_name": "코리아써키트",
+      "date": "2026.06.23",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 8.72,
+      "qty_change": 2419190.0,
+      "price": 101400,
+      "total_amount": 245305866000.0,
+      "foreign_net": 29287,
+      "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 8685
+        },
+        {
+          "date": "0622",
+          "net": 12345
+        },
+        {
+          "date": "0619",
+          "net": 1693
+        },
+        {
+          "date": "0618",
+          "net": 1208
+        },
+        {
+          "date": "0617",
+          "net": 5356
+        }
+      ],
+      "org_net": -37961,
+      "prsn_net": 9153,
+      "scrt_net": 3613,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000350"
+    },
+    {
+      "corp_name": "진성티이씨",
+      "date": "2026.06.23",
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.12,
+      "qty_change": 2229023.0,
+      "price": 13220,
+      "total_amount": 29467684060.0,
+      "foreign_net": -717,
+      "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -35
+        },
+        {
+          "date": "0622",
+          "net": 16
+        },
+        {
+          "date": "0619",
+          "net": 128
+        },
+        {
+          "date": "0618",
+          "net": -311
+        },
+        {
+          "date": "0617",
+          "net": -515
+        }
+      ],
+      "org_net": 402,
+      "prsn_net": 294,
+      "scrt_net": -743,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000346"
+    },
+    {
+      "corp_name": "CJ제일제당",
+      "date": "2026.06.23",
+      "direction": "매수",
+      "prev_ratio": 7.8100000000000005,
+      "curr_ratio": 8.14,
+      "qty_change": 48382.0,
+      "price": 185800,
+      "total_amount": 8989375600.0,
+      "foreign_net": -12991,
+      "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 186
+        },
+        {
+          "date": "0622",
+          "net": -3179
+        },
+        {
+          "date": "0619",
+          "net": -3277
+        },
+        {
+          "date": "0618",
+          "net": -3303
+        },
+        {
+          "date": "0617",
+          "net": -3418
+        }
+      ],
+      "org_net": -8803,
+      "prsn_net": 21236,
+      "scrt_net": -3288,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000341"
+    },
+    {
+      "corp_name": "한화오션",
+      "date": "2026.06.23",
+      "direction": "매수",
+      "prev_ratio": 6.47,
+      "curr_ratio": 6.66,
+      "qty_change": 578412.0,
+      "price": 104500,
+      "total_amount": 60444054000.0,
+      "foreign_net": 97128,
+      "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -4236
+        },
+        {
+          "date": "0622",
+          "net": -89578
+        },
+        {
+          "date": "0619",
+          "net": -300
+        },
+        {
+          "date": "0618",
+          "net": -18830
+        },
+        {
+          "date": "0617",
+          "net": 210072
+        }
+      ],
+      "org_net": -80120,
+      "prsn_net": 78229,
+      "scrt_net": -57944,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000338"
+    },
+    {
+      "corp_name": "POSCO홀딩스",
+      "date": "2026.06.23",
+      "direction": "매도",
+      "prev_ratio": 8.290000000000001,
+      "curr_ratio": 8.3,
+      "qty_change": -270696.0,
+      "price": 322000,
+      "total_amount": 87164112000.0,
+      "foreign_net": 66651,
+      "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 9277
+        },
+        {
+          "date": "0622",
+          "net": 13548
+        },
+        {
+          "date": "0619",
+          "net": 10139
+        },
+        {
+          "date": "0618",
+          "net": 20633
+        },
+        {
+          "date": "0617",
+          "net": 13054
+        }
+      ],
+      "org_net": -166957,
+      "prsn_net": 99846,
+      "scrt_net": -26952,
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000336"
+    },
+    {
       "corp_name": "롯데관광개발",
       "date": "2026.06.18",
       "direction": "매도",
@@ -9,8 +194,12 @@
       "qty_change": -114332.0,
       "price": 17000,
       "total_amount": 1943644000.0,
-      "foreign_net": 150,
+      "foreign_net": 60,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 624
+        },
         {
           "date": "0622",
           "net": 809
@@ -26,15 +215,11 @@
         {
           "date": "0617",
           "net": -86
-        },
-        {
-          "date": "0616",
-          "net": 714
         }
       ],
-      "org_net": -4171,
-      "prsn_net": 3848,
-      "scrt_net": 397,
+      "org_net": -5458,
+      "prsn_net": 5042,
+      "scrt_net": 519,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618000152"
     },
     {
@@ -46,8 +231,12 @@
       "qty_change": 933033.0,
       "price": 3693000,
       "total_amount": 3445690869000.0,
-      "foreign_net": 70418,
+      "foreign_net": 81081,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 17371
+        },
         {
           "date": "0622",
           "net": 6322
@@ -63,15 +252,11 @@
         {
           "date": "0617",
           "net": 4658
-        },
-        {
-          "date": "0616",
-          "net": 6708
         }
       ],
-      "org_net": 11988,
-      "prsn_net": -82896,
-      "scrt_net": -20396,
+      "org_net": -6246,
+      "prsn_net": -76704,
+      "scrt_net": -33135,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618000151"
     },
     {
@@ -83,8 +268,12 @@
       "qty_change": -240772.0,
       "price": 164000,
       "total_amount": 39486608000.0,
-      "foreign_net": 32162,
+      "foreign_net": -7416,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -17578
+        },
         {
           "date": "0622",
           "net": 18465
@@ -100,15 +289,11 @@
         {
           "date": "0617",
           "net": -18654
-        },
-        {
-          "date": "0616",
-          "net": 22000
         }
       ],
-      "org_net": -91626,
-      "prsn_net": 68617,
-      "scrt_net": -12938,
+      "org_net": -77848,
+      "prsn_net": 92394,
+      "scrt_net": -20739,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000314"
     },
     {
@@ -120,8 +305,12 @@
       "qty_change": -1484021.0,
       "price": 32350,
       "total_amount": 48008079350.0,
-      "foreign_net": 33907,
+      "foreign_net": 19878,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -4041
+        },
         {
           "date": "0622",
           "net": 7714
@@ -137,15 +326,11 @@
         {
           "date": "0617",
           "net": 2067
-        },
-        {
-          "date": "0616",
-          "net": 9988
         }
       ],
-      "org_net": -39612,
-      "prsn_net": -6458,
-      "scrt_net": 501,
+      "org_net": -25389,
+      "prsn_net": -545,
+      "scrt_net": -689,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000311"
     },
     {
@@ -157,8 +342,12 @@
       "qty_change": 655528.0,
       "price": 119600,
       "total_amount": 78401148800.0,
-      "foreign_net": 532,
+      "foreign_net": 2210,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 1337
+        },
         {
           "date": "0622",
           "net": -247
@@ -174,15 +363,11 @@
         {
           "date": "0617",
           "net": 1248
-        },
-        {
-          "date": "0616",
-          "net": -341
         }
       ],
-      "org_net": -330,
-      "prsn_net": -275,
-      "scrt_net": -3,
+      "org_net": -3257,
+      "prsn_net": 911,
+      "scrt_net": -1,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000621"
     },
     {
@@ -194,8 +379,12 @@
       "qty_change": 1295586.0,
       "price": 411500,
       "total_amount": 533133639000.0,
-      "foreign_net": 6989,
+      "foreign_net": 13394,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 9418
+        },
         {
           "date": "0622",
           "net": 6674
@@ -211,15 +400,11 @@
         {
           "date": "0617",
           "net": -4802
-        },
-        {
-          "date": "0616",
-          "net": 3013
         }
       ],
-      "org_net": -7161,
-      "prsn_net": 90,
-      "scrt_net": 1138,
+      "org_net": -7378,
+      "prsn_net": -6263,
+      "scrt_net": -1309,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000619"
     },
     {
@@ -231,8 +416,12 @@
       "qty_change": -430543.0,
       "price": 1757000,
       "total_amount": 756464051000.0,
-      "foreign_net": 1189894,
+      "foreign_net": 669084,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 59172
+        },
         {
           "date": "0622",
           "net": -253866
@@ -248,15 +437,11 @@
         {
           "date": "0617",
           "net": 165134
-        },
-        {
-          "date": "0616",
-          "net": 579982
         }
       ],
-      "org_net": -167585,
-      "prsn_net": -993766,
-      "scrt_net": 71355,
+      "org_net": 27049,
+      "prsn_net": -661437,
+      "scrt_net": 237163,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000224"
     },
     {
@@ -268,8 +453,12 @@
       "qty_change": -70055.0,
       "price": 193900,
       "total_amount": 13583664500.0,
-      "foreign_net": 17284,
+      "foreign_net": 19108,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 2214
+        },
         {
           "date": "0622",
           "net": -1814
@@ -285,15 +474,11 @@
         {
           "date": "0617",
           "net": 4841
-        },
-        {
-          "date": "0616",
-          "net": 390
         }
       ],
-      "org_net": 4203,
-      "prsn_net": -11245,
-      "scrt_net": -1055,
+      "org_net": 15354,
+      "prsn_net": -22096,
+      "scrt_net": -1941,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000221"
     },
     {
@@ -305,8 +490,12 @@
       "qty_change": -231759.0,
       "price": 46750,
       "total_amount": 10834733250.0,
-      "foreign_net": -50966,
+      "foreign_net": -38428,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -6581
+        },
         {
           "date": "0622",
           "net": 2296
@@ -322,15 +511,11 @@
         {
           "date": "0617",
           "net": -31291
-        },
-        {
-          "date": "0616",
-          "net": -19119
         }
       ],
-      "org_net": 4253,
-      "prsn_net": 50924,
-      "scrt_net": -3482,
+      "org_net": 6802,
+      "prsn_net": 38005,
+      "scrt_net": -2334,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001504"
     },
     {
@@ -342,8 +527,12 @@
       "qty_change": -26038.0,
       "price": 129200,
       "total_amount": 3364109600.0,
-      "foreign_net": 510,
+      "foreign_net": 1578,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -73
+        },
         {
           "date": "0622",
           "net": 1721
@@ -359,15 +548,11 @@
         {
           "date": "0617",
           "net": -3322
-        },
-        {
-          "date": "0616",
-          "net": -1141
         }
       ],
-      "org_net": 3393,
-      "prsn_net": -4159,
-      "scrt_net": 347,
+      "org_net": 1721,
+      "prsn_net": -3500,
+      "scrt_net": -342,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001491"
     },
     {
@@ -379,8 +564,12 @@
       "qty_change": 2212945.0,
       "price": 776000,
       "total_amount": 1717245320000.0,
-      "foreign_net": 75922,
+      "foreign_net": 35775,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 6141
+        },
         {
           "date": "0622",
           "net": 5586
@@ -396,15 +585,11 @@
         {
           "date": "0617",
           "net": -26552
-        },
-        {
-          "date": "0616",
-          "net": 46288
         }
       ],
-      "org_net": 29977,
-      "prsn_net": -113791,
-      "scrt_net": 32504,
+      "org_net": -38101,
+      "prsn_net": 2385,
+      "scrt_net": 1531,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001472"
     },
     {
@@ -416,8 +601,12 @@
       "qty_change": 4760920.0,
       "price": 62400,
       "total_amount": 297081408000.0,
-      "foreign_net": -9627,
+      "foreign_net": -7383,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -3002
+        },
         {
           "date": "0622",
           "net": -14209
@@ -433,15 +622,11 @@
         {
           "date": "0617",
           "net": -2577
-        },
-        {
-          "date": "0616",
-          "net": -5246
         }
       ],
-      "org_net": 17721,
-      "prsn_net": -7939,
-      "scrt_net": -4600,
+      "org_net": -15836,
+      "prsn_net": 21576,
+      "scrt_net": -6174,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001463"
     },
     {
@@ -453,8 +638,12 @@
       "qty_change": 5062.0,
       "price": 369000,
       "total_amount": 1867878000.0,
-      "foreign_net": 6006,
+      "foreign_net": 8541,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 2486
+        },
         {
           "date": "0622",
           "net": 3463
@@ -470,15 +659,11 @@
         {
           "date": "0617",
           "net": 181
-        },
-        {
-          "date": "0616",
-          "net": -49
         }
       ],
-      "org_net": -10670,
-      "prsn_net": 5602,
-      "scrt_net": 125,
+      "org_net": -11631,
+      "prsn_net": 4043,
+      "scrt_net": -202,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001447"
     },
     {
@@ -490,8 +675,12 @@
       "qty_change": 11310.0,
       "price": 1166000,
       "total_amount": 13187460000.0,
-      "foreign_net": 16051,
+      "foreign_net": 9800,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -1573
+        },
         {
           "date": "0622",
           "net": -2986
@@ -507,15 +696,11 @@
         {
           "date": "0617",
           "net": 786
-        },
-        {
-          "date": "0616",
-          "net": 4678
         }
       ],
-      "org_net": -34384,
-      "prsn_net": 19513,
-      "scrt_net": -5944,
+      "org_net": -1506,
+      "prsn_net": -6076,
+      "scrt_net": -4785,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001437"
     },
     {
@@ -527,8 +712,12 @@
       "qty_change": -255162.0,
       "price": 60400,
       "total_amount": 15411784800.0,
-      "foreign_net": 6473,
+      "foreign_net": 4138,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -766
+        },
         {
           "date": "0622",
           "net": 923
@@ -544,15 +733,11 @@
         {
           "date": "0617",
           "net": -1255
-        },
-        {
-          "date": "0616",
-          "net": 1569
         }
       ],
-      "org_net": -5782,
-      "prsn_net": -660,
-      "scrt_net": -2318,
+      "org_net": -5695,
+      "prsn_net": 1533,
+      "scrt_net": 97,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001380"
     },
     {
@@ -564,8 +749,12 @@
       "qty_change": -6535733.0,
       "price": 38650,
       "total_amount": 252606080450.0,
-      "foreign_net": -26052,
+      "foreign_net": -5381,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -3080
+        },
         {
           "date": "0622",
           "net": 17315
@@ -581,15 +770,11 @@
         {
           "date": "0617",
           "net": -28442
-        },
-        {
-          "date": "0616",
-          "net": -23751
         }
       ],
-      "org_net": -39952,
-      "prsn_net": 65698,
-      "scrt_net": -35134,
+      "org_net": -24696,
+      "prsn_net": 30138,
+      "scrt_net": -26878,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001366"
     },
     {
@@ -601,8 +786,12 @@
       "qty_change": -229841.0,
       "price": 84400,
       "total_amount": 19398580400.0,
-      "foreign_net": -1065,
+      "foreign_net": -1828,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -919
+        },
         {
           "date": "0622",
           "net": -645
@@ -618,15 +807,11 @@
         {
           "date": "0617",
           "net": -403
-        },
-        {
-          "date": "0616",
-          "net": -156
         }
       ],
-      "org_net": -4957,
-      "prsn_net": 5054,
-      "scrt_net": -1264,
+      "org_net": -5010,
+      "prsn_net": 6753,
+      "scrt_net": -1320,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260601001331"
     },
     {
@@ -638,8 +823,12 @@
       "qty_change": -17004.0,
       "price": 537000,
       "total_amount": 9131148000.0,
-      "foreign_net": 16882,
+      "foreign_net": 13272,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -88
+        },
         {
           "date": "0622",
           "net": 1608
@@ -655,15 +844,11 @@
         {
           "date": "0617",
           "net": 4410
-        },
-        {
-          "date": "0616",
-          "net": 3522
         }
       ],
-      "org_net": -17588,
-      "prsn_net": 1946,
-      "scrt_net": 103,
+      "org_net": -14010,
+      "prsn_net": 2090,
+      "scrt_net": -155,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260522000350"
     },
     {
@@ -675,8 +860,12 @@
       "qty_change": -335010.0,
       "price": 126100,
       "total_amount": 42244761000.0,
-      "foreign_net": 45347,
+      "foreign_net": 46813,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 15297
+        },
         {
           "date": "0622",
           "net": 4055
@@ -692,15 +881,11 @@
         {
           "date": "0617",
           "net": -8584
-        },
-        {
-          "date": "0616",
-          "net": 13831
         }
       ],
-      "org_net": 6695,
-      "prsn_net": -51398,
-      "scrt_net": 4544,
+      "org_net": -613,
+      "prsn_net": -45006,
+      "scrt_net": 33121,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260522000346"
     },
     {
@@ -712,8 +897,12 @@
       "qty_change": 6643185.0,
       "price": 21200,
       "total_amount": 140835522000.0,
-      "foreign_net": 3708,
+      "foreign_net": 2675,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 472
+        },
         {
           "date": "0622",
           "net": -415
@@ -729,15 +918,11 @@
         {
           "date": "0617",
           "net": 686
-        },
-        {
-          "date": "0616",
-          "net": 1505
         }
       ],
-      "org_net": -2445,
-      "prsn_net": -1325,
-      "scrt_net": -331,
+      "org_net": -1921,
+      "prsn_net": -777,
+      "scrt_net": -221,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000156"
     },
     {
@@ -749,8 +934,12 @@
       "qty_change": -33940.0,
       "price": 66300,
       "total_amount": 2250222000.0,
-      "foreign_net": -40651,
+      "foreign_net": -31241,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": -1532
+        },
         {
           "date": "0622",
           "net": -8135
@@ -766,15 +955,11 @@
         {
           "date": "0617",
           "net": -19604
-        },
-        {
-          "date": "0616",
-          "net": -10942
         }
       ],
-      "org_net": 3992,
-      "prsn_net": 36837,
-      "scrt_net": -10857,
+      "org_net": 2183,
+      "prsn_net": 28195,
+      "scrt_net": -12828,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000155"
     },
     {
@@ -786,8 +971,12 @@
       "qty_change": -327144.0,
       "price": 36250,
       "total_amount": 11858970000.0,
-      "foreign_net": -13800,
+      "foreign_net": -7633,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 3684
+        },
         {
           "date": "0622",
           "net": 99
@@ -803,15 +992,11 @@
         {
           "date": "0617",
           "net": -8274
-        },
-        {
-          "date": "0616",
-          "net": -2483
         }
       ],
-      "org_net": 2988,
-      "prsn_net": 10535,
-      "scrt_net": -1388,
+      "org_net": -2054,
+      "prsn_net": 9405,
+      "scrt_net": -850,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260519000152"
     },
     {
@@ -823,8 +1008,12 @@
       "qty_change": -860.0,
       "price": 171700,
       "total_amount": 147662000.0,
-      "foreign_net": 11855,
+      "foreign_net": 15974,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 8458
+        },
         {
           "date": "0622",
           "net": -1871
@@ -840,15 +1029,11 @@
         {
           "date": "0617",
           "net": -183
-        },
-        {
-          "date": "0616",
-          "net": 4339
         }
       ],
-      "org_net": -47586,
-      "prsn_net": 34584,
-      "scrt_net": 3762,
+      "org_net": -47987,
+      "prsn_net": 30770,
+      "scrt_net": 8296,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000962"
     },
     {
@@ -860,8 +1045,12 @@
       "qty_change": -3453.0,
       "price": 1703000,
       "total_amount": 5880459000.0,
-      "foreign_net": 128612,
+      "foreign_net": 143033,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 33854
+        },
         {
           "date": "0622",
           "net": 43629
@@ -877,15 +1066,11 @@
         {
           "date": "0617",
           "net": 14998
-        },
-        {
-          "date": "0616",
-          "net": 19433
         }
       ],
-      "org_net": -143404,
-      "prsn_net": 19259,
-      "scrt_net": -26224,
+      "org_net": -121628,
+      "prsn_net": -19132,
+      "scrt_net": -28018,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000946"
     },
     {
@@ -897,8 +1082,12 @@
       "qty_change": 2155612.0,
       "price": 279000,
       "total_amount": 601415748000.0,
-      "foreign_net": 11749,
+      "foreign_net": 8130,
       "foreign_daily": [
+        {
+          "date": "0623",
+          "net": 60
+        },
         {
           "date": "0622",
           "net": -4792
@@ -914,202 +1103,13 @@
         {
           "date": "0617",
           "net": 3953
-        },
-        {
-          "date": "0616",
-          "net": 3679
         }
       ],
-      "org_net": -3734,
-      "prsn_net": -8026,
-      "scrt_net": -3598,
+      "org_net": 1992,
+      "prsn_net": -10056,
+      "scrt_net": -3084,
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260514000915"
-    },
-    {
-      "corp_name": "현대글로비스",
-      "date": "2026.05.06",
-      "direction": "매도",
-      "prev_ratio": 10.09,
-      "curr_ratio": 9.05,
-      "qty_change": -779813.0,
-      "price": 220000,
-      "total_amount": 171558860000.0,
-      "foreign_net": 57162,
-      "foreign_daily": [
-        {
-          "date": "0622",
-          "net": -1509
-        },
-        {
-          "date": "0619",
-          "net": 28409
-        },
-        {
-          "date": "0618",
-          "net": 5899
-        },
-        {
-          "date": "0617",
-          "net": 13613
-        },
-        {
-          "date": "0616",
-          "net": 10750
-        }
-      ],
-      "org_net": -53503,
-      "prsn_net": -3760,
-      "scrt_net": -8081,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260506000274"
-    },
-    {
-      "corp_name": "대주전자재료",
-      "date": "2026.04.30",
-      "direction": "매도",
-      "prev_ratio": 10.129999999999999,
-      "curr_ratio": 9.78,
-      "qty_change": -54439.0,
-      "price": 158500,
-      "total_amount": 8628581500.0,
-      "foreign_net": 4814,
-      "foreign_daily": [
-        {
-          "date": "0622",
-          "net": 2714
-        },
-        {
-          "date": "0619",
-          "net": 8813
-        },
-        {
-          "date": "0618",
-          "net": -1786
-        },
-        {
-          "date": "0617",
-          "net": -10402
-        },
-        {
-          "date": "0616",
-          "net": 5475
-        }
-      ],
-      "org_net": -21222,
-      "prsn_net": 16348,
-      "scrt_net": -1614,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430000904"
-    },
-    {
-      "corp_name": "SBS",
-      "date": "2026.04.30",
-      "direction": "매도",
-      "prev_ratio": 10.53,
-      "curr_ratio": 9.93,
-      "qty_change": -110357.0,
-      "price": 15900,
-      "total_amount": 1754676300.0,
-      "foreign_net": 0,
-      "foreign_daily": [
-        {
-          "date": "0622",
-          "net": 0
-        },
-        {
-          "date": "0619",
-          "net": 0
-        },
-        {
-          "date": "0618",
-          "net": 0
-        },
-        {
-          "date": "0617",
-          "net": 0
-        },
-        {
-          "date": "0616",
-          "net": 0
-        }
-      ],
-      "org_net": -296,
-      "prsn_net": 307,
-      "scrt_net": -16,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430000899"
-    },
-    {
-      "corp_name": "현대건설",
-      "date": "2026.04.28",
-      "direction": "매도",
-      "prev_ratio": 10.23,
-      "curr_ratio": 9.93,
-      "qty_change": -340023.0,
-      "price": 167100,
-      "total_amount": 56817843300.0,
-      "foreign_net": -14659,
-      "foreign_daily": [
-        {
-          "date": "0622",
-          "net": 16477
-        },
-        {
-          "date": "0619",
-          "net": 20690
-        },
-        {
-          "date": "0618",
-          "net": -9086
-        },
-        {
-          "date": "0617",
-          "net": -28921
-        },
-        {
-          "date": "0616",
-          "net": -13819
-        }
-      ],
-      "org_net": -18745,
-      "prsn_net": 32703,
-      "scrt_net": -5145,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260428000401"
-    },
-    {
-      "corp_name": "코오롱인더",
-      "date": "2026.04.27",
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 9.22,
-      "qty_change": 3014931.0,
-      "price": 90000,
-      "total_amount": 271343790000.0,
-      "foreign_net": 20603,
-      "foreign_daily": [
-        {
-          "date": "0622",
-          "net": 5161
-        },
-        {
-          "date": "0619",
-          "net": 6113
-        },
-        {
-          "date": "0618",
-          "net": 5584
-        },
-        {
-          "date": "0617",
-          "net": 1463
-        },
-        {
-          "date": "0616",
-          "net": 2282
-        }
-      ],
-      "org_net": -10643,
-      "prsn_net": -9870,
-      "scrt_net": -212,
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260427000086"
     }
   ],
-  "updated": "2026-06-23"
+  "updated": "2026-06-24"
 }
