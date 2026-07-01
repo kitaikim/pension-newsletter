@@ -788,7 +788,7 @@ def _build_foreign_daily_section(trades):
     )
 
     return f"""
-    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">🌏 외국인 일별 매매 (NPS 종목)</h2>
       <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: KIS Open API · 최근 5거래일 일별 외국인 순매수 (단위: 억원, 절대값 큰 순 상위 20)</p>
       <div style="overflow-x:auto;">
@@ -866,7 +866,7 @@ def _build_market_movers_section(movers):
         </div>"""
 
     return f"""
-    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">📈 시장 전체 매매 동향</h2>
       <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">KOSPI/KOSDAQ 시가총액 상위 60종목 · 최근 5거래일 합산 순매수 (단위: 억원)</p>
       {blocks}
@@ -886,10 +886,10 @@ def _build_technical_section(trades):
         if rsi is None:
             return "<span style='color:#bbb;'>-</span>"
         if rsi >= 70:
-            return f"<span style='background:#ffebee; color:#b71c1c; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>과열 {rsi}</span>"
+            return f"<span style='background:#ffebee; color:#b71c1c; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700; white-space:nowrap;'>과열 {rsi}</span>"
         if rsi <= 30:
-            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>과매도 {rsi}</span>"
-        return f"<span style='background:#fff8e1; color:#f57f17; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>중립 {rsi}</span>"
+            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700; white-space:nowrap;'>과매도 {rsi}</span>"
+        return f"<span style='background:#fff8e1; color:#f57f17; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700; white-space:nowrap;'>중립 {rsi}</span>"
 
     def _ma200_badge(above, gap):
         if above is None:
@@ -902,9 +902,9 @@ def _build_technical_section(trades):
     def _w52_bar(pos):
         if pos is None:
             return "-"
-        # 10칸 텍스트 바 + 수치
-        filled = round(pos / 10)
-        bar = "█" * filled + "░" * (10 - filled)
+        # 6칸 텍스트 바 + 수치
+        filled = round(pos / 100 * 6)
+        bar = "█" * filled + "░" * (6 - filled)
         color = "#1b5e20" if pos >= 70 else "#b71c1c" if pos <= 30 else "#f57f17"
         return f"<span style='font-family:monospace; color:{color}; font-size:10px;'>{bar}</span> <span style='font-size:11px; color:#555;'>{pos:.0f}%</span>"
 
@@ -944,11 +944,11 @@ def _build_technical_section(trades):
             checks.append(f"외국인{streak}일↑")
 
         if score >= 3:
-            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>✅ 매수 검토</span>"
+            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:3px 6px; border-radius:10px; font-size:11px; font-weight:700; white-space:nowrap;'>✅매수</span>"
         elif score >= 2:
-            return f"<span style='background:#fff8e1; color:#e65100; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>⚠️ 주의 관찰</span>"
+            return f"<span style='background:#fff8e1; color:#e65100; padding:3px 6px; border-radius:10px; font-size:11px; font-weight:700; white-space:nowrap;'>⚠️주의</span>"
         else:
-            return f"<span style='background:#ffebee; color:#b71c1c; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>❌ 비추</span>"
+            return f"<span style='background:#ffebee; color:#b71c1c; padding:3px 6px; border-radius:10px; font-size:11px; font-weight:700; white-space:nowrap;'>❌비추</span>"
 
     rows_html = ""
     for t in rows_data:
@@ -958,39 +958,37 @@ def _build_technical_section(trades):
         streak = t.get("frgn_streak", 0)
         rows_html += f"""
         <tr>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:{name_color}; white-space:nowrap;">
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:{name_color}; white-space:nowrap;">
             <a href="{t['url']}" style="color:{name_color}; text-decoration:none;">{t['corp_name']}</a>
             <span style="font-size:10px; color:#999; margin-left:4px;">{t['date'][5:]}</span>
           </td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rsi_badge(tech.get('rsi'))}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_ma200_badge(tech.get('ma200_above'), tech.get('ma200_gap_pct'))}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_w52_bar(tech.get('week52_pos'))}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_streak_badge(streak)}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rs_badge(tech.get('rs_vs_kospi'))}</td>
-          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_signal_summary(tech, t.get('direction'), streak)}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rsi_badge(tech.get('rsi'))}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_ma200_badge(tech.get('ma200_above'), tech.get('ma200_gap_pct'))}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_w52_bar(tech.get('week52_pos'))}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_streak_badge(streak)}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rs_badge(tech.get('rs_vs_kospi'))}</td>
+          <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center;">{_signal_summary(tech, t.get('direction'), streak)}</td>
         </tr>"""
 
     return f"""
-    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 4px; font-weight:700;">📊 공시 종목 기술적 신호</h2>
       <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">RSI(14) · 200일 이평선 · 52주 위치 · 외국인 연속 · RS vs KOSPI(52주) · 매수 신호 판단</p>
       <p style="font-size:10px; color:#bbb; margin:0 0 12px;">✅ 매수 검토 = 200일↑ + RSI&lt;70 + RS&gt;0 중 3개 이상 충족</p>
-      <div style="overflow-x:auto;">
-      <table style="width:100%; min-width:560px; border-collapse:collapse;">
+      <table style="width:100%; border-collapse:collapse;">
         <thead>
           <tr style="background:#f5f7ff;">
-            <th style="padding:8px 12px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RSI(14)</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">200일선</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">52주 위치</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">외국인 연속</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RS vs KOSPI</th>
-            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">신호</th>
+            <th style="padding:6px 8px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RSI</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">200일</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">52주</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">외국인</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RS</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">신호</th>
           </tr>
         </thead>
         <tbody>{rows_html}</tbody>
       </table>
-      </div>
     </div>"""
 
 
@@ -1066,52 +1064,40 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
                 since_text = f"<span style='color:#888;'>{sr:+.1f}%</span>"
             trade_rows += f"""
             <tr>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:#1a237e; white-space:nowrap;">
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:#1a237e; white-space:nowrap;">
                 <a href="{t['url']}" style="color:#1a237e; text-decoration:none;">{t['corp_name']}</a>
               </td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; text-align:center; white-space:nowrap;">
-                <span style="background:{badge_bg}; color:{badge_color}; font-size:11px; font-weight:700; padding:2px 8px; border-radius:10px;">{badge_text}</span>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; text-align:center; white-space:nowrap;">
+                <span style="background:{badge_bg}; color:{badge_color}; font-size:11px; font-weight:700; padding:2px 6px; border-radius:10px;">{badge_text}</span>
               </td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#666; text-align:right; white-space:nowrap;">{ratio_text}</td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{qty_text}</td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{price_text}</td>
-              <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#333; text-align:right; white-space:nowrap;">{amount_text}</td>
-              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{since_text}</td>
-              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
-              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{org_text}</td>
-              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{scrt_text}</td>
-              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{prsn_text}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#666; text-align:right; white-space:nowrap;">{ratio_text}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#333; text-align:right; white-space:nowrap;">{amount_text}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{since_text}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
             </tr>"""
         dart_section = f"""
-    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">최근 30일 국민연금 매수/매도 내역</h2>
-      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 주가: 공시일 종가 기준 &nbsp;|&nbsp; 외국인: 최근 5거래일 합산 (자세한 일별은 아래 섹션 참고)</p>
-      <div style="overflow-x:auto;">
-      <table style="width:100%; min-width:620px; border-collapse:collapse;">
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">출처: DART 주식등의대량보유상황보고서 &nbsp;|&nbsp; 추정금액: 공시일 종가 기준 &nbsp;|&nbsp; 외국인: 최근 5거래일 합산</p>
+      <table style="width:100%; border-collapse:collapse;">
         <thead>
           <tr style="background:#f5f7ff;">
-            <th style="padding:8px 10px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">공시일</th>
-            <th style="padding:8px 10px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
-            <th style="padding:8px 10px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">구분</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">보유비율</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">주당가격</th>
-            <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
-            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">📈 공시 이후</th>
-            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인</th>
-            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🏛 기관</th>
-            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">💼 금융투자</th>
-            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">👤 개인</th>
+            <th style="padding:6px 8px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">공시일</th>
+            <th style="padding:6px 8px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
+            <th style="padding:6px 8px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">구분</th>
+            <th style="padding:6px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">보유비율</th>
+            <th style="padding:6px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
+            <th style="padding:6px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">공시후</th>
+            <th style="padding:6px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">외국인(5일)</th>
           </tr>
         </thead>
         <tbody>{trade_rows}</tbody>
       </table>
-      </div>
     </div>"""
     else:
         dart_section = """
-    <div style="padding:20px 36px; border-top:2px solid #e3e8f0; text-align:center;">
+    <div style="padding:16px 16px; border-top:2px solid #e3e8f0; text-align:center;">
       <p style="font-size:13px; color:#9e9e9e; margin:0;">최근 30일간 국민연금 대량보유 공시 내역이 없습니다.</p>
     </div>"""
 
@@ -1174,14 +1160,14 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
       <p style="margin:0; color:#90caf9; font-size:14px;">{period_label} 기준 &nbsp;|&nbsp; 발송일 {today.strftime('%Y.%m.%d')}</p>
     </div>
 
-    <div style="background:#f0f4ff; padding:28px 36px; border-bottom:1px solid #e3e8f0;">
+    <div style="background:#f0f4ff; padding:24px 16px; border-bottom:1px solid #e3e8f0;">
       <div style="font-size:12px; color:#7986cb; font-weight:600; letter-spacing:1px; margin-bottom:6px;">총 운용자산</div>
       <div style="font-size:36px; font-weight:800; color:#1a237e;">{total_display}</div>
     </div>
 
     {market_summary_html}
 
-    <div style="padding:28px 36px;">
+    <div style="padding:24px 16px;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 16px; font-weight:700;">자산 분류별 현황</h2>
       <table style="width:100%; border-collapse:collapse;">
         <thead>
@@ -1204,7 +1190,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
 
     {market_movers_section}
 
-    <div style="background:#f5f7ff; padding:20px 36px; border-top:1px solid #e3e8f0; text-align:center;">
+    <div style="background:#f5f7ff; padding:16px 16px; border-top:1px solid #e3e8f0; text-align:center;">
       <p style="margin:0 0 4px; font-size:12px; color:#9e9e9e;">출처: 국민연금공단 &nbsp;|&nbsp; 공공데이터포털 (data.go.kr) &nbsp;|&nbsp; DART 전자공시</p>
       <p style="margin:0; font-size:11px; color:#bdbdbd;">이 메일은 평일 매일 자동 발송됩니다 (휴장일 제외).</p>
     </div>
