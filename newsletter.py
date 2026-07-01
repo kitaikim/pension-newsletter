@@ -102,6 +102,62 @@ def get_latest_endpoint():
     return url, period_label
 
 
+def fetch_market_summary():
+    """KOSPI/KOSDAQ 전일 등락률 + KOSPI YTD(KODEX200 proxy) + USD/KRW 환율
+
+    - 지수 현재가/등락률: Naver Finance 비공식 API (pykrx get_index_ohlcv는 KRX 로그인 필요)
+    - KOSPI YTD: KODEX 200 (069500) ETF로 근사 (pykrx get_market_ohlcv는 정상 작동)
+    - USD/KRW: open.er-api.com 무료 환율 API
+    """
+    result = {}
+    try:
+        for nv_code, key in [("KOSPI", "kospi"), ("KOSDAQ", "kosdaq")]:
+            try:
+                resp = requests.get(
+                    f"https://m.stock.naver.com/api/index/{nv_code}/price",
+                    headers={"User-Agent": "Mozilla/5.0"},
+                    timeout=5,
+                )
+                if resp.ok:
+                    items = resp.json()
+                    item = items[0] if isinstance(items, list) and items else {}
+                    close_str = item.get("closePrice", "").replace(",", "")
+                    chg_str = item.get("fluctuationsRatio", "")
+                    if close_str:
+                        result[key] = {
+                            "close": float(close_str),
+                            "chg": float(chg_str) if chg_str else None,
+                            "date": item.get("localTradedAt", "")[-5:].replace("-", "/"),
+                        }
+            except Exception:
+                pass
+
+        # KOSPI YTD — KODEX 200 (069500) ETF 수익률로 근사
+        try:
+            ytd_start = date(date.today().year, 1, 2).strftime("%Y%m%d")
+            ytd_end = date.today().strftime("%Y%m%d")
+            df_ytd = krx_stock.get_market_ohlcv(ytd_start, ytd_end, "069500")
+            if df_ytd is not None and not df_ytd.empty and len(df_ytd) >= 2:
+                ytd = (float(df_ytd["종가"].iloc[-1]) - float(df_ytd["종가"].iloc[0])) / float(df_ytd["종가"].iloc[0]) * 100
+                result.setdefault("kospi", {})["ytd"] = ytd
+        except Exception:
+            pass
+
+        # USD/KRW (open.er-api.com 무료, 인증 불필요)
+        try:
+            resp = requests.get("https://open.er-api.com/v6/latest/USD", timeout=5)
+            if resp.ok:
+                krw = resp.json().get("rates", {}).get("KRW")
+                if krw:
+                    result["usdkrw"] = float(krw)
+        except Exception:
+            pass
+
+    except Exception as e:
+        print(f"[WARN] 시장 요약 조회 실패: {e}")
+    return result
+
+
 def fetch_portfolio_data(url):
     params = {"serviceKey": API_KEY, "page": 1, "perPage": 100, "returnType": "JSON"}
     for attempt in range(2):
@@ -213,6 +269,10 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
+            current_price = _get_current_price(stock_code)
+            since_return = None
+            if price and current_price and price > 0:
+                since_return = (current_price - price) / price * 100
             investor_daily = _get_investor_daily_kis(stock_code, num_days=5)
             foreign_daily = [{"date": d["date"], "net": d["frgn"]} for d in investor_daily]
             foreign_net = sum(d["frgn"] for d in investor_daily) if investor_daily else None
@@ -221,6 +281,8 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             scrt_net = sum(d["scrt"] for d in investor_daily) if investor_daily else None
         else:
             price, total_amount = None, None
+            current_price = None
+            since_return = None
             foreign_daily = []
             foreign_net = None
             org_net = None
@@ -235,6 +297,8 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             "curr_ratio": curr_ratio,
             "qty_change": qty_change,
             "price": price,
+            "current_price": current_price,
+            "since_return": since_return,
             "total_amount": total_amount,
             "foreign_net": foreign_net,
             "foreign_daily": foreign_daily,
@@ -542,6 +606,21 @@ def _get_stock_price_and_amount(stock_code, rcept_dt, qty_change):
 
 
 
+def _get_current_price(stock_code):
+    """오늘 기준 최근 종가 (공시 이후 수익률 계산용)"""
+    if not stock_code:
+        return None
+    try:
+        end = date.today()
+        start = (end - timedelta(days=7)).strftime("%Y%m%d")
+        df = krx_stock.get_market_ohlcv(start, end.strftime("%Y%m%d"), stock_code)
+        if df is None or df.empty:
+            return None
+        return int(df["종가"].iloc[-1])
+    except Exception:
+        return None
+
+
 def _parse_ratio(val):
     try:
         return float(str(val).replace(",", "").replace("%", "").strip())
@@ -688,7 +767,7 @@ def _build_market_movers_section(movers):
     </div>"""
 
 
-def build_html(items, period_label, value_col, trades=None, market_movers=None):
+def build_html(items, period_label, value_col, trades=None, market_movers=None, market_summary=None):
     today = date.today()
     total = sum(i["value"] for i in items if "합계" not in i["name"] and i["name"] not in ("합 계",))
     colors = ["#1a237e", "#1565c0", "#0277bd", "#00838f", "#2e7d32",
@@ -749,6 +828,15 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None):
             org_text = _fmt_investor_sum(t.get("org_net"))
             scrt_text = _fmt_investor_sum(t.get("scrt_net"))
             prsn_text = _fmt_investor_sum(t.get("prsn_net"))
+            sr = t.get("since_return")
+            if sr is None:
+                since_text = "<span style='color:#bbb;'>-</span>"
+            elif sr > 0.05:
+                since_text = f"<span style='color:#1b5e20; font-weight:700;'>▲{sr:+.1f}%</span>"
+            elif sr < -0.05:
+                since_text = f"<span style='color:#b71c1c; font-weight:700;'>▼{sr:.1f}%</span>"
+            else:
+                since_text = f"<span style='color:#888;'>{sr:+.1f}%</span>"
             trade_rows += f"""
             <tr>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
@@ -762,6 +850,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None):
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{qty_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; text-align:right; white-space:nowrap;">{price_text}</td>
               <td style="padding:8px 10px; border-bottom:1px solid #f0f0f0; font-size:12px; font-weight:600; color:#333; text-align:right; white-space:nowrap;">{amount_text}</td>
+              <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{since_text}</td>
               <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{fn_text}</td>
               <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{org_text}</td>
               <td style="padding:8px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; text-align:right; white-space:nowrap;">{scrt_text}</td>
@@ -782,6 +871,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None):
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">변동주식수</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">주당가격</th>
             <th style="padding:8px 10px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">추정금액</th>
+            <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">📈 공시 이후</th>
             <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🌏 외국인</th>
             <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">🏛 기관</th>
             <th style="padding:8px 8px; text-align:right; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">💼 금융투자</th>
@@ -800,6 +890,46 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None):
 
     foreign_daily_section = _build_foreign_daily_section(trades)
     market_movers_section = _build_market_movers_section(market_movers)
+
+    # 시장 요약 섹션 (KOSPI / KOSDAQ / USD·KRW)
+    def _fmt_chg(chg):
+        if chg is None:
+            return ""
+        color = "#1b5e20" if chg >= 0 else "#b71c1c"
+        arrow = "▲" if chg >= 0 else "▼"
+        return f"<div style='font-size:13px; color:{color}; font-weight:700;'>{arrow} {chg:+.2f}%</div>"
+
+    if market_summary:
+        kospi = market_summary.get("kospi", {})
+        kosdaq = market_summary.get("kosdaq", {})
+        usdkrw = market_summary.get("usdkrw")
+        kospi_ytd = kospi.get("ytd")
+        ytd_html = ""
+        if kospi_ytd is not None:
+            ytd_color = "#1b5e20" if kospi_ytd >= 0 else "#b71c1c"
+            ytd_html = f"<div style='font-size:11px; color:{ytd_color}; margin-top:2px;'>YTD {kospi_ytd:+.1f}%</div>"
+        market_summary_html = f"""
+    <div style="background:#f8f9ff; padding:16px 36px; border-bottom:1px solid #e3e8f0;">
+      <div style="display:flex; gap:0; text-align:center;">
+        <div style="flex:1; padding:8px 12px; border-right:1px solid #e0e4f0;">
+          <div style="font-size:11px; color:#7986cb; font-weight:600; letter-spacing:1px; margin-bottom:4px;">KOSPI</div>
+          <div style="font-size:20px; font-weight:800; color:#1a237e;">{kospi.get('close', 0):,.2f}</div>
+          {_fmt_chg(kospi.get('chg'))}
+          {ytd_html}
+        </div>
+        <div style="flex:1; padding:8px 12px; border-right:1px solid #e0e4f0;">
+          <div style="font-size:11px; color:#7986cb; font-weight:600; letter-spacing:1px; margin-bottom:4px;">KOSDAQ</div>
+          <div style="font-size:20px; font-weight:800; color:#1a237e;">{kosdaq.get('close', 0):,.2f}</div>
+          {_fmt_chg(kosdaq.get('chg'))}
+        </div>
+        <div style="flex:1; padding:8px 12px;">
+          <div style="font-size:11px; color:#7986cb; font-weight:600; letter-spacing:1px; margin-bottom:4px;">USD/KRW</div>
+          <div style="font-size:20px; font-weight:800; color:#1a237e;">{f'{usdkrw:,.1f}' if usdkrw else '-'}</div>
+        </div>
+      </div>
+    </div>"""
+    else:
+        market_summary_html = ""
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -820,6 +950,8 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None):
       <div style="font-size:12px; color:#7986cb; font-weight:600; letter-spacing:1px; margin-bottom:6px;">총 운용자산</div>
       <div style="font-size:36px; font-weight:800; color:#1a237e;">{total_display}</div>
     </div>
+
+    {market_summary_html}
 
     <div style="padding:28px 36px;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 16px; font-weight:700;">자산 분류별 현황</h2>
@@ -919,13 +1051,18 @@ def main():
     market_movers = fetch_market_movers(top_n_per_market=30, ranking_size=5)
     print(f"  movers: {len(market_movers)}개 카테고리")
 
+    # 5.5. 시장 지수 요약 (KOSPI/KOSDAQ 등락률 + USD/KRW)
+    print("[4.5/6] 시장 지수 요약 조회 중...")
+    market_summary = fetch_market_summary()
+    print(f"  kospi={market_summary.get('kospi', {}).get('chg', 'N/A'):.2f}%" if market_summary.get('kospi') else "  시장 요약 없음")
+
     # 6. 이메일 발송 — 평일은 무조건 발송 (공시 없는 날도 시장 동향 표시)
     print("[5/6] 이메일 발송 중...")
     if n_new > 0:
         subject = f"[국민연금] 신규 공시 {n_new}건 + 시장 매매 동향 - {today.strftime('%Y.%m.%d')}"
     else:
         subject = f"[국민연금] 일별 매매 동향 ({today.strftime('%Y.%m.%d')})"
-    html = build_html(items, period_label, value_col, trades=all_trades[:30], market_movers=market_movers)
+    html = build_html(items, period_label, value_col, trades=all_trades[:30], market_movers=market_movers, market_summary=market_summary)
     send_email(html, subject)
 
     # 7. 발송 상태 저장 (신규 공시 rcept_no 합치기)
