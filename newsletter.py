@@ -255,6 +255,9 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         if corp_code not in seen:
             seen[corp_code] = item
 
+    # KOSPI 52주 수익률은 종목마다 반복 조회 방지하기 위해 1회 계산
+    kospi_52w = _get_kospi_52w_return() if fetch_prices else None
+
     trades = []
     for item in seen.values():
         rcept_no = item["rcept_no"]
@@ -269,7 +272,8 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
-            current_price = _get_current_price(stock_code)
+            tech = _get_technical_indicators(stock_code, kospi_52w_return=kospi_52w)
+            current_price = tech.get("current_price") or _get_current_price(stock_code)
             since_return = None
             if price and current_price and price > 0:
                 since_return = (current_price - price) / price * 100
@@ -279,15 +283,28 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             org_net = sum(d["orgn"] for d in investor_daily) if investor_daily else None
             prsn_net = sum(d["prsn"] for d in investor_daily) if investor_daily else None
             scrt_net = sum(d["scrt"] for d in investor_daily) if investor_daily else None
+            # 외국인 연속 순매수/순매도 일수 (최신→과거 순으로 계산)
+            frgn_streak = 0
+            if investor_daily:
+                sign = 1 if investor_daily[0]["frgn"] > 0 else -1 if investor_daily[0]["frgn"] < 0 else 0
+                for d in investor_daily:
+                    cur_sign = 1 if d["frgn"] > 0 else -1 if d["frgn"] < 0 else 0
+                    if cur_sign == sign and sign != 0:
+                        frgn_streak += 1
+                    else:
+                        break
+                frgn_streak = frgn_streak * sign  # 양수=연속매수, 음수=연속매도
         else:
             price, total_amount = None, None
             current_price = None
             since_return = None
+            tech = {}
             foreign_daily = []
             foreign_net = None
             org_net = None
             prsn_net = None
             scrt_net = None
+            frgn_streak = 0
 
         trades.append({
             "corp_name": corp_name,
@@ -302,9 +319,11 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             "total_amount": total_amount,
             "foreign_net": foreign_net,
             "foreign_daily": foreign_daily,
+            "frgn_streak": frgn_streak,
             "org_net": org_net,
             "prsn_net": prsn_net,
             "scrt_net": scrt_net,
+            "tech": tech,
             "url": dart_url,
         })
 
@@ -621,6 +640,93 @@ def _get_current_price(stock_code):
         return None
 
 
+def _calc_rsi(closes, period=14):
+    """Wilder's RSI 계산 (closes: 오래된→최신 순 float list, 최소 period+1개 필요)"""
+    if len(closes) < period + 1:
+        return None
+    deltas = [closes[i] - closes[i - 1] for i in range(1, len(closes))]
+    gains = [d if d > 0 else 0.0 for d in deltas]
+    losses = [-d if d < 0 else 0.0 for d in deltas]
+    avg_gain = sum(gains[:period]) / period
+    avg_loss = sum(losses[:period]) / period
+    for i in range(period, len(deltas)):
+        avg_gain = (avg_gain * (period - 1) + gains[i]) / period
+        avg_loss = (avg_loss * (period - 1) + losses[i]) / period
+    if avg_loss == 0:
+        return 100.0
+    return round(100.0 - 100.0 / (1 + avg_gain / avg_loss), 1)
+
+
+def _get_kospi_52w_return():
+    """KOSPI(069500 KODEX200) 52주 수익률 — 종목별 RS 계산용 기준값"""
+    try:
+        end = date.today()
+        start = (end - timedelta(days=380)).strftime("%Y%m%d")
+        df = krx_stock.get_market_ohlcv(start, end.strftime("%Y%m%d"), "069500")
+        if df is None or df.empty or len(df) < 2:
+            return None
+        return (float(df["종가"].iloc[-1]) - float(df["종가"].iloc[0])) / float(df["종가"].iloc[0]) * 100
+    except Exception:
+        return None
+
+
+def _get_technical_indicators(stock_code, kospi_52w_return=None):
+    """280일 OHLCV → 기술적 지표 dict 반환.
+
+    Returns:
+      current_price (int), rsi (float), ma20_above (bool), ma200_above (bool),
+      ma200_gap_pct (float), week52_pos (float 0~100%),
+      week52_low (int), week52_high (int), rs_vs_kospi (float | None)
+    실패 시 빈 dict {}
+    """
+    if not stock_code:
+        return {}
+    try:
+        end = date.today()
+        start = (end - timedelta(days=380)).strftime("%Y%m%d")  # 52주+버퍼
+        df = krx_stock.get_market_ohlcv(start, end.strftime("%Y%m%d"), stock_code)
+        if df is None or df.empty or len(df) < 30:
+            return {}
+
+        closes = [float(p) for p in df["종가"].tolist()]
+        current = int(closes[-1])
+
+        # RSI(14)
+        rsi = _calc_rsi(closes[-30:], period=14)  # 최근 30개 충분
+
+        # 이평선
+        ma20 = sum(closes[-20:]) / 20 if len(closes) >= 20 else None
+        ma200 = sum(closes[-200:]) / 200 if len(closes) >= 200 else None
+        ma20_above = (current > ma20) if ma20 else None
+        ma200_above = (current > ma200) if ma200 else None
+        ma200_gap_pct = ((current - ma200) / ma200 * 100) if ma200 else None
+
+        # 52주 고/저 (최근 252 거래일)
+        recent_252 = closes[-252:] if len(closes) >= 252 else closes
+        week52_low = int(min(recent_252))
+        week52_high = int(max(recent_252))
+        rng = week52_high - week52_low
+        week52_pos = ((current - week52_low) / rng * 100) if rng > 0 else 50.0
+
+        # 52주 수익률 vs KOSPI
+        stock_52w = (current - recent_252[0]) / recent_252[0] * 100
+        rs_vs_kospi = (stock_52w - kospi_52w_return) if kospi_52w_return is not None else None
+
+        return {
+            "current_price": current,
+            "rsi": rsi,
+            "ma20_above": ma20_above,
+            "ma200_above": ma200_above,
+            "ma200_gap_pct": round(ma200_gap_pct, 1) if ma200_gap_pct is not None else None,
+            "week52_pos": round(week52_pos, 1),
+            "week52_low": week52_low,
+            "week52_high": week52_high,
+            "rs_vs_kospi": round(rs_vs_kospi, 1) if rs_vs_kospi is not None else None,
+        }
+    except Exception:
+        return {}
+
+
 def _parse_ratio(val):
     try:
         return float(str(val).replace(",", "").replace("%", "").strip())
@@ -767,6 +873,127 @@ def _build_market_movers_section(movers):
     </div>"""
 
 
+def _build_technical_section(trades):
+    """공시 종목별 기술적 신호 섹션.
+
+    RSI(14) · 200일 이평선 · 52주 위치 · 외국인 연속 · RS vs KOSPI · 매수 적합도 요약
+    """
+    rows_data = [t for t in (trades or []) if t.get("tech")]
+    if not rows_data:
+        return ""
+
+    def _rsi_badge(rsi):
+        if rsi is None:
+            return "<span style='color:#bbb;'>-</span>"
+        if rsi >= 70:
+            return f"<span style='background:#ffebee; color:#b71c1c; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>과열 {rsi}</span>"
+        if rsi <= 30:
+            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>과매도 {rsi}</span>"
+        return f"<span style='background:#fff8e1; color:#f57f17; padding:2px 6px; border-radius:8px; font-size:11px; font-weight:700;'>중립 {rsi}</span>"
+
+    def _ma200_badge(above, gap):
+        if above is None:
+            return "<span style='color:#bbb;'>-</span>"
+        color = "#1b5e20" if above else "#b71c1c"
+        arrow = "▲" if above else "▼"
+        gap_str = f"{gap:+.1f}%" if gap is not None else ""
+        return f"<span style='color:{color}; font-weight:700;'>{arrow}{gap_str}</span>"
+
+    def _w52_bar(pos):
+        if pos is None:
+            return "-"
+        # 10칸 텍스트 바 + 수치
+        filled = round(pos / 10)
+        bar = "█" * filled + "░" * (10 - filled)
+        color = "#1b5e20" if pos >= 70 else "#b71c1c" if pos <= 30 else "#f57f17"
+        return f"<span style='font-family:monospace; color:{color}; font-size:10px;'>{bar}</span> <span style='font-size:11px; color:#555;'>{pos:.0f}%</span>"
+
+    def _streak_badge(streak):
+        if not streak:
+            return "<span style='color:#bbb;'>-</span>"
+        if streak > 0:
+            return f"<span style='color:#1b5e20; font-weight:700;'>▲{streak}일 연속</span>"
+        return f"<span style='color:#b71c1c; font-weight:700;'>▼{abs(streak)}일 연속</span>"
+
+    def _rs_badge(rs):
+        if rs is None:
+            return "<span style='color:#bbb;'>-</span>"
+        color = "#1b5e20" if rs >= 5 else "#b71c1c" if rs <= -5 else "#555"
+        return f"<span style='color:{color}; font-weight:700;'>{rs:+.1f}%p</span>"
+
+    def _signal_summary(tech, direction, frgn_streak):
+        """3-check: 200일선 위 + RSI<70 + RS>0 → 신호등"""
+        score = 0
+        checks = []
+        rsi = tech.get("rsi")
+        ma200 = tech.get("ma200_above")
+        rs = tech.get("rs_vs_kospi")
+        streak = frgn_streak or 0
+
+        if ma200 is True:
+            score += 1
+            checks.append("200일↑")
+        if rsi is not None and rsi < 70:
+            score += 1
+            checks.append("RSI OK")
+        if rs is not None and rs >= 0:
+            score += 1
+            checks.append("RS↑")
+        if streak > 0:
+            score += 1
+            checks.append(f"외국인{streak}일↑")
+
+        if score >= 3:
+            return f"<span style='background:#e8f5e9; color:#1b5e20; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>✅ 매수 검토</span>"
+        elif score >= 2:
+            return f"<span style='background:#fff8e1; color:#e65100; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>⚠️ 주의 관찰</span>"
+        else:
+            return f"<span style='background:#ffebee; color:#b71c1c; padding:3px 8px; border-radius:10px; font-size:11px; font-weight:700;'>❌ 비추</span>"
+
+    rows_html = ""
+    for t in rows_data:
+        tech = t.get("tech", {})
+        is_buy = t.get("direction") == "매수"
+        name_color = "#1b5e20" if is_buy else "#b71c1c"
+        streak = t.get("frgn_streak", 0)
+        rows_html += f"""
+        <tr>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:{name_color}; white-space:nowrap;">
+            <a href="{t['url']}" style="color:{name_color}; text-decoration:none;">{t['corp_name']}</a>
+            <span style="font-size:10px; color:#999; margin-left:4px;">{t['date'][5:]}</span>
+          </td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rsi_badge(tech.get('rsi'))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_ma200_badge(tech.get('ma200_above'), tech.get('ma200_gap_pct'))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_w52_bar(tech.get('week52_pos'))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_streak_badge(streak)}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_rs_badge(tech.get('rs_vs_kospi'))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid #f0f0f0; text-align:center;">{_signal_summary(tech, t.get('direction'), streak)}</td>
+        </tr>"""
+
+    return f"""
+    <div style="padding:28px 36px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 4px; font-weight:700;">📊 공시 종목 기술적 신호</h2>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 16px;">RSI(14) · 200일 이평선 · 52주 위치 · 외국인 연속 · RS vs KOSPI(52주) · 매수 신호 판단</p>
+      <p style="font-size:10px; color:#bbb; margin:0 0 12px;">✅ 매수 검토 = 200일↑ + RSI&lt;70 + RS&gt;0 중 3개 이상 충족</p>
+      <div style="overflow-x:auto;">
+      <table style="width:100%; min-width:560px; border-collapse:collapse;">
+        <thead>
+          <tr style="background:#f5f7ff;">
+            <th style="padding:8px 12px; text-align:left; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0;">종목</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RSI(14)</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">200일선</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">52주 위치</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">외국인 연속</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">RS vs KOSPI</th>
+            <th style="padding:8px 12px; text-align:center; font-size:11px; color:#7986cb; font-weight:600; border-bottom:2px solid #e3e8f0; white-space:nowrap;">신호</th>
+          </tr>
+        </thead>
+        <tbody>{rows_html}</tbody>
+      </table>
+      </div>
+    </div>"""
+
+
 def build_html(items, period_label, value_col, trades=None, market_movers=None, market_summary=None):
     today = date.today()
     total = sum(i["value"] for i in items if "합계" not in i["name"] and i["name"] not in ("합 계",))
@@ -890,6 +1117,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
 
     foreign_daily_section = _build_foreign_daily_section(trades)
     market_movers_section = _build_market_movers_section(market_movers)
+    technical_section = _build_technical_section(trades)
 
     # 시장 요약 섹션 (KOSPI / KOSDAQ / USD·KRW)
     def _fmt_chg(chg):
@@ -969,6 +1197,8 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
     </div>
 
     {dart_section}
+
+    {technical_section}
 
     {foreign_daily_section}
 
