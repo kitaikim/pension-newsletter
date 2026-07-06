@@ -7,12 +7,16 @@
       "prev_ratio": 10.020000000000001,
       "curr_ratio": 9.97,
       "qty_change": -19810.0,
-      "price": 71400,
-      "current_price": 71400,
-      "since_return": 0.0,
-      "total_amount": 1414434000.0,
-      "foreign_net": 4052,
+      "price": 72100,
+      "current_price": 70100,
+      "since_return": -2.7739251040221915,
+      "total_amount": 1428301000.0,
+      "foreign_net": 2403,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -996
+        },
         {
           "date": "0702",
           "net": 336
@@ -28,26 +32,22 @@
         {
           "date": "0629",
           "net": 622
-        },
-        {
-          "date": "0626",
-          "net": 653
         }
       ],
-      "frgn_streak": 5,
-      "org_net": -2258,
-      "prsn_net": -1635,
-      "scrt_net": 1840,
+      "frgn_streak": -1,
+      "org_net": -1697,
+      "prsn_net": -546,
+      "scrt_net": 2363,
       "tech": {
-        "current_price": 71400,
-        "rsi": 37.2,
+        "current_price": 70100,
+        "rsi": 34.8,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -17.6,
-        "week52_pos": 5.4,
+        "ma200_gap_pct": -19.1,
+        "week52_pos": 2.3,
         "week52_low": 69100,
         "week52_high": 111700,
-        "rs_vs_kospi": -239.0
+        "rs_vs_kospi": -237.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703000059"
     },
@@ -58,12 +58,16 @@
       "prev_ratio": 9.83,
       "curr_ratio": 9.72,
       "qty_change": -32284.0,
-      "price": 115800,
-      "current_price": 115800,
-      "since_return": 0.0,
-      "total_amount": 3738487200.0,
-      "foreign_net": 8081,
+      "price": 115700,
+      "current_price": 114100,
+      "since_return": -1.382886776145203,
+      "total_amount": 3735258800.0,
+      "foreign_net": 7279,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -488
+        },
         {
           "date": "0702",
           "net": 3233
@@ -79,26 +83,22 @@
         {
           "date": "0629",
           "net": 68
-        },
-        {
-          "date": "0626",
-          "net": 314
         }
       ],
-      "frgn_streak": 5,
-      "org_net": -5352,
-      "prsn_net": -2592,
-      "scrt_net": 2407,
+      "frgn_streak": -1,
+      "org_net": -4922,
+      "prsn_net": -2296,
+      "scrt_net": 3770,
       "tech": {
-        "current_price": 115800,
-        "rsi": 40.5,
+        "current_price": 114100,
+        "rsi": 38.7,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -8.0,
-        "week52_pos": 24.5,
+        "ma200_gap_pct": -9.4,
+        "week52_pos": 21.1,
         "week52_low": 103600,
         "week52_high": 153400,
-        "rs_vs_kospi": -219.7
+        "rs_vs_kospi": -219.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703000055"
     },
@@ -109,12 +109,16 @@
       "prev_ratio": 10.020000000000001,
       "curr_ratio": 9.97,
       "qty_change": -12429.0,
-      "price": 862000,
-      "current_price": 862000,
-      "since_return": 0.0,
-      "total_amount": 10713798000.0,
-      "foreign_net": 102863,
+      "price": 872000,
+      "current_price": 827000,
+      "since_return": -5.160550458715597,
+      "total_amount": 10838088000.0,
+      "foreign_net": 169443,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 55974
+        },
         {
           "date": "0702",
           "net": 31563
@@ -130,26 +134,22 @@
         {
           "date": "0629",
           "net": 38339
-        },
-        {
-          "date": "0626",
-          "net": -10606
         }
       ],
-      "frgn_streak": 4,
-      "org_net": -35488,
-      "prsn_net": -72105,
-      "scrt_net": 64483,
+      "frgn_streak": 5,
+      "org_net": -86114,
+      "prsn_net": -82881,
+      "scrt_net": 62251,
       "tech": {
-        "current_price": 862000,
-        "rsi": 44.5,
+        "current_price": 827000,
+        "rsi": 42.7,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 105.4,
-        "week52_pos": 51.7,
+        "ma200_gap_pct": 95.5,
+        "week52_pos": 49.2,
         "week52_low": 147400,
         "week52_high": 1530000,
-        "rs_vs_kospi": 246.9
+        "rs_vs_kospi": 218.9
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703000054"
     },
@@ -161,11 +161,15 @@
       "curr_ratio": 10.45,
       "qty_change": 481663.0,
       "price": 64200,
-      "current_price": 66000,
-      "since_return": 2.803738317757009,
+      "current_price": 65800,
+      "since_return": 2.4922118380062304,
       "total_amount": 30922764600.0,
-      "foreign_net": 22663,
+      "foreign_net": 11882,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 2287
+        },
         {
           "date": "0702",
           "net": 4557
@@ -181,26 +185,22 @@
         {
           "date": "0629",
           "net": 2165
-        },
-        {
-          "date": "0626",
-          "net": 13068
         }
       ],
       "frgn_streak": 5,
-      "org_net": 6083,
-      "prsn_net": -28421,
-      "scrt_net": 1119,
+      "org_net": 9890,
+      "prsn_net": -21529,
+      "scrt_net": 758,
       "tech": {
-        "current_price": 66000,
-        "rsi": 42.7,
+        "current_price": 65800,
+        "rsi": 41.8,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 16.7,
-        "week52_pos": 42.8,
+        "ma200_gap_pct": 16.1,
+        "week52_pos": 42.5,
         "week52_low": 38700,
         "week52_high": 102500,
-        "rs_vs_kospi": -185.0
+        "rs_vs_kospi": -200.4
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000397"
     },
@@ -212,11 +212,15 @@
       "curr_ratio": 12.19,
       "qty_change": -352457.0,
       "price": 131000,
-      "current_price": 126000,
-      "since_return": -3.816793893129771,
+      "current_price": 120100,
+      "since_return": -8.3206106870229,
       "total_amount": 46171867000.0,
-      "foreign_net": -11535,
+      "foreign_net": 32291,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 56129
+        },
         {
           "date": "0702",
           "net": 1789
@@ -232,26 +236,22 @@
         {
           "date": "0629",
           "net": -1803
-        },
-        {
-          "date": "0626",
-          "net": 12303
         }
       ],
-      "frgn_streak": 1,
-      "org_net": 16930,
-      "prsn_net": -3337,
-      "scrt_net": 15146,
+      "frgn_streak": 2,
+      "org_net": -35106,
+      "prsn_net": 5632,
+      "scrt_net": 10662,
       "tech": {
-        "current_price": 126000,
-        "rsi": 40.9,
+        "current_price": 120100,
+        "rsi": 38.4,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 69.3,
-        "week52_pos": 62.7,
+        "ma200_gap_pct": 60.3,
+        "week52_pos": 59.3,
         "week52_low": 17060,
         "week52_high": 190900,
-        "rs_vs_kospi": 391.3
+        "rs_vs_kospi": 359.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000393"
     },
@@ -263,11 +263,15 @@
       "curr_ratio": 10.08,
       "qty_change": 7345.0,
       "price": 3432000,
-      "current_price": 3255000,
-      "since_return": -5.1573426573426575,
+      "current_price": 3073000,
+      "since_return": -10.46037296037296,
       "total_amount": 25208040000.0,
-      "foreign_net": -44287,
+      "foreign_net": -106693,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -43582
+        },
         {
           "date": "0702",
           "net": -38499
@@ -283,26 +287,22 @@
         {
           "date": "0629",
           "net": -10742
-        },
-        {
-          "date": "0626",
-          "net": 18824
         }
       ],
-      "frgn_streak": -4,
-      "org_net": 104122,
-      "prsn_net": -60125,
-      "scrt_net": 60364,
+      "frgn_streak": -5,
+      "org_net": 147840,
+      "prsn_net": -42411,
+      "scrt_net": 75699,
       "tech": {
-        "current_price": 3255000,
-        "rsi": 41.4,
+        "current_price": 3073000,
+        "rsi": 37.4,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 28.9,
-        "week52_pos": 64.3,
-        "week52_low": 826000,
+        "ma200_gap_pct": 21.2,
+        "week52_pos": 59.2,
+        "week52_low": 856000,
         "week52_high": 4601000,
-        "rs_vs_kospi": 72.7
+        "rs_vs_kospi": 39.8
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000388"
     },
@@ -314,11 +314,15 @@
       "curr_ratio": 10.13,
       "qty_change": 35252.0,
       "price": 18510,
-      "current_price": 18420,
-      "since_return": -0.48622366288492713,
+      "current_price": 18380,
+      "since_return": -0.7023230686115614,
       "total_amount": 652514520.0,
-      "foreign_net": 3360,
+      "foreign_net": 1391,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -997
+        },
         {
           "date": "0702",
           "net": 264
@@ -334,26 +338,22 @@
         {
           "date": "0629",
           "net": 688
-        },
-        {
-          "date": "0626",
-          "net": 972
         }
       ],
-      "frgn_streak": 2,
-      "org_net": 677,
-      "prsn_net": -4086,
-      "scrt_net": 751,
+      "frgn_streak": -1,
+      "org_net": 1556,
+      "prsn_net": -3172,
+      "scrt_net": 715,
       "tech": {
-        "current_price": 18420,
-        "rsi": 40.9,
+        "current_price": 18380,
+        "rsi": 38.1,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -11.8,
-        "week52_pos": 9.8,
+        "ma200_gap_pct": -11.9,
+        "week52_pos": 9.3,
         "week52_low": 17710,
         "week52_high": 24950,
-        "rs_vs_kospi": -246.6
+        "rs_vs_kospi": -245.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000381"
     },
@@ -365,11 +365,15 @@
       "curr_ratio": 12.07,
       "qty_change": -131621.0,
       "price": 121700,
-      "current_price": 117100,
-      "since_return": -3.779786359901397,
+      "current_price": 121600,
+      "since_return": -0.08216926869350863,
       "total_amount": 16018275700.0,
-      "foreign_net": -20860,
+      "foreign_net": -29006,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 9965
+        },
         {
           "date": "0702",
           "net": -2810
@@ -385,26 +389,22 @@
         {
           "date": "0629",
           "net": -8638
-        },
-        {
-          "date": "0626",
-          "net": 18111
         }
       ],
-      "frgn_streak": -4,
-      "org_net": 15608,
-      "prsn_net": 3867,
-      "scrt_net": 6118,
+      "frgn_streak": 1,
+      "org_net": 14527,
+      "prsn_net": 13664,
+      "scrt_net": 9387,
       "tech": {
-        "current_price": 117100,
-        "rsi": 34.5,
+        "current_price": 121600,
+        "rsi": 36.0,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -5.8,
-        "week52_pos": 35.1,
+        "ma200_gap_pct": -2.3,
+        "week52_pos": 38.8,
         "week52_low": 73200,
         "week52_high": 198100,
-        "rs_vs_kospi": -175.4
+        "rs_vs_kospi": -162.2
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000378"
     },
@@ -416,11 +416,15 @@
       "curr_ratio": 12.87,
       "qty_change": 37005.0,
       "price": 84300,
-      "current_price": 83900,
-      "since_return": -0.4744958481613286,
+      "current_price": 84300,
+      "since_return": 0.0,
       "total_amount": 3119521500.0,
-      "foreign_net": -5179,
+      "foreign_net": -7389,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -1612
+        },
         {
           "date": "0702",
           "net": -4950
@@ -436,26 +440,22 @@
         {
           "date": "0629",
           "net": -185
-        },
-        {
-          "date": "0626",
-          "net": 598
         }
       ],
-      "frgn_streak": -1,
-      "org_net": 17684,
-      "prsn_net": -12381,
-      "scrt_net": 2301,
+      "frgn_streak": -2,
+      "org_net": 19107,
+      "prsn_net": -11603,
+      "scrt_net": 1742,
       "tech": {
-        "current_price": 83900,
-        "rsi": 66.2,
+        "current_price": 84300,
+        "rsi": 64.3,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 12.2,
-        "week52_pos": 59.5,
+        "ma200_gap_pct": 12.6,
+        "week52_pos": 60.4,
         "week52_low": 55800,
         "week52_high": 103000,
-        "rs_vs_kospi": -184.9
+        "rs_vs_kospi": -180.7
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000372"
     },
@@ -467,11 +467,15 @@
       "curr_ratio": 10.6,
       "qty_change": 218093.0,
       "price": 48400,
-      "current_price": 48700,
-      "since_return": 0.6198347107438017,
+      "current_price": 49000,
+      "since_return": 1.2396694214876034,
       "total_amount": 10555701200.0,
-      "foreign_net": -11042,
+      "foreign_net": -18537,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -5631
+        },
         {
           "date": "0702",
           "net": -1832
@@ -487,26 +491,22 @@
         {
           "date": "0629",
           "net": -2326
-        },
-        {
-          "date": "0626",
-          "net": 1864
         }
       ],
-      "frgn_streak": -4,
-      "org_net": 4886,
-      "prsn_net": 5885,
-      "scrt_net": 1167,
+      "frgn_streak": -5,
+      "org_net": 15024,
+      "prsn_net": 2786,
+      "scrt_net": 1102,
       "tech": {
-        "current_price": 48700,
-        "rsi": 39.5,
+        "current_price": 49000,
+        "rsi": 39.6,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -4.7,
-        "week52_pos": 36.3,
+        "ma200_gap_pct": -4.2,
+        "week52_pos": 36.9,
         "week52_low": 32650,
         "week52_high": 76900,
-        "rs_vs_kospi": -177.1
+        "rs_vs_kospi": -174.6
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000369"
     },
@@ -518,11 +518,15 @@
       "curr_ratio": 12.57,
       "qty_change": 152316.0,
       "price": 167300,
-      "current_price": 167700,
-      "since_return": 0.23909145248057379,
+      "current_price": 176800,
+      "since_return": 5.678421996413628,
       "total_amount": 25482466800.0,
-      "foreign_net": -592,
+      "foreign_net": -3169,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -1106
+        },
         {
           "date": "0702",
           "net": -1351
@@ -538,26 +542,22 @@
         {
           "date": "0629",
           "net": 1543
-        },
-        {
-          "date": "0626",
-          "net": 1471
         }
       ],
-      "frgn_streak": -3,
-      "org_net": 6442,
-      "prsn_net": -6157,
-      "scrt_net": 4003,
+      "frgn_streak": -4,
+      "org_net": 7473,
+      "prsn_net": -4660,
+      "scrt_net": 3406,
       "tech": {
-        "current_price": 167700,
-        "rsi": 52.7,
+        "current_price": 176800,
+        "rsi": 58.0,
         "ma20_above": true,
         "ma200_above": false,
-        "ma200_gap_pct": -10.5,
-        "week52_pos": 16.6,
+        "ma200_gap_pct": -5.5,
+        "week52_pos": 23.3,
         "week52_low": 144900,
         "week52_high": 282000,
-        "rs_vs_kospi": -260.6
+        "rs_vs_kospi": -256.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000366"
     },
@@ -569,11 +569,15 @@
       "curr_ratio": 12.8,
       "qty_change": 610516.0,
       "price": 113700,
-      "current_price": 116800,
-      "since_return": 2.7264731750219875,
+      "current_price": 116400,
+      "since_return": 2.3746701846965697,
       "total_amount": 69415669200.0,
-      "foreign_net": -7712,
+      "foreign_net": -909,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 190
+        },
         {
           "date": "0702",
           "net": 14593
@@ -589,26 +593,22 @@
         {
           "date": "0629",
           "net": -14243
-        },
-        {
-          "date": "0626",
-          "net": -6613
         }
       ],
-      "frgn_streak": 2,
-      "org_net": 63502,
-      "prsn_net": -57204,
-      "scrt_net": 5528,
+      "frgn_streak": 3,
+      "org_net": 57572,
+      "prsn_net": -60788,
+      "scrt_net": 1534,
       "tech": {
-        "current_price": 116800,
-        "rsi": 80.4,
+        "current_price": 116400,
+        "rsi": 77.1,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 53.3,
-        "week52_pos": 100.0,
+        "ma200_gap_pct": 52.4,
+        "week52_pos": 97.5,
         "week52_low": 61100,
-        "week52_high": 116800,
-        "rs_vs_kospi": -191.3
+        "week52_high": 117800,
+        "rs_vs_kospi": -189.4
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000335"
     },
@@ -620,11 +620,15 @@
       "curr_ratio": 10.3,
       "qty_change": 23502.0,
       "price": 436000,
-      "current_price": 457500,
-      "since_return": 4.931192660550459,
+      "current_price": 422000,
+      "since_return": -3.211009174311927,
       "total_amount": 10246872000.0,
-      "foreign_net": -19127,
+      "foreign_net": -37913,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -18467
+        },
         {
           "date": "0702",
           "net": -16356
@@ -640,26 +644,22 @@
         {
           "date": "0629",
           "net": 128
-        },
-        {
-          "date": "0626",
-          "net": 319
         }
       ],
-      "frgn_streak": -3,
-      "org_net": 35632,
-      "prsn_net": -13220,
-      "scrt_net": 13193,
+      "frgn_streak": -4,
+      "org_net": 59221,
+      "prsn_net": -19693,
+      "scrt_net": 14131,
       "tech": {
-        "current_price": 457500,
-        "rsi": 56.3,
+        "current_price": 422000,
+        "rsi": 49.0,
         "ma20_above": true,
-        "ma200_above": true,
-        "ma200_gap_pct": 0.8,
-        "week52_pos": 52.7,
+        "ma200_above": false,
+        "ma200_gap_pct": -7.1,
+        "week52_pos": 42.7,
         "week52_low": 270000,
         "week52_high": 626000,
-        "rs_vs_kospi": -167.6
+        "rs_vs_kospi": -176.1
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000334"
     },
@@ -671,11 +671,15 @@
       "curr_ratio": 10.05,
       "qty_change": 272558.0,
       "price": 60200,
-      "current_price": 58700,
-      "since_return": -2.4916943521594686,
+      "current_price": 55700,
+      "since_return": -7.475083056478406,
       "total_amount": 16407991600.0,
-      "foreign_net": 3499,
+      "foreign_net": -1814,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 317
+        },
         {
           "date": "0702",
           "net": 341
@@ -691,26 +695,22 @@
         {
           "date": "0629",
           "net": -543
-        },
-        {
-          "date": "0626",
-          "net": 5630
         }
       ],
-      "frgn_streak": 2,
-      "org_net": 1998,
-      "prsn_net": -5166,
-      "scrt_net": 809,
+      "frgn_streak": 3,
+      "org_net": 5856,
+      "prsn_net": -4012,
+      "scrt_net": 1615,
       "tech": {
-        "current_price": 58700,
-        "rsi": 35.7,
+        "current_price": 55700,
+        "rsi": 32.0,
         "ma20_above": false,
-        "ma200_above": true,
-        "ma200_gap_pct": 2.0,
-        "week52_pos": 36.9,
+        "ma200_above": false,
+        "ma200_gap_pct": -3.4,
+        "week52_pos": 32.4,
         "week52_low": 34000,
         "week52_high": 100900,
-        "rs_vs_kospi": -171.4
+        "rs_vs_kospi": -177.8
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000333"
     },
@@ -722,11 +722,15 @@
       "curr_ratio": 10.57,
       "qty_change": 168344.0,
       "price": 83100,
-      "current_price": 84100,
-      "since_return": 1.203369434416366,
+      "current_price": 82800,
+      "since_return": -0.36101083032490977,
       "total_amount": 13989386400.0,
-      "foreign_net": -3623,
+      "foreign_net": -5532,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -978
+        },
         {
           "date": "0702",
           "net": -3463
@@ -742,26 +746,22 @@
         {
           "date": "0629",
           "net": -703
-        },
-        {
-          "date": "0626",
-          "net": 931
         }
       ],
-      "frgn_streak": -1,
-      "org_net": 7045,
-      "prsn_net": -3408,
-      "scrt_net": 4127,
+      "frgn_streak": -2,
+      "org_net": 9921,
+      "prsn_net": -4362,
+      "scrt_net": 4902,
       "tech": {
-        "current_price": 84100,
-        "rsi": 57.6,
+        "current_price": 82800,
+        "rsi": 54.5,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 6.1,
-        "week52_pos": 67.2,
+        "ma200_gap_pct": 4.3,
+        "week52_pos": 64.2,
         "week52_low": 55600,
         "week52_high": 98000,
-        "rs_vs_kospi": -182.4
+        "rs_vs_kospi": -185.2
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000293"
     },
@@ -773,11 +773,15 @@
       "curr_ratio": 13.35,
       "qty_change": 921614.0,
       "price": 19160,
-      "current_price": 19460,
-      "since_return": 1.5657620041753653,
+      "current_price": 18700,
+      "since_return": -2.4008350730688934,
       "total_amount": 17658124240.0,
-      "foreign_net": 6723,
+      "foreign_net": 2947,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -669
+        },
         {
           "date": "0702",
           "net": 498
@@ -793,26 +797,22 @@
         {
           "date": "0629",
           "net": 2019
-        },
-        {
-          "date": "0626",
-          "net": 3107
         }
       ],
-      "frgn_streak": 5,
-      "org_net": -4736,
-      "prsn_net": -2016,
-      "scrt_net": -25,
+      "frgn_streak": -1,
+      "org_net": -3953,
+      "prsn_net": 1087,
+      "scrt_net": -180,
       "tech": {
-        "current_price": 19460,
-        "rsi": 30.3,
+        "current_price": 18700,
+        "rsi": 22.3,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -8.5,
-        "week52_pos": 25.7,
+        "ma200_gap_pct": -12.1,
+        "week52_pos": 23.0,
         "week52_low": 12280,
         "week52_high": 40200,
-        "rs_vs_kospi": -169.2
+        "rs_vs_kospi": -173.8
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000286"
     },
@@ -824,11 +824,15 @@
       "curr_ratio": 10.31,
       "qty_change": 55530.0,
       "price": 762000,
-      "current_price": 757000,
-      "since_return": -0.6561679790026247,
+      "current_price": 792000,
+      "since_return": 3.937007874015748,
       "total_amount": 42313860000.0,
-      "foreign_net": -53377,
+      "foreign_net": -18643,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 21019
+        },
         {
           "date": "0702",
           "net": -18576
@@ -844,26 +848,22 @@
         {
           "date": "0629",
           "net": -14770
-        },
-        {
-          "date": "0626",
-          "net": -13715
         }
       ],
-      "frgn_streak": -2,
-      "org_net": 49310,
-      "prsn_net": 6761,
-      "scrt_net": 41125,
+      "frgn_streak": 1,
+      "org_net": 13000,
+      "prsn_net": 2758,
+      "scrt_net": 8395,
       "tech": {
-        "current_price": 757000,
-        "rsi": 43.1,
+        "current_price": 792000,
+        "rsi": 44.5,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 23.3,
-        "week52_pos": 59.9,
+        "ma200_gap_pct": 28.6,
+        "week52_pos": 65.2,
         "week52_low": 364500,
         "week52_high": 1020000,
-        "rs_vs_kospi": -184.7
+        "rs_vs_kospi": -168.9
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000284"
     },
@@ -875,11 +875,15 @@
       "curr_ratio": 12.16,
       "qty_change": 83544.0,
       "price": 225500,
-      "current_price": 237500,
-      "since_return": 5.321507760532151,
+      "current_price": 246000,
+      "since_return": 9.090909090909092,
       "total_amount": 18839172000.0,
-      "foreign_net": -17762,
+      "foreign_net": 675,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 19359
+        },
         {
           "date": "0702",
           "net": 6275
@@ -895,26 +899,22 @@
         {
           "date": "0629",
           "net": -1049
-        },
-        {
-          "date": "0626",
-          "net": 922
         }
       ],
-      "frgn_streak": 1,
-      "org_net": 48135,
-      "prsn_net": -31885,
-      "scrt_net": -6143,
+      "frgn_streak": 2,
+      "org_net": 64518,
+      "prsn_net": -55676,
+      "scrt_net": -3932,
       "tech": {
-        "current_price": 237500,
-        "rsi": 52.5,
+        "current_price": 246000,
+        "rsi": 55.0,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 17.4,
-        "week52_pos": 67.1,
+        "ma200_gap_pct": 21.3,
+        "week52_pos": 72.2,
         "week52_low": 125300,
         "week52_high": 292500,
-        "rs_vs_kospi": -161.3
+        "rs_vs_kospi": -151.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000281"
     },
@@ -926,11 +926,15 @@
       "curr_ratio": 13.49,
       "qty_change": 34530.0,
       "price": 186300,
-      "current_price": 181900,
-      "since_return": -2.3617820719269997,
+      "current_price": 169800,
+      "since_return": -8.856682769726248,
       "total_amount": 6432939000.0,
-      "foreign_net": 9449,
+      "foreign_net": 34719,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 17768
+        },
         {
           "date": "0702",
           "net": 2774
@@ -946,26 +950,22 @@
         {
           "date": "0629",
           "net": 2745
-        },
-        {
-          "date": "0626",
-          "net": -7502
         }
       ],
-      "frgn_streak": 4,
-      "org_net": -29584,
-      "prsn_net": 14641,
-      "scrt_net": 8404,
+      "frgn_streak": 5,
+      "org_net": -45802,
+      "prsn_net": 6692,
+      "scrt_net": 7770,
       "tech": {
-        "current_price": 181900,
-        "rsi": 57.7,
+        "current_price": 169800,
+        "rsi": 52.5,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 77.2,
-        "week52_pos": 81.8,
+        "ma200_gap_pct": 64.6,
+        "week52_pos": 73.0,
         "week52_low": 69000,
         "week52_high": 207000,
-        "rs_vs_kospi": -81.4
+        "rs_vs_kospi": -97.2
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000268"
     },
@@ -977,11 +977,15 @@
       "curr_ratio": 10.43,
       "qty_change": -239123.0,
       "price": 108400,
-      "current_price": 103900,
-      "since_return": -4.1512915129151295,
+      "current_price": 104600,
+      "since_return": -3.505535055350553,
       "total_amount": 25920933200.0,
-      "foreign_net": -7562,
+      "foreign_net": -11341,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -487
+        },
         {
           "date": "0702",
           "net": -2040
@@ -997,26 +1001,22 @@
         {
           "date": "0629",
           "net": -5321
-        },
-        {
-          "date": "0626",
-          "net": 3292
         }
       ],
-      "frgn_streak": -4,
-      "org_net": 14215,
-      "prsn_net": -6662,
-      "scrt_net": 2754,
+      "frgn_streak": -5,
+      "org_net": 14755,
+      "prsn_net": -3567,
+      "scrt_net": 4680,
       "tech": {
-        "current_price": 103900,
-        "rsi": 37.7,
+        "current_price": 104600,
+        "rsi": 37.4,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -17.7,
-        "week52_pos": 18.1,
+        "ma200_gap_pct": -17.2,
+        "week52_pos": 18.7,
         "week52_low": 83800,
         "week52_high": 194800,
-        "rs_vs_kospi": -231.0
+        "rs_vs_kospi": -228.1
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000265"
     },
@@ -1028,11 +1028,15 @@
       "curr_ratio": 11.58,
       "qty_change": -155013.0,
       "price": 322500,
-      "current_price": 347000,
-      "since_return": 7.596899224806202,
+      "current_price": 352000,
+      "since_return": 9.147286821705427,
       "total_amount": 49991692500.0,
-      "foreign_net": -38969,
+      "foreign_net": -43539,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -5183
+        },
         {
           "date": "0702",
           "net": -2485
@@ -1048,26 +1052,22 @@
         {
           "date": "0629",
           "net": -239
-        },
-        {
-          "date": "0626",
-          "net": -613
         }
       ],
       "frgn_streak": -5,
-      "org_net": 36681,
-      "prsn_net": 1345,
-      "scrt_net": 5137,
+      "org_net": 58062,
+      "prsn_net": -12208,
+      "scrt_net": 11541,
       "tech": {
-        "current_price": 347000,
-        "rsi": 46.6,
+        "current_price": 352000,
+        "rsi": 47.8,
         "ma20_above": true,
         "ma200_above": false,
-        "ma200_gap_pct": -1.4,
-        "week52_pos": 50.5,
+        "ma200_gap_pct": -0.2,
+        "week52_pos": 52.1,
         "week52_low": 195800,
         "week52_high": 495500,
-        "rs_vs_kospi": -174.6
+        "rs_vs_kospi": -170.3
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000263"
     },
@@ -1079,11 +1079,15 @@
       "curr_ratio": 10.29,
       "qty_change": 37571.0,
       "price": 13860,
-      "current_price": 13390,
-      "since_return": -3.3910533910533913,
+      "current_price": 13820,
+      "since_return": -0.2886002886002886,
       "total_amount": 520734060.0,
-      "foreign_net": -822,
+      "foreign_net": -308,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 222
+        },
         {
           "date": "0702",
           "net": -178
@@ -1099,26 +1103,22 @@
         {
           "date": "0629",
           "net": 158
-        },
-        {
-          "date": "0626",
-          "net": -292
         }
       ],
-      "frgn_streak": -1,
-      "org_net": 1155,
-      "prsn_net": -466,
-      "scrt_net": 41,
+      "frgn_streak": 1,
+      "org_net": 1061,
+      "prsn_net": -754,
+      "scrt_net": 35,
       "tech": {
-        "current_price": 13390,
-        "rsi": 40.3,
+        "current_price": 13820,
+        "rsi": 41.0,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -8.1,
-        "week52_pos": 29.0,
+        "ma200_gap_pct": -5.2,
+        "week52_pos": 33.3,
         "week52_low": 10460,
         "week52_high": 20550,
-        "rs_vs_kospi": -205.1
+        "rs_vs_kospi": -197.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000260"
     },
@@ -1130,11 +1130,15 @@
       "curr_ratio": 11.08,
       "qty_change": 230623.0,
       "price": 265000,
-      "current_price": 261500,
-      "since_return": -1.3207547169811322,
+      "current_price": 253000,
+      "since_return": -4.528301886792453,
       "total_amount": 61115095000.0,
-      "foreign_net": 5341,
+      "foreign_net": -1661,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -1186
+        },
         {
           "date": "0702",
           "net": -3017
@@ -1150,26 +1154,22 @@
         {
           "date": "0629",
           "net": 4130
-        },
-        {
-          "date": "0626",
-          "net": 5816
         }
       ],
-      "frgn_streak": -1,
-      "org_net": 21441,
-      "prsn_net": -26776,
-      "scrt_net": -964,
+      "frgn_streak": -2,
+      "org_net": 25423,
+      "prsn_net": -23734,
+      "scrt_net": 304,
       "tech": {
-        "current_price": 261500,
-        "rsi": 51.4,
-        "ma20_above": true,
+        "current_price": 253000,
+        "rsi": 46.4,
+        "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 13.4,
-        "week52_pos": 49.8,
+        "ma200_gap_pct": 9.6,
+        "week52_pos": 44.2,
         "week52_low": 185700,
         "week52_high": 338000,
-        "rs_vs_kospi": -186.6
+        "rs_vs_kospi": -187.9
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000258"
     },
@@ -1181,11 +1181,15 @@
       "curr_ratio": 12.21,
       "qty_change": 565242.0,
       "price": 14530,
-      "current_price": 12520,
-      "since_return": -13.833448038540949,
+      "current_price": 12850,
+      "since_return": -11.56228492773572,
       "total_amount": 8212966260.0,
-      "foreign_net": -3436,
+      "foreign_net": -4634,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -1968
+        },
         {
           "date": "0702",
           "net": -2321
@@ -1201,26 +1205,22 @@
         {
           "date": "0629",
           "net": 3124
-        },
-        {
-          "date": "0626",
-          "net": -770
         }
       ],
-      "frgn_streak": -3,
-      "org_net": 8594,
-      "prsn_net": -5562,
-      "scrt_net": 912,
+      "frgn_streak": -4,
+      "org_net": 1352,
+      "prsn_net": 2903,
+      "scrt_net": -1658,
       "tech": {
-        "current_price": 12520,
-        "rsi": 40.9,
+        "current_price": 12850,
+        "rsi": 41.7,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -27.3,
-        "week52_pos": 1.0,
+        "ma200_gap_pct": -25.2,
+        "week52_pos": 3.9,
         "week52_low": 12410,
         "week52_high": 23650,
-        "rs_vs_kospi": -237.1
+        "rs_vs_kospi": -233.2
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000255"
     },
@@ -1232,11 +1232,15 @@
       "curr_ratio": 12.88,
       "qty_change": 620022.0,
       "price": 168500,
-      "current_price": 169900,
-      "since_return": 0.830860534124629,
+      "current_price": 168300,
+      "since_return": -0.11869436201780414,
       "total_amount": 104473707000.0,
-      "foreign_net": 3328,
+      "foreign_net": 16209,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 5704
+        },
         {
           "date": "0702",
           "net": -5775
@@ -1252,26 +1256,22 @@
         {
           "date": "0629",
           "net": 11125
-        },
-        {
-          "date": "0626",
-          "net": -7177
         }
       ],
-      "frgn_streak": -1,
-      "org_net": -10986,
-      "prsn_net": 5969,
-      "scrt_net": -1583,
+      "frgn_streak": 1,
+      "org_net": -24580,
+      "prsn_net": 5673,
+      "scrt_net": -3039,
       "tech": {
-        "current_price": 169900,
-        "rsi": 48.0,
+        "current_price": 168300,
+        "rsi": 47.6,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 65.6,
-        "week52_pos": 75.9,
+        "ma200_gap_pct": 63.3,
+        "week52_pos": 74.7,
         "week52_low": 64100,
         "week52_high": 203500,
-        "rs_vs_kospi": -94.8
+        "rs_vs_kospi": -97.1
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000253"
     },
@@ -1283,11 +1283,15 @@
       "curr_ratio": 13.35,
       "qty_change": 34541.0,
       "price": 107900,
-      "current_price": 117100,
-      "since_return": 8.526413345690456,
+      "current_price": 120400,
+      "since_return": 11.584800741427248,
       "total_amount": 3726973900.0,
-      "foreign_net": -10278,
+      "foreign_net": -283,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 5253
+        },
         {
           "date": "0702",
           "net": 2624
@@ -1303,26 +1307,22 @@
         {
           "date": "0629",
           "net": -3223
-        },
-        {
-          "date": "0626",
-          "net": -4742
         }
       ],
-      "frgn_streak": 1,
-      "org_net": 22031,
-      "prsn_net": -14008,
-      "scrt_net": 10135,
+      "frgn_streak": 2,
+      "org_net": 36391,
+      "prsn_net": -36489,
+      "scrt_net": 2742,
       "tech": {
-        "current_price": 117100,
-        "rsi": 51.1,
+        "current_price": 120400,
+        "rsi": 51.5,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 24.8,
-        "week52_pos": 60.8,
+        "ma200_gap_pct": 28.0,
+        "week52_pos": 64.8,
         "week52_low": 66900,
         "week52_high": 149500,
-        "rs_vs_kospi": -166.9
+        "rs_vs_kospi": -163.2
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000248"
     },
@@ -1334,11 +1334,15 @@
       "curr_ratio": 11.16,
       "qty_change": -244593.0,
       "price": 275000,
-      "current_price": 259000,
-      "since_return": -5.818181818181818,
+      "current_price": 240500,
+      "since_return": -12.545454545454545,
       "total_amount": 67263075000.0,
-      "foreign_net": -2884,
+      "foreign_net": -5799,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -228
+        },
         {
           "date": "0702",
           "net": -2959
@@ -1354,26 +1358,22 @@
         {
           "date": "0629",
           "net": -338
-        },
-        {
-          "date": "0626",
-          "net": 2687
         }
       ],
-      "frgn_streak": -1,
-      "org_net": 18068,
-      "prsn_net": -13367,
-      "scrt_net": 9345,
+      "frgn_streak": -2,
+      "org_net": 17733,
+      "prsn_net": -10384,
+      "scrt_net": 8791,
       "tech": {
-        "current_price": 259000,
-        "rsi": 44.0,
+        "current_price": 240500,
+        "rsi": 39.1,
         "ma20_above": false,
-        "ma200_above": true,
-        "ma200_gap_pct": 1.2,
-        "week52_pos": 55.7,
+        "ma200_above": false,
+        "ma200_gap_pct": -6.2,
+        "week52_pos": 45.4,
         "week52_low": 159500,
         "week52_high": 338000,
-        "rs_vs_kospi": -163.1
+        "rs_vs_kospi": -170.7
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000243"
     },
@@ -1385,11 +1385,15 @@
       "curr_ratio": 13.25,
       "qty_change": -6742.0,
       "price": 219000,
-      "current_price": 208000,
-      "since_return": -5.0228310502283104,
+      "current_price": 195600,
+      "since_return": -10.684931506849315,
       "total_amount": 1476498000.0,
-      "foreign_net": 620,
+      "foreign_net": -27766,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -1211
+        },
         {
           "date": "0702",
           "net": -15387
@@ -1405,26 +1409,22 @@
         {
           "date": "0629",
           "net": 2882
-        },
-        {
-          "date": "0626",
-          "net": 27175
         }
       ],
-      "frgn_streak": -3,
-      "org_net": -4711,
-      "prsn_net": 3503,
-      "scrt_net": 2294,
+      "frgn_streak": -4,
+      "org_net": 12339,
+      "prsn_net": 15120,
+      "scrt_net": 3528,
       "tech": {
-        "current_price": 208000,
-        "rsi": 41.2,
+        "current_price": 195600,
+        "rsi": 36.6,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 20.7,
-        "week52_pos": 42.9,
+        "ma200_gap_pct": 13.1,
+        "week52_pos": 39.0,
         "week52_low": 72800,
         "week52_high": 388000,
-        "rs_vs_kospi": -36.8
+        "rs_vs_kospi": -53.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000237"
     },
@@ -1436,11 +1436,15 @@
       "curr_ratio": 10.84,
       "qty_change": 415021.0,
       "price": 62400,
-      "current_price": 58100,
-      "since_return": -6.891025641025641,
+      "current_price": 56500,
+      "since_return": -9.455128205128204,
       "total_amount": 25897310400.0,
-      "foreign_net": -31940,
+      "foreign_net": -25522,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": -2913
+        },
         {
           "date": "0702",
           "net": -8808
@@ -1456,26 +1460,22 @@
         {
           "date": "0629",
           "net": -8604
-        },
-        {
-          "date": "0626",
-          "net": -9331
         }
       ],
       "frgn_streak": -5,
-      "org_net": 33178,
-      "prsn_net": -2049,
-      "scrt_net": 1710,
+      "org_net": 27414,
+      "prsn_net": -1792,
+      "scrt_net": 2290,
       "tech": {
-        "current_price": 58100,
-        "rsi": 52.7,
+        "current_price": 56500,
+        "rsi": 48.6,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 21.7,
-        "week52_pos": 72.9,
+        "ma200_gap_pct": 18.0,
+        "week52_pos": 69.4,
         "week52_low": 24250,
         "week52_high": 70700,
-        "rs_vs_kospi": -93.5
+        "rs_vs_kospi": -94.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000236"
     },
@@ -1487,11 +1487,15 @@
       "curr_ratio": 9.09,
       "qty_change": 102439.0,
       "price": 80200,
-      "current_price": 77100,
-      "since_return": -3.865336658354115,
+      "current_price": 71400,
+      "since_return": -10.972568578553615,
       "total_amount": 8215607800.0,
-      "foreign_net": 8861,
+      "foreign_net": 10854,
       "foreign_daily": [
+        {
+          "date": "0703",
+          "net": 5854
+        },
         {
           "date": "0702",
           "net": 1150
@@ -1507,29 +1511,25 @@
         {
           "date": "0629",
           "net": 12061
-        },
-        {
-          "date": "0626",
-          "net": 3861
         }
       ],
-      "frgn_streak": 1,
-      "org_net": -29912,
-      "prsn_net": 22406,
-      "scrt_net": 4814,
+      "frgn_streak": 2,
+      "org_net": -30783,
+      "prsn_net": 21338,
+      "scrt_net": 3389,
       "tech": {
-        "current_price": 77100,
-        "rsi": 37.3,
+        "current_price": 71400,
+        "rsi": 34.8,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 30.8,
-        "week52_pos": 50.4,
+        "ma200_gap_pct": 20.5,
+        "week52_pos": 46.1,
         "week52_low": 11130,
         "week52_high": 141900,
-        "rs_vs_kospi": 349.7
+        "rs_vs_kospi": 298.5
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702000126"
     }
   ],
-  "updated": "2026-07-03"
+  "updated": "2026-07-06"
 }
