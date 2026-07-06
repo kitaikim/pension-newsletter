@@ -873,6 +873,115 @@ def _build_market_movers_section(movers):
     </div>"""
 
 
+def _calc_tech_score(tech, frgn_streak):
+    """기술적 신호 점수 (0~4): 200일↑(1) + RSI<70(1) + RS≥0(1) + 외국인연속매수(1)"""
+    score = 0
+    checks = []
+    if tech.get("ma200_above") is True:
+        score += 1
+        checks.append("200일↑")
+    rsi = tech.get("rsi")
+    if rsi is not None and rsi < 70:
+        score += 1
+        checks.append("RSI OK")
+    rs = tech.get("rs_vs_kospi")
+    if rs is not None and rs >= 0:
+        score += 1
+        checks.append("RS↑")
+    if (frgn_streak or 0) > 0:
+        score += 1
+        checks.append(f"외국인{frgn_streak}일↑")
+    return score, checks
+
+
+def _build_top_picks_section(trades):
+    """매수 검토 종목 카드 + 방법론 비교 통계."""
+    all_trades = [t for t in (trades or []) if t.get("tech")]
+    if not all_trades:
+        return ""
+
+    # 방법론 비교 통계
+    trades_with_sr = [t for t in all_trades if t.get("since_return") is not None]
+    picks = [t for t in trades_with_sr
+             if _calc_tech_score(t["tech"], t.get("frgn_streak", 0))[0] >= 3]
+
+    method_html = ""
+    if trades_with_sr:
+        all_avg = sum(t["since_return"] for t in trades_with_sr) / len(trades_with_sr)
+        all_color = "#1b5e20" if all_avg >= 0 else "#b71c1c"
+        all_str = f"<span style='color:{all_color}; font-weight:700;'>{all_avg:+.1f}%</span>"
+        if picks:
+            pick_avg = sum(t["since_return"] for t in picks) / len(picks)
+            pick_color = "#1b5e20" if pick_avg >= 0 else "#b71c1c"
+            pick_str = f"<span style='color:{pick_color}; font-weight:700;'>{pick_avg:+.1f}%</span>"
+            method_html = (
+                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 16px;'>"
+                f"📊 공시 추종 평균: {all_str} ({len(trades_with_sr)}건) &nbsp;|&nbsp; "
+                f"✅ 매수 신호만 추종: {pick_str} ({len(picks)}건) &nbsp;—&nbsp; "
+                f"공시일 기준 현재가 비교</p>"
+            )
+        else:
+            method_html = (
+                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 16px;'>"
+                f"📊 공시 추종 평균 수익률: {all_str} ({len(trades_with_sr)}건, 공시일 기준)</p>"
+            )
+
+    if not picks:
+        if not method_html:
+            return ""
+        return f"""
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">🎯 매수 검토 종목</h2>
+      {method_html}
+      <p style="font-size:12px; color:#bbb; margin:0;">현재 매수 검토 조건(4개 중 3개 이상)을 충족하는 공시 종목이 없습니다.</p>
+    </div>"""
+
+    cards_html = ""
+    for t in picks:
+        tech = t["tech"]
+        score, checks = _calc_tech_score(tech, t.get("frgn_streak", 0))
+        is_buy = t.get("direction") == "매수"
+        name_color = "#1b5e20" if is_buy else "#b71c1c"
+        badge_bg = "#e8f5e9" if is_buy else "#ffebee"
+        badge_text = "▲ 매수" if is_buy else "▼ 매도"
+        sr = t.get("since_return")
+        sr_html = ""
+        if sr is not None:
+            sr_color = "#1b5e20" if sr > 0.05 else "#b71c1c" if sr < -0.05 else "#888"
+            sr_arrow = "▲" if sr > 0.05 else "▼" if sr < -0.05 else ""
+            sr_html = f"<div style='font-size:13px; color:{sr_color}; font-weight:700; margin-top:4px;'>{sr_arrow} {sr:+.1f}% (공시 후)</div>"
+        rsi = tech.get("rsi")
+        rsi_str = f"RSI {rsi}" if rsi else ""
+        rs = tech.get("rs_vs_kospi")
+        rs_str = f"RS {rs:+.1f}%p" if rs is not None else ""
+        streak = t.get("frgn_streak", 0)
+        streak_str = f"외국인 {'▲' if streak > 0 else '▼'}{abs(streak)}일" if streak else ""
+        detail_parts = [p for p in [rsi_str, rs_str, streak_str] if p]
+        detail_html = " · ".join(detail_parts)
+        check_badges = " ".join(
+            f"<span style='background:#e8f5e9; color:#1b5e20; padding:1px 5px; border-radius:6px; font-size:10px;'>{c}</span>"
+            for c in checks
+        )
+        cards_html += f"""
+      <div style="display:inline-block; width:calc(50% - 8px); min-width:200px; vertical-align:top; background:#f8fff8; border:1.5px solid #a5d6a7; border-radius:10px; padding:12px 14px; margin:0 4px 8px 0; box-sizing:border-box;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+          <a href="{t['url']}" style="font-size:14px; font-weight:700; color:{name_color}; text-decoration:none;">{t['corp_name']}</a>
+          <span style="background:{badge_bg}; color:{name_color}; font-size:10px; font-weight:700; padding:2px 6px; border-radius:8px; white-space:nowrap;">{badge_text}</span>
+        </div>
+        <div style="font-size:11px; color:#888; margin-bottom:4px;">{t['date']} 공시 &nbsp;|&nbsp; score {score}/4</div>
+        {sr_html}
+        <div style="font-size:11px; color:#555; margin-top:6px;">{detail_html}</div>
+        <div style="margin-top:6px;">{check_badges}</div>
+      </div>"""
+
+    return f"""
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">🎯 매수 검토 종목 ({len(picks)}건)</h2>
+      {method_html}
+      <div style="line-height:1;">{cards_html}</div>
+    </div>"""
+
+
 def _build_technical_section(trades):
     """공시 종목별 기술적 신호 섹션.
 
@@ -922,27 +1031,7 @@ def _build_technical_section(trades):
         return f"<span style='color:{color}; font-weight:700;'>{rs:+.1f}%p</span>"
 
     def _signal_summary(tech, direction, frgn_streak):
-        """3-check: 200일선 위 + RSI<70 + RS>0 → 신호등"""
-        score = 0
-        checks = []
-        rsi = tech.get("rsi")
-        ma200 = tech.get("ma200_above")
-        rs = tech.get("rs_vs_kospi")
-        streak = frgn_streak or 0
-
-        if ma200 is True:
-            score += 1
-            checks.append("200일↑")
-        if rsi is not None and rsi < 70:
-            score += 1
-            checks.append("RSI OK")
-        if rs is not None and rs >= 0:
-            score += 1
-            checks.append("RS↑")
-        if streak > 0:
-            score += 1
-            checks.append(f"외국인{streak}일↑")
-
+        score, _ = _calc_tech_score(tech, frgn_streak)
         if score >= 3:
             return f"<span style='background:#e8f5e9; color:#1b5e20; padding:3px 6px; border-radius:10px; font-size:11px; font-weight:700; white-space:nowrap;'>✅매수</span>"
         elif score >= 2:
@@ -1104,6 +1193,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
     foreign_daily_section = _build_foreign_daily_section(trades)
     market_movers_section = _build_market_movers_section(market_movers)
     technical_section = _build_technical_section(trades)
+    top_picks_section = _build_top_picks_section(trades)
 
     # 시장 요약 섹션 (KOSPI / KOSDAQ / USD·KRW)
     def _fmt_chg(chg):
@@ -1181,6 +1271,8 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
         <tbody>{rows_html}</tbody>
       </table>
     </div>
+
+    {top_picks_section}
 
     {dart_section}
 
