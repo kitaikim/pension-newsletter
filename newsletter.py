@@ -272,7 +272,7 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
         stock_code = item.get("stock_code", "")
         if fetch_prices:
             price, total_amount = _get_stock_price_and_amount(stock_code, rcept_dt, qty_change)
-            tech = _get_technical_indicators(stock_code, kospi_52w_return=kospi_52w)
+            tech = _get_technical_indicators(stock_code, kospi_52w_return=kospi_52w, rcept_dt=rcept_dt)
             current_price = tech.get("current_price") or _get_current_price(stock_code)
             since_return = None
             if price and current_price and price > 0:
@@ -306,9 +306,12 @@ def fetch_dart_nps_trades(days=30, sent_rcept_nos=None, fetch_prices=True):
             scrt_net = None
             frgn_streak = 0
 
+        rcept_date = date(int(rcept_dt[:4]), int(rcept_dt[4:6]), int(rcept_dt[6:]))
+        days_since = (date.today() - rcept_date).days
         trades.append({
             "corp_name": corp_name,
             "date": f"{rcept_dt[:4]}.{rcept_dt[4:6]}.{rcept_dt[6:]}",
+            "days_since": days_since,
             "direction": direction,
             "prev_ratio": prev_ratio,
             "curr_ratio": curr_ratio,
@@ -670,29 +673,32 @@ def _get_kospi_52w_return():
         return None
 
 
-def _get_technical_indicators(stock_code, kospi_52w_return=None):
-    """280일 OHLCV → 기술적 지표 dict 반환.
+def _get_technical_indicators(stock_code, kospi_52w_return=None, rcept_dt=None):
+    """380일 OHLCV → 기술적 지표 dict 반환.
 
     Returns:
-      current_price (int), rsi (float), ma20_above (bool), ma200_above (bool),
-      ma200_gap_pct (float), week52_pos (float 0~100%),
-      week52_low (int), week52_high (int), rs_vs_kospi (float | None)
+      current_price, rsi, ma20_above, ma200_above, ma200_gap_pct,
+      week52_pos, week52_low, week52_high, rs_vs_kospi,
+      atr, atr_stop, obv_divergence, bb_squeeze, vol_annual, vol_spike_ratio
     실패 시 빈 dict {}
     """
     if not stock_code:
         return {}
     try:
         end = date.today()
-        start = (end - timedelta(days=380)).strftime("%Y%m%d")  # 52주+버퍼
+        start = (end - timedelta(days=400)).strftime("%Y%m%d")
         df = krx_stock.get_market_ohlcv(start, end.strftime("%Y%m%d"), stock_code)
         if df is None or df.empty or len(df) < 30:
             return {}
 
         closes = [float(p) for p in df["종가"].tolist()]
+        highs = [float(p) for p in df["고가"].tolist()]
+        lows = [float(p) for p in df["저가"].tolist()]
+        volumes = [float(p) for p in df["거래량"].tolist()]
         current = int(closes[-1])
 
         # RSI(14)
-        rsi = _calc_rsi(closes[-30:], period=14)  # 최근 30개 충분
+        rsi = _calc_rsi(closes[-30:], period=14)
 
         # 이평선
         ma20 = sum(closes[-20:]) / 20 if len(closes) >= 20 else None
@@ -701,7 +707,7 @@ def _get_technical_indicators(stock_code, kospi_52w_return=None):
         ma200_above = (current > ma200) if ma200 else None
         ma200_gap_pct = ((current - ma200) / ma200 * 100) if ma200 else None
 
-        # 52주 고/저 (최근 252 거래일)
+        # 52주 고/저
         recent_252 = closes[-252:] if len(closes) >= 252 else closes
         week52_low = int(min(recent_252))
         week52_high = int(max(recent_252))
@@ -711,6 +717,80 @@ def _get_technical_indicators(stock_code, kospi_52w_return=None):
         # 52주 수익률 vs KOSPI
         stock_52w = (current - recent_252[0]) / recent_252[0] * 100
         rs_vs_kospi = (stock_52w - kospi_52w_return) if kospi_52w_return is not None else None
+
+        # ATR(14) — Wilder's smoothing
+        atr = None
+        atr_stop = None
+        tr_list = [max(highs[i] - lows[i],
+                       abs(highs[i] - closes[i - 1]),
+                       abs(lows[i] - closes[i - 1])) for i in range(1, len(closes))]
+        if len(tr_list) >= 14:
+            atr_val = sum(tr_list[:14]) / 14
+            for tr in tr_list[14:]:
+                atr_val = (atr_val * 13 + tr) / 14
+            atr = round(atr_val)
+            atr_stop = max(0, current - 2 * atr)
+
+        # OBV + 20일 다이버전스
+        obv = 0.0
+        obv_series = [0.0]
+        for i in range(1, len(closes)):
+            if closes[i] > closes[i - 1]:
+                obv += volumes[i]
+            elif closes[i] < closes[i - 1]:
+                obv -= volumes[i]
+            obv_series.append(obv)
+        obv_divergence = None
+        if len(obv_series) >= 20:
+            price_chg = closes[-1] - closes[-20]
+            obv_chg = obv_series[-1] - obv_series[-20]
+            if price_chg > 0 and obv_chg < 0:
+                obv_divergence = "bearish"
+            elif price_chg < 0 and obv_chg > 0:
+                obv_divergence = "bullish"
+
+        # 볼린저밴드 Squeeze — 현재 BBW < 최근 6개월 중간값 * 0.85
+        bb_squeeze = None
+        if len(closes) >= 40:
+            bbw_list = []
+            for i in range(20, len(closes)):
+                w = closes[i - 20:i]
+                ma_w = sum(w) / 20
+                if ma_w > 0:
+                    std_w = (sum((x - ma_w) ** 2 for x in w) / 20) ** 0.5
+                    bbw_list.append(4 * std_w / ma_w)
+            if bbw_list:
+                cur_bbw = bbw_list[-1]
+                recent_bbw = sorted(bbw_list[-min(126, len(bbw_list)):])
+                median_bbw = recent_bbw[len(recent_bbw) // 2]
+                bb_squeeze = (cur_bbw < median_bbw * 0.85) if median_bbw > 0 else False
+
+        # 연간 변동성 (일간 수익률 std * sqrt(252))
+        vol_annual = None
+        if len(closes) >= 50:
+            daily_r = [(closes[i] - closes[i - 1]) / closes[i - 1] for i in range(1, len(closes))]
+            recent_r = daily_r[-252:] if len(daily_r) >= 252 else daily_r
+            if recent_r:
+                mean_r = sum(recent_r) / len(recent_r)
+                var = sum((r - mean_r) ** 2 for r in recent_r) / len(recent_r)
+                vol_annual = round(var ** 0.5 * (252 ** 0.5) * 100, 1)
+
+        # 공시 전 이상 거래량 비율 (공시일 -10~-3일 vs -2~0일)
+        vol_spike_ratio = None
+        if rcept_dt and len(volumes) >= 15:
+            import pandas as pd
+            disc_ts = pd.Timestamp(f"{rcept_dt[:4]}-{rcept_dt[4:6]}-{rcept_dt[6:]}")
+            dates = df.index.tolist()
+            pos_list = [i for i, d in enumerate(dates) if d <= disc_ts]
+            if pos_list:
+                pos = pos_list[-1]
+                if pos >= 12:
+                    baseline = volumes[pos - 10:pos - 2]
+                    spike = volumes[pos - 2:pos + 1]
+                    base_avg = sum(baseline) / len(baseline) if baseline else 0
+                    spike_avg = sum(spike) / len(spike) if spike else 0
+                    if base_avg > 0:
+                        vol_spike_ratio = round(spike_avg / base_avg, 1)
 
         return {
             "current_price": current,
@@ -722,6 +802,12 @@ def _get_technical_indicators(stock_code, kospi_52w_return=None):
             "week52_low": week52_low,
             "week52_high": week52_high,
             "rs_vs_kospi": round(rs_vs_kospi, 1) if rs_vs_kospi is not None else None,
+            "atr": atr,
+            "atr_stop": atr_stop,
+            "obv_divergence": obv_divergence,
+            "bb_squeeze": bb_squeeze,
+            "vol_annual": vol_annual,
+            "vol_spike_ratio": vol_spike_ratio,
         }
     except Exception:
         return {}
@@ -874,7 +960,7 @@ def _build_market_movers_section(movers):
 
 
 def _calc_tech_score(tech, frgn_streak):
-    """기술적 신호 점수 (0~4): 200일↑(1) + RSI<70(1) + RS≥0(1) + 외국인연속매수(1)"""
+    """기술적 신호 점수 (0~5): 200일↑(1) + RSI<70(1) + RS≥0(1) + 외국인연속매수(1) + OBV±1"""
     score = 0
     checks = []
     if tech.get("ma200_above") is True:
@@ -891,6 +977,13 @@ def _calc_tech_score(tech, frgn_streak):
     if (frgn_streak or 0) > 0:
         score += 1
         checks.append(f"외국인{frgn_streak}일↑")
+    obv_div = tech.get("obv_divergence")
+    if obv_div == "bullish":
+        score += 1
+        checks.append("OBV↑")
+    elif obv_div == "bearish":
+        score = max(0, score - 1)
+        checks.append("OBV⚠")
     return score, checks
 
 
@@ -910,20 +1003,36 @@ def _build_top_picks_section(trades):
         all_avg = sum(t["since_return"] for t in trades_with_sr) / len(trades_with_sr)
         all_color = "#1b5e20" if all_avg >= 0 else "#b71c1c"
         all_str = f"<span style='color:{all_color}; font-weight:700;'>{all_avg:+.1f}%</span>"
+
+        # 켈리 하프켈리 계산
+        wins = [t["since_return"] for t in trades_with_sr if t["since_return"] > 0]
+        losses = [abs(t["since_return"]) for t in trades_with_sr if t["since_return"] < 0]
+        kelly_html = ""
+        if wins and losses:
+            win_rate = len(wins) / len(trades_with_sr)
+            avg_win = sum(wins) / len(wins)
+            avg_loss = sum(losses) / len(losses)
+            kelly = win_rate - (1 - win_rate) / (avg_win / avg_loss) if avg_loss > 0 else 0
+            half_kelly = max(0.0, kelly * 0.5 * 100)
+            win_rate_pct = win_rate * 100
+            kelly_html = (
+                f" &nbsp;|&nbsp; 승률 {win_rate_pct:.0f}% "
+                f"· 하프켈리 <span style='font-weight:700; color:#1a237e;'>{half_kelly:.1f}%</span>"
+            )
+
         if picks:
             pick_avg = sum(t["since_return"] for t in picks) / len(picks)
             pick_color = "#1b5e20" if pick_avg >= 0 else "#b71c1c"
             pick_str = f"<span style='color:{pick_color}; font-weight:700;'>{pick_avg:+.1f}%</span>"
             method_html = (
-                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 16px;'>"
+                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 12px;'>"
                 f"📊 공시 추종 평균: {all_str} ({len(trades_with_sr)}건) &nbsp;|&nbsp; "
-                f"✅ 매수 신호만 추종: {pick_str} ({len(picks)}건) &nbsp;—&nbsp; "
-                f"공시일 기준 현재가 비교</p>"
+                f"✅ 신호 추종: {pick_str} ({len(picks)}건){kelly_html} &nbsp;—&nbsp; 공시일 기준</p>"
             )
         else:
             method_html = (
-                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 16px;'>"
-                f"📊 공시 추종 평균 수익률: {all_str} ({len(trades_with_sr)}건, 공시일 기준)</p>"
+                f"<p style='font-size:11px; color:#9e9e9e; margin:0 0 12px;'>"
+                f"📊 공시 추종 평균: {all_str} ({len(trades_with_sr)}건){kelly_html} &nbsp;—&nbsp; 공시일 기준</p>"
             )
 
     if not picks:
@@ -933,7 +1042,7 @@ def _build_top_picks_section(trades):
     <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
       <h2 style="font-size:15px; color:#1a237e; margin:0 0 6px; font-weight:700;">🎯 매수 검토 종목</h2>
       {method_html}
-      <p style="font-size:12px; color:#bbb; margin:0;">현재 매수 검토 조건(4개 중 3개 이상)을 충족하는 공시 종목이 없습니다.</p>
+      <p style="font-size:12px; color:#bbb; margin:0;">현재 매수 검토 조건(5개 중 3개 이상)을 충족하는 공시 종목이 없습니다.</p>
     </div>"""
 
     cards_html = ""
@@ -958,20 +1067,57 @@ def _build_top_picks_section(trades):
         streak_str = f"외국인 {'▲' if streak > 0 else '▼'}{abs(streak)}일" if streak else ""
         detail_parts = [p for p in [rsi_str, rs_str, streak_str] if p]
         detail_html = " · ".join(detail_parts)
+        # ATR 스톱로스
+        atr = tech.get("atr")
+        atr_stop = tech.get("atr_stop")
+        atr_html = ""
+        if atr and atr_stop:
+            current_p = tech.get("current_price") or t.get("current_price")
+            stop_pct = ((atr_stop - current_p) / current_p * 100) if current_p else None
+            stop_str = f"{atr_stop:,}원"
+            stop_pct_str = f" ({stop_pct:.1f}%)" if stop_pct is not None else ""
+            atr_html = f"<div style='font-size:11px; color:#888; margin-top:4px;'>🛡 스톱: {stop_str}{stop_pct_str} &nbsp;|&nbsp; ATR {atr:,}</div>"
+
+        # 연간 변동성
+        vol_annual = tech.get("vol_annual")
+        vol_html = ""
+        if vol_annual is not None:
+            vol_color = "#1b5e20" if vol_annual < 25 else "#b71c1c" if vol_annual > 50 else "#f57f17"
+            vol_label = "저변동성" if vol_annual < 25 else "고변동성" if vol_annual > 50 else "중변동성"
+            vol_html = f"<span style='color:{vol_color}; font-size:10px;'>σ {vol_annual}% ({vol_label})</span>"
+
+        # BB Squeeze
+        bb_squeeze = tech.get("bb_squeeze")
+        squeeze_html = "<span style='color:#7986cb; font-size:10px;'>🔔 BB Squeeze</span>" if bb_squeeze else ""
+
+        # 이상 거래량
+        vol_spike = tech.get("vol_spike_ratio")
+        spike_html = ""
+        if vol_spike and vol_spike > 1.5:
+            spike_html = f"<span style='color:#e65100; font-size:10px;'>⚡ 공시전 거래량 {vol_spike}배</span>"
+
+        extra_tags = " &nbsp; ".join(p for p in [vol_html, squeeze_html, spike_html] if p)
+
         check_badges = " ".join(
             f"<span style='background:#e8f5e9; color:#1b5e20; padding:1px 5px; border-radius:6px; font-size:10px;'>{c}</span>"
+            if "⚠" not in c else
+            f"<span style='background:#fff3e0; color:#e65100; padding:1px 5px; border-radius:6px; font-size:10px;'>{c}</span>"
             for c in checks
         )
+        days_ago = t.get("days_since", "")
+        days_str = f"{days_ago}일 전" if days_ago else ""
         cards_html += f"""
       <div style="display:inline-block; width:calc(50% - 8px); min-width:200px; vertical-align:top; background:#f8fff8; border:1.5px solid #a5d6a7; border-radius:10px; padding:12px 14px; margin:0 4px 8px 0; box-sizing:border-box;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
           <a href="{t['url']}" style="font-size:14px; font-weight:700; color:{name_color}; text-decoration:none;">{t['corp_name']}</a>
           <span style="background:{badge_bg}; color:{name_color}; font-size:10px; font-weight:700; padding:2px 6px; border-radius:8px; white-space:nowrap;">{badge_text}</span>
         </div>
-        <div style="font-size:11px; color:#888; margin-bottom:4px;">{t['date']} 공시 &nbsp;|&nbsp; score {score}/4</div>
+        <div style="font-size:11px; color:#888; margin-bottom:4px;">{t['date']} &nbsp;|&nbsp; {days_str} &nbsp;|&nbsp; score {score}/5</div>
         {sr_html}
-        <div style="font-size:11px; color:#555; margin-top:6px;">{detail_html}</div>
-        <div style="margin-top:6px;">{check_badges}</div>
+        {atr_html}
+        <div style="font-size:11px; color:#555; margin-top:5px;">{detail_html}</div>
+        <div style="margin-top:5px; line-height:1.6;">{check_badges}</div>
+        {"<div style='margin-top:4px;'>" + extra_tags + "</div>" if extra_tags else ""}
       </div>"""
 
     return f"""
@@ -1151,9 +1297,13 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
                 since_text = f"<span style='color:#b71c1c; font-weight:700;'>▼{sr:.1f}%</span>"
             else:
                 since_text = f"<span style='color:#888;'>{sr:+.1f}%</span>"
+            days_since = t.get("days_since", "")
+            days_label = f"<div style='font-size:10px; color:#bbb;'>{days_since}일 전</div>" if days_since else ""
+            vol_spike = t.get("tech", {}).get("vol_spike_ratio")
+            spike_icon = f" <span style='color:#e65100; font-size:10px;' title='공시전 거래량 {vol_spike}배'>⚡</span>" if vol_spike and vol_spike > 1.5 else ""
             trade_rows += f"""
             <tr>
-              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}</td>
+              <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:12px; color:#555; white-space:nowrap;">{t['date']}{spike_icon}{days_label}</td>
               <td style="padding:6px 8px; border-bottom:1px solid #f0f0f0; font-size:13px; font-weight:600; color:#1a237e; white-space:nowrap;">
                 <a href="{t['url']}" style="color:#1a237e; text-decoration:none;">{t['corp_name']}</a>
               </td>
