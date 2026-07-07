@@ -1128,6 +1128,91 @@ def _build_top_picks_section(trades):
     </div>"""
 
 
+def _build_budget_picks_section(trades, budget=200000):
+    """오늘의 N만원 추천 — 예산 이하 종목 중 기술 점수 상위 3개."""
+    if not trades:
+        return ""
+
+    candidates = []
+    for t in trades:
+        tech = t.get("tech", {})
+        price = tech.get("current_price") or 0
+        if price <= 0 or price > budget:
+            continue
+        score, checks = _calc_tech_score(tech, t.get("frgn_streak", 0))
+        candidates.append((score, t.get("since_return") or 0, t, tech, checks, score))
+
+    if not candidates:
+        return ""
+
+    candidates.sort(key=lambda x: (-x[0], -x[1]))
+    top3 = candidates[:3]
+
+    budget_w = budget // 10000
+    cards_html = ""
+    for _, _, t, tech, checks, score in top3:
+        price = tech.get("current_price") or 0
+        shares = budget // price
+        total_cost = shares * price
+        leftover = budget - total_cost
+
+        is_buy = t.get("direction") == "매수"
+        dir_color = "#1b5e20" if is_buy else "#b71c1c"
+        dir_label = "▲ 매수" if is_buy else "▼ 매도"
+
+        sr = t.get("since_return")
+        sr_html = ""
+        if sr is not None:
+            sr_color = "#1b5e20" if sr > 0 else "#b71c1c"
+            sr_html = f"<div style='font-size:12px; color:{sr_color}; font-weight:700;'>{sr:+.1f}% (공시 후)</div>"
+
+        atr_stop = tech.get("atr_stop")
+        stop_html = ""
+        if atr_stop and price:
+            stop_pct = (atr_stop - price) / price * 100
+            stop_html = f"<div style='font-size:10px; color:#888; margin-top:3px;'>🛡 스톱 {atr_stop:,}원 ({stop_pct:.1f}%)</div>"
+
+        vol_annual = tech.get("vol_annual")
+        risk_html = ""
+        if vol_annual is not None:
+            risk_color = "#1b5e20" if vol_annual < 25 else "#b71c1c" if vol_annual > 50 else "#f57f17"
+            risk_label = "저위험" if vol_annual < 25 else "고위험" if vol_annual > 50 else "중위험"
+            risk_html = f"<span style='color:{risk_color}; font-size:10px;'>{risk_label} σ{vol_annual}%</span>"
+
+        bb_html = "<span style='color:#7986cb; font-size:10px;'>🔔 Squeeze</span>" if tech.get("bb_squeeze") else ""
+
+        tags = " &nbsp; ".join(p for p in [risk_html, bb_html] if p)
+
+        check_badges = " ".join(
+            f"<span style='background:#e8f5e9; color:#1b5e20; padding:1px 5px; border-radius:6px; font-size:10px;'>{c}</span>"
+            if "⚠" not in c else
+            f"<span style='background:#fff3e0; color:#e65100; padding:1px 5px; border-radius:6px; font-size:10px;'>{c}</span>"
+            for c in checks
+        )
+
+        cards_html += f"""
+      <div style="display:inline-block; width:calc(33.3% - 8px); min-width:150px; vertical-align:top; background:#fffde7; border:1.5px solid #ffe082; border-radius:10px; padding:12px 12px; margin:0 4px 8px 0; box-sizing:border-box;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+          <a href="{t['url']}" style="font-size:13px; font-weight:700; color:#1a237e; text-decoration:none;">{t['corp_name']}</a>
+          <span style="background:#fff8e1; color:{dir_color}; font-size:9px; font-weight:700; padding:1px 5px; border-radius:6px; white-space:nowrap;">{dir_label}</span>
+        </div>
+        <div style="font-size:12px; color:#555; margin-bottom:3px;">현재가 <b>{price:,}원</b></div>
+        <div style="font-size:13px; color:#1a237e; font-weight:700; margin-bottom:2px;">{shares}주 = {total_cost:,}원 <span style='font-size:10px; color:#888;'>(잔여 {leftover:,}원)</span></div>
+        {sr_html}
+        {stop_html}
+        <div style="margin-top:5px; line-height:1.6;">{check_badges}</div>
+        {"<div style='margin-top:3px;'>" + tags + "</div>" if tags else ""}
+        <div style="font-size:10px; color:#bbb; margin-top:4px;">점수 {score}/5</div>
+      </div>"""
+
+    return f"""
+    <div style="padding:24px 16px; border-top:2px solid #e3e8f0;">
+      <h2 style="font-size:15px; color:#1a237e; margin:0 0 4px; font-weight:700;">💰 오늘의 {budget_w}만원 추천</h2>
+      <p style="font-size:11px; color:#9e9e9e; margin:0 0 12px;">{budget:,}원 이하 공시 종목 중 기술 점수 상위 3개 &nbsp;|&nbsp; 투자 판단은 본인 책임</p>
+      <div style="line-height:1;">{cards_html}</div>
+    </div>"""
+
+
 def _build_technical_section(trades):
     """공시 종목별 기술적 신호 섹션.
 
@@ -1344,6 +1429,7 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
     market_movers_section = _build_market_movers_section(market_movers)
     technical_section = _build_technical_section(trades)
     top_picks_section = _build_top_picks_section(trades)
+    budget_picks_section = _build_budget_picks_section(trades)
 
     # 시장 요약 섹션 (KOSPI / KOSDAQ / USD·KRW)
     def _fmt_chg(chg):
@@ -1423,6 +1509,8 @@ def build_html(items, period_label, value_col, trades=None, market_movers=None, 
     </div>
 
     {top_picks_section}
+
+    {budget_picks_section}
 
     {dart_section}
 
