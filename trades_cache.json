@@ -1,77 +1,23 @@
 {
   "trades": [
     {
-      "corp_name": "현대엘리베이터",
-      "date": "2026.11.05",
-      "days_since": 4,
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 10.19,
-      "qty_change": 3731694.0,
-      "price": 69300,
-      "current_price": 66100,
-      "since_return": -4.617604617604617,
-      "total_amount": 258606394200.0,
-      "foreign_net": -1121,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -1863
-        },
-        {
-          "date": "1105",
-          "net": -346
-        },
-        {
-          "date": "1104",
-          "net": 1207
-        },
-        {
-          "date": "1103",
-          "net": -325
-        },
-        {
-          "date": "1102",
-          "net": 206
-        }
-      ],
-      "frgn_streak": -2,
-      "org_net": 5498,
-      "prsn_net": -4471,
-      "scrt_net": 2383,
-      "tech": {
-        "current_price": 66100,
-        "rsi": 34.1,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -18.9,
-        "week52_pos": 2.4,
-        "week52_low": 65000,
-        "week52_high": 111700,
-        "rs_vs_kospi": -59.0,
-        "atr": 2079,
-        "atr_stop": 61942,
-        "obv_divergence": null,
-        "bb_squeeze": true,
-        "vol_annual": 38.9,
-        "vol_spike_ratio": 0.8
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105000158"
-    },
-    {
       "corp_name": "팬오션",
-      "date": "2026.11.04",
-      "days_since": 5,
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 10.05,
-      "qty_change": 53711737.0,
-      "price": 5670,
-      "current_price": 4860,
-      "since_return": -14.285714285714285,
-      "total_amount": 304545548790.0,
-      "foreign_net": 15325,
+      "date": "2026.11.10",
+      "days_since": 0,
+      "direction": "매도",
+      "prev_ratio": 10.05,
+      "curr_ratio": 9.97,
+      "qty_change": -400971.0,
+      "price": 4995,
+      "current_price": 4995,
+      "since_return": 0.0,
+      "total_amount": 2002850145.0,
+      "foreign_net": 17624,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 1879
+        },
         {
           "date": "1106",
           "net": 5965
@@ -87,861 +33,165 @@
         {
           "date": "1103",
           "net": 2552
-        },
-        {
-          "date": "1102",
-          "net": -420
         }
       ],
-      "frgn_streak": 4,
-      "org_net": -19524,
-      "prsn_net": 3853,
-      "scrt_net": 331,
+      "frgn_streak": 5,
+      "org_net": -19072,
+      "prsn_net": 2309,
+      "scrt_net": 1353,
       "tech": {
-        "current_price": 4860,
-        "rsi": 33.1,
+        "current_price": 4995,
+        "rsi": 37.1,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -10.5,
-        "week52_pos": 34.3,
+        "ma200_gap_pct": -8.1,
+        "week52_pos": 38.1,
         "week52_low": 3620,
         "week52_high": 7230,
-        "rs_vs_kospi": -14.9,
-        "atr": 368,
-        "atr_stop": 4124,
+        "rs_vs_kospi": -15.8,
+        "atr": 356,
+        "atr_stop": 4283,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 59.5,
-        "vol_spike_ratio": 1.0
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000264"
-    },
-    {
-      "corp_name": "대덕전자",
-      "date": "2026.11.04",
-      "days_since": 5,
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 9.65,
-      "qty_change": 4969390.0,
-      "price": 101400,
-      "current_price": 76500,
-      "since_return": -24.556213017751478,
-      "total_amount": 503896146000.0,
-      "foreign_net": 87911,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 15536
-        },
-        {
-          "date": "1105",
-          "net": 44823
-        },
-        {
-          "date": "1104",
-          "net": 3682
-        },
-        {
-          "date": "1103",
-          "net": 38236
-        },
-        {
-          "date": "1102",
-          "net": -14366
-        }
-      ],
-      "frgn_streak": 4,
-      "org_net": -255361,
-      "prsn_net": 169241,
-      "scrt_net": 292,
-      "tech": {
-        "current_price": 76500,
-        "rsi": 32.6,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -27.9,
-        "week52_pos": 25.6,
-        "week52_low": 37150,
-        "week52_high": 190900,
-        "rs_vs_kospi": 60.6,
-        "atr": 13031,
-        "atr_stop": 50438,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 104.7,
-        "vol_spike_ratio": 1.7
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000254"
-    },
-    {
-      "corp_name": "삼양식품",
-      "date": "2026.11.02",
-      "days_since": 7,
-      "direction": "매수",
-      "prev_ratio": 11.149999999999999,
-      "curr_ratio": 11.37,
-      "qty_change": 16655.0,
-      "price": 1176000,
-      "current_price": 1155000,
-      "since_return": -1.7857142857142856,
-      "total_amount": 19586280000.0,
-      "foreign_net": -34198,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -9476
-        },
-        {
-          "date": "1105",
-          "net": -10006
-        },
-        {
-          "date": "1104",
-          "net": -5448
-        },
-        {
-          "date": "1103",
-          "net": -8951
-        },
-        {
-          "date": "1102",
-          "net": -317
-        }
-      ],
-      "frgn_streak": -5,
-      "org_net": 58265,
-      "prsn_net": -22986,
-      "scrt_net": 3140,
-      "tech": {
-        "current_price": 1155000,
-        "rsi": 45.0,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -5.0,
-        "week52_pos": 25.3,
-        "week52_low": 1022000,
-        "week52_high": 1547000,
-        "rs_vs_kospi": -48.1,
-        "atr": 65400,
-        "atr_stop": 1024200,
-        "obv_divergence": null,
-        "bb_squeeze": true,
-        "vol_annual": 52.6,
-        "vol_spike_ratio": 1.0
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000307"
-    },
-    {
-      "corp_name": "효성티앤씨",
-      "date": "2026.11.02",
-      "days_since": 7,
-      "direction": "매도",
-      "prev_ratio": 10.989999999999998,
-      "curr_ratio": 9.95,
-      "qty_change": -44839.0,
-      "price": 278000,
-      "current_price": 285000,
-      "since_return": 2.5179856115107913,
-      "total_amount": 12465242000.0,
-      "foreign_net": -5102,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -1900
-        },
-        {
-          "date": "1105",
-          "net": -1515
-        },
-        {
-          "date": "1104",
-          "net": -1185
-        },
-        {
-          "date": "1103",
-          "net": -611
-        },
-        {
-          "date": "1102",
-          "net": 109
-        }
-      ],
-      "frgn_streak": -4,
-      "org_net": 5455,
-      "prsn_net": -5040,
-      "scrt_net": 751,
-      "tech": {
-        "current_price": 285000,
-        "rsi": 50.5,
-        "ma20_above": true,
-        "ma200_above": false,
-        "ma200_gap_pct": -19.0,
-        "week52_pos": 25.4,
-        "week52_low": 200000,
-        "week52_high": 535000,
-        "rs_vs_kospi": -10.8,
-        "atr": 14443,
-        "atr_stop": 256114,
-        "obv_divergence": null,
-        "bb_squeeze": true,
-        "vol_annual": 69.2,
-        "vol_spike_ratio": 1.7
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000302"
-    },
-    {
-      "corp_name": "현대로템",
-      "date": "2026.11.02",
-      "days_since": 7,
-      "direction": "매도",
-      "prev_ratio": 7.069999999999999,
-      "curr_ratio": 6.06,
-      "qty_change": -1110736.0,
-      "price": 78700,
-      "current_price": 69600,
-      "since_return": -11.56289707750953,
-      "total_amount": 87414923200.0,
-      "foreign_net": -17079,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -1129
-        },
-        {
-          "date": "1105",
-          "net": -3718
-        },
-        {
-          "date": "1104",
-          "net": -14639
-        },
-        {
-          "date": "1103",
-          "net": 232
-        },
-        {
-          "date": "1102",
-          "net": 2175
-        }
-      ],
-      "frgn_streak": -3,
-      "org_net": 24817,
-      "prsn_net": -7974,
-      "scrt_net": -2021,
-      "tech": {
-        "current_price": 69600,
-        "rsi": 26.3,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -59.7,
-        "week52_pos": 0.0,
-        "week52_low": 69600,
-        "week52_high": 269000,
-        "rs_vs_kospi": -110.8,
-        "atr": 5357,
-        "atr_stop": 58886,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 70.9,
-        "vol_spike_ratio": 0.7
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000293"
-    },
-    {
-      "corp_name": "한화오션",
-      "date": "2026.11.02",
-      "days_since": 7,
-      "direction": "매도",
-      "prev_ratio": 6.66,
-      "curr_ratio": 5.64,
-      "qty_change": -3141824.0,
-      "price": 55400,
-      "current_price": 45700,
-      "since_return": -17.509025270758123,
-      "total_amount": 174057049600.0,
-      "foreign_net": -18102,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 1358
-        },
-        {
-          "date": "1105",
-          "net": -8647
-        },
-        {
-          "date": "1104",
-          "net": 4610
-        },
-        {
-          "date": "1103",
-          "net": -12233
-        },
-        {
-          "date": "1102",
-          "net": -3190
-        }
-      ],
-      "frgn_streak": 1,
-      "org_net": 15395,
-      "prsn_net": 3243,
-      "scrt_net": -2872,
-      "tech": {
-        "current_price": 45700,
-        "rsi": 22.0,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -56.9,
-        "week52_pos": 0.0,
-        "week52_low": 45700,
-        "week52_high": 149900,
-        "rs_vs_kospi": -106.3,
-        "atr": 3659,
-        "atr_stop": 38382,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 72.1,
-        "vol_spike_ratio": 0.4
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
-    },
-    {
-      "corp_name": "유한양행",
-      "date": "2026.11.02",
-      "days_since": 7,
-      "direction": "매수",
-      "prev_ratio": 6.83,
-      "curr_ratio": 7.94,
-      "qty_change": 406969.0,
-      "price": 76700,
-      "current_price": 77600,
-      "since_return": 1.1734028683181226,
-      "total_amount": 31214522300.0,
-      "foreign_net": -7974,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -3871
-        },
-        {
-          "date": "1105",
-          "net": -3098
-        },
-        {
-          "date": "1104",
-          "net": -704
-        },
-        {
-          "date": "1103",
-          "net": -364
-        },
-        {
-          "date": "1102",
-          "net": 63
-        }
-      ],
-      "frgn_streak": -4,
-      "org_net": 18864,
-      "prsn_net": -11002,
-      "scrt_net": 3360,
-      "tech": {
-        "current_price": 77600,
-        "rsi": 49.4,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -10.3,
-        "week52_pos": 19.1,
-        "week52_low": 66400,
-        "week52_high": 125000,
-        "rs_vs_kospi": -74.7,
-        "atr": 3607,
-        "atr_stop": 70386,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 42.4,
-        "vol_spike_ratio": 0.6
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000287"
-    },
-    {
-      "corp_name": "SNT모티브",
-      "date": "2026.10.30",
-      "days_since": 10,
-      "direction": "매도",
-      "prev_ratio": 10.02,
-      "curr_ratio": 10.0,
-      "qty_change": -5854.0,
-      "price": 23850,
-      "current_price": 24000,
-      "since_return": 0.628930817610063,
-      "total_amount": 139617900.0,
-      "foreign_net": -4265,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -835
-        },
-        {
-          "date": "1105",
-          "net": -1614
-        },
-        {
-          "date": "1104",
-          "net": -1542
-        },
-        {
-          "date": "1103",
-          "net": 134
-        },
-        {
-          "date": "1102",
-          "net": -408
-        }
-      ],
-      "frgn_streak": -3,
-      "org_net": 48,
-      "prsn_net": -627,
-      "scrt_net": 45,
-      "tech": {
-        "current_price": 24000,
-        "rsi": 44.3,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -20.1,
-        "week52_pos": 4.9,
-        "week52_low": 23200,
-        "week52_high": 39450,
-        "rs_vs_kospi": -71.6,
-        "atr": 994,
-        "atr_stop": 22012,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 45.7,
-        "vol_spike_ratio": 0.7
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000370"
-    },
-    {
-      "corp_name": "LX인터내셔널",
-      "date": "2026.10.30",
-      "days_since": 10,
-      "direction": "매도",
-      "prev_ratio": 10.02,
-      "curr_ratio": 9.98,
-      "qty_change": -14911.0,
-      "price": 39700,
-      "current_price": 34050,
-      "since_return": -14.231738035264483,
-      "total_amount": 591966700.0,
-      "foreign_net": 1192,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -277
-        },
-        {
-          "date": "1105",
-          "net": -3921
-        },
-        {
-          "date": "1104",
-          "net": 910
-        },
-        {
-          "date": "1103",
-          "net": 3890
-        },
-        {
-          "date": "1102",
-          "net": 590
-        }
-      ],
-      "frgn_streak": -2,
-      "org_net": -7596,
-      "prsn_net": 6155,
-      "scrt_net": 599,
-      "tech": {
-        "current_price": 34050,
-        "rsi": 30.5,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -18.6,
-        "week52_pos": 16.6,
-        "week52_low": 29550,
-        "week52_high": 56700,
-        "rs_vs_kospi": -29.1,
-        "atr": 1992,
-        "atr_stop": 30066,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 47.0,
-        "vol_spike_ratio": 1.3
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000366"
-    },
-    {
-      "corp_name": "현대건설",
-      "date": "2026.10.30",
-      "days_since": 10,
-      "direction": "매도",
-      "prev_ratio": 10.56,
-      "curr_ratio": 9.93,
-      "qty_change": -704459.0,
-      "price": 82000,
-      "current_price": 75300,
-      "since_return": -8.170731707317074,
-      "total_amount": 57765638000.0,
-      "foreign_net": 20592,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 6297
-        },
-        {
-          "date": "1105",
-          "net": 3742
-        },
-        {
-          "date": "1104",
-          "net": -191
-        },
-        {
-          "date": "1103",
-          "net": -2233
-        },
-        {
-          "date": "1102",
-          "net": 12977
-        }
-      ],
-      "frgn_streak": 2,
-      "org_net": -8477,
-      "prsn_net": -11577,
-      "scrt_net": 10565,
-      "tech": {
-        "current_price": 75300,
-        "rsi": 26.0,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -40.7,
-        "week52_pos": 12.4,
-        "week52_low": 59300,
-        "week52_high": 188700,
-        "rs_vs_kospi": -38.5,
-        "atr": 6980,
-        "atr_stop": 61340,
-        "obv_divergence": null,
-        "bb_squeeze": true,
-        "vol_annual": 87.3,
-        "vol_spike_ratio": 1.9
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000359"
-    },
-    {
-      "corp_name": "S-Oil",
-      "date": "2026.10.28",
-      "days_since": 12,
-      "direction": "매도",
-      "prev_ratio": 9.88,
-      "curr_ratio": 9.63,
-      "qty_change": -288964.0,
-      "price": 125300,
-      "current_price": 105400,
-      "since_return": -15.881883479648842,
-      "total_amount": 36207189200.0,
-      "foreign_net": -8543,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 932
-        },
-        {
-          "date": "1105",
-          "net": 13471
-        },
-        {
-          "date": "1104",
-          "net": 2955
-        },
-        {
-          "date": "1103",
-          "net": -20784
-        },
-        {
-          "date": "1102",
-          "net": -5117
-        }
-      ],
-      "frgn_streak": 3,
-      "org_net": -11234,
-      "prsn_net": 16244,
-      "scrt_net": 10000,
-      "tech": {
-        "current_price": 105400,
-        "rsi": 27.7,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -15.0,
-        "week52_pos": 33.9,
-        "week52_low": 71800,
-        "week52_high": 170800,
-        "rs_vs_kospi": 2.1,
-        "atr": 8968,
-        "atr_stop": 87464,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 67.6,
-        "vol_spike_ratio": 1.2
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000180"
-    },
-    {
-      "corp_name": "두산",
-      "date": "2026.10.28",
-      "days_since": 12,
-      "direction": "매도",
-      "prev_ratio": 8.05,
-      "curr_ratio": 7.75,
-      "qty_change": -56013.0,
-      "price": 1017000,
-      "current_price": 614000,
-      "since_return": -39.62635201573255,
-      "total_amount": 56965221000.0,
-      "foreign_net": 26404,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 11946
-        },
-        {
-          "date": "1105",
-          "net": 8737
-        },
-        {
-          "date": "1104",
-          "net": 1144
-        },
-        {
-          "date": "1103",
-          "net": 6860
-        },
-        {
-          "date": "1102",
-          "net": -2283
-        }
-      ],
-      "frgn_streak": 4,
-      "org_net": -50295,
-      "prsn_net": 21832,
-      "scrt_net": 14082,
-      "tech": {
-        "current_price": 614000,
-        "rsi": 23.8,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -51.0,
-        "week52_pos": 0.0,
-        "week52_low": 614000,
-        "week52_high": 2203000,
-        "rs_vs_kospi": -78.4,
-        "atr": 94308,
-        "atr_stop": 425384,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 96.1,
-        "vol_spike_ratio": 0.8
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000179"
-    },
-    {
-      "corp_name": "삼성E&A",
-      "date": "2026.10.28",
-      "days_since": 12,
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 10.0,
-      "qty_change": 19600844.0,
-      "price": 63400,
-      "current_price": 60700,
-      "since_return": -4.2586750788643535,
-      "total_amount": 1242693509600.0,
-      "foreign_net": -76659,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -24890
-        },
-        {
-          "date": "1105",
-          "net": -32919
-        },
-        {
-          "date": "1104",
-          "net": -11770
-        },
-        {
-          "date": "1103",
-          "net": -9094
-        },
-        {
-          "date": "1102",
-          "net": 2014
-        }
-      ],
-      "frgn_streak": -4,
-      "org_net": 63121,
-      "prsn_net": -64920,
-      "scrt_net": 11905,
-      "tech": {
-        "current_price": 60700,
-        "rsi": 57.0,
-        "ma20_above": true,
-        "ma200_above": true,
-        "ma200_gap_pct": 34.7,
-        "week52_pos": 85.8,
-        "week52_low": 23250,
-        "week52_high": 66900,
-        "rs_vs_kospi": 79.8,
-        "atr": 3729,
-        "atr_stop": 53242,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 71.0,
-        "vol_spike_ratio": 1.2
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000177"
-    },
-    {
-      "corp_name": "빙그레",
-      "date": "2026.10.22",
-      "days_since": 18,
-      "direction": "매수",
-      "prev_ratio": 0.0,
-      "curr_ratio": 10.02,
-      "qty_change": 885651.0,
-      "price": 78400,
-      "current_price": 80700,
-      "since_return": 2.933673469387755,
-      "total_amount": 69435038400.0,
-      "foreign_net": 266,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 121
-        },
-        {
-          "date": "1105",
-          "net": 371
-        },
-        {
-          "date": "1104",
-          "net": 100
-        },
-        {
-          "date": "1103",
-          "net": -192
-        },
-        {
-          "date": "1102",
-          "net": -134
-        }
-      ],
-      "frgn_streak": 3,
-      "org_net": 1307,
-      "prsn_net": -1513,
-      "scrt_net": 177,
-      "tech": {
-        "current_price": 80700,
-        "rsi": 49.2,
-        "ma20_above": false,
-        "ma200_above": true,
-        "ma200_gap_pct": 6.0,
-        "week52_pos": 58.0,
-        "week52_low": 61900,
-        "week52_high": 94300,
-        "rs_vs_kospi": -27.6,
-        "atr": 3491,
-        "atr_stop": 73718,
-        "obv_divergence": "bullish",
-        "bb_squeeze": false,
-        "vol_annual": 41.4,
+        "vol_annual": 59.6,
         "vol_spike_ratio": 1.1
       },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000457"
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000069"
     },
     {
-      "corp_name": "키움증권",
-      "date": "2026.10.20",
-      "days_since": 20,
-      "direction": "매도",
-      "prev_ratio": 10.190000000000001,
-      "curr_ratio": 9.97,
-      "qty_change": -57552.0,
-      "price": 218500,
-      "current_price": 178800,
-      "since_return": -18.169336384439358,
-      "total_amount": 12575112000.0,
-      "foreign_net": -30639,
+      "corp_name": "NHN",
+      "date": "2026.11.10",
+      "days_since": 0,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.01,
+      "qty_change": 3234797.0,
+      "price": 77400,
+      "current_price": 77400,
+      "since_return": 0.0,
+      "total_amount": 250373287800.0,
+      "foreign_net": -25924,
       "foreign_daily": [
         {
+          "date": "1109",
+          "net": -6525
+        },
+        {
           "date": "1106",
-          "net": -11966
+          "net": -13963
         },
         {
           "date": "1105",
-          "net": -1928
+          "net": -4622
         },
         {
           "date": "1104",
-          "net": -1057
+          "net": 92
         },
         {
           "date": "1103",
-          "net": -943
-        },
-        {
-          "date": "1102",
-          "net": -14745
+          "net": -906
         }
       ],
-      "frgn_streak": -5,
-      "org_net": 918,
-      "prsn_net": 19329,
-      "scrt_net": 2819,
+      "frgn_streak": -3,
+      "org_net": 20426,
+      "prsn_net": 5542,
+      "scrt_net": 1049,
       "tech": {
-        "current_price": 178800,
-        "rsi": 25.5,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -48.6,
-        "week52_pos": 0.0,
-        "week52_low": 178800,
-        "week52_high": 495500,
-        "rs_vs_kospi": -80.8,
-        "atr": 12317,
-        "atr_stop": 154166,
+        "current_price": 77400,
+        "rsi": 76.6,
+        "ma20_above": true,
+        "ma200_above": true,
+        "ma200_gap_pct": 74.4,
+        "week52_pos": 100.0,
+        "week52_low": 27850,
+        "week52_high": 77400,
+        "rs_vs_kospi": 131.8,
+        "atr": 6156,
+        "atr_stop": 65088,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 70.6,
-        "vol_spike_ratio": 0.7
+        "vol_annual": 87.7,
+        "vol_spike_ratio": 8.0
       },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020000051"
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000063"
+    },
+    {
+      "corp_name": "파라다이스",
+      "date": "2026.11.10",
+      "days_since": 0,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.01,
+      "qty_change": 9273744.0,
+      "price": 9920,
+      "current_price": 9920,
+      "since_return": 0.0,
+      "total_amount": 91995540480.0,
+      "foreign_net": 766,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -22
+        },
+        {
+          "date": "1106",
+          "net": 339
+        },
+        {
+          "date": "1105",
+          "net": 682
+        },
+        {
+          "date": "1104",
+          "net": -155
+        },
+        {
+          "date": "1103",
+          "net": -78
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": 1925,
+      "prsn_net": -2675,
+      "scrt_net": 383,
+      "tech": {
+        "current_price": 9920,
+        "rsi": 55.1,
+        "ma20_above": true,
+        "ma200_above": false,
+        "ma200_gap_pct": -27.1,
+        "week52_pos": 5.4,
+        "week52_low": 9260,
+        "week52_high": 21400,
+        "rs_vs_kospi": -92.4,
+        "atr": 360,
+        "atr_stop": 9200,
+        "obv_divergence": "bearish",
+        "bb_squeeze": true,
+        "vol_annual": 57.1,
+        "vol_spike_ratio": 1.0
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000061"
     },
     {
       "corp_name": "대한항공",
-      "date": "2026.10.20",
-      "days_since": 20,
-      "direction": "매도",
-      "prev_ratio": 9.969999999999999,
-      "curr_ratio": 9.93,
-      "qty_change": -142558.0,
-      "price": 26050,
-      "current_price": 29050,
-      "since_return": 11.516314779270633,
-      "total_amount": 3713635900.0,
-      "foreign_net": 24678,
+      "date": "2026.11.10",
+      "days_since": 0,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.06,
+      "qty_change": 37168499.0,
+      "price": 32450,
+      "current_price": 32450,
+      "since_return": 0.0,
+      "total_amount": 1206117792550.0,
+      "foreign_net": 16580,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -2759
+        },
         {
           "date": "1106",
           "net": 4311
@@ -957,49 +207,919 @@
         {
           "date": "1103",
           "net": -10691
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": 75374,
+      "prsn_net": -89283,
+      "scrt_net": 4108,
+      "tech": {
+        "current_price": 32450,
+        "rsi": 64.1,
+        "ma20_above": true,
+        "ma200_above": true,
+        "ma200_gap_pct": 22.6,
+        "week52_pos": 100.0,
+        "week52_low": 21000,
+        "week52_high": 32450,
+        "rs_vs_kospi": -1.9,
+        "atr": 1477,
+        "atr_stop": 29496,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 50.0,
+        "vol_spike_ratio": 1.6
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000059"
+    },
+    {
+      "corp_name": "효성티앤씨",
+      "date": "2026.11.10",
+      "days_since": 0,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.05,
+      "qty_change": 434951.0,
+      "price": 321000,
+      "current_price": 321000,
+      "since_return": 0.0,
+      "total_amount": 139619271000.0,
+      "foreign_net": -6986,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -1775
         },
         {
-          "date": "1102",
-          "net": 5339
+          "date": "1106",
+          "net": -1900
+        },
+        {
+          "date": "1105",
+          "net": -1515
+        },
+        {
+          "date": "1104",
+          "net": -1185
+        },
+        {
+          "date": "1103",
+          "net": -611
+        }
+      ],
+      "frgn_streak": -5,
+      "org_net": 5634,
+      "prsn_net": -4074,
+      "scrt_net": 981,
+      "tech": {
+        "current_price": 321000,
+        "rsi": 65.8,
+        "ma20_above": true,
+        "ma200_above": false,
+        "ma200_gap_pct": -8.9,
+        "week52_pos": 36.1,
+        "week52_low": 200000,
+        "week52_high": 535000,
+        "rs_vs_kospi": 6.0,
+        "atr": 15805,
+        "atr_stop": 289390,
+        "obv_divergence": null,
+        "bb_squeeze": true,
+        "vol_annual": 70.1,
+        "vol_spike_ratio": 1.5
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000057"
+    },
+    {
+      "corp_name": "현대엘리베이터",
+      "date": "2026.11.05",
+      "days_since": 5,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.19,
+      "qty_change": 3731694.0,
+      "price": 69300,
+      "current_price": 68000,
+      "since_return": -1.875901875901876,
+      "total_amount": 258606394200.0,
+      "foreign_net": -3914,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -2587
+        },
+        {
+          "date": "1106",
+          "net": -1863
+        },
+        {
+          "date": "1105",
+          "net": -346
+        },
+        {
+          "date": "1104",
+          "net": 1207
+        },
+        {
+          "date": "1103",
+          "net": -325
+        }
+      ],
+      "frgn_streak": -3,
+      "org_net": 5358,
+      "prsn_net": -1552,
+      "scrt_net": 2688,
+      "tech": {
+        "current_price": 68000,
+        "rsi": 43.5,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -16.5,
+        "week52_pos": 6.4,
+        "week52_low": 65000,
+        "week52_high": 111700,
+        "rs_vs_kospi": -56.6,
+        "atr": 2088,
+        "atr_stop": 63824,
+        "obv_divergence": null,
+        "bb_squeeze": true,
+        "vol_annual": 38.4,
+        "vol_spike_ratio": 0.8
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105000158"
+    },
+    {
+      "corp_name": "대덕전자",
+      "date": "2026.11.04",
+      "days_since": 6,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 9.65,
+      "qty_change": 4969390.0,
+      "price": 101400,
+      "current_price": 80000,
+      "since_return": -21.104536489151872,
+      "total_amount": 503896146000.0,
+      "foreign_net": 100200,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -2077
+        },
+        {
+          "date": "1106",
+          "net": 15536
+        },
+        {
+          "date": "1105",
+          "net": 44823
+        },
+        {
+          "date": "1104",
+          "net": 3682
+        },
+        {
+          "date": "1103",
+          "net": 38236
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": -233165,
+      "prsn_net": 133555,
+      "scrt_net": -417,
+      "tech": {
+        "current_price": 80000,
+        "rsi": 35.5,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -24.7,
+        "week52_pos": 27.9,
+        "week52_low": 37150,
+        "week52_high": 190900,
+        "rs_vs_kospi": 69.3,
+        "atr": 12814,
+        "atr_stop": 54372,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 105.0,
+        "vol_spike_ratio": 1.7
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000254"
+    },
+    {
+      "corp_name": "삼양식품",
+      "date": "2026.11.02",
+      "days_since": 8,
+      "direction": "매수",
+      "prev_ratio": 11.149999999999999,
+      "curr_ratio": 11.37,
+      "qty_change": 16655.0,
+      "price": 1176000,
+      "current_price": 1187000,
+      "since_return": 0.935374149659864,
+      "total_amount": 19586280000.0,
+      "foreign_net": -50798,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -16917
+        },
+        {
+          "date": "1106",
+          "net": -9476
+        },
+        {
+          "date": "1105",
+          "net": -10006
+        },
+        {
+          "date": "1104",
+          "net": -5448
+        },
+        {
+          "date": "1103",
+          "net": -8951
+        }
+      ],
+      "frgn_streak": -5,
+      "org_net": 58537,
+      "prsn_net": -7089,
+      "scrt_net": 2096,
+      "tech": {
+        "current_price": 1187000,
+        "rsi": 49.5,
+        "ma20_above": true,
+        "ma200_above": false,
+        "ma200_gap_pct": -2.4,
+        "week52_pos": 31.4,
+        "week52_low": 1022000,
+        "week52_high": 1547000,
+        "rs_vs_kospi": -56.3,
+        "atr": 65800,
+        "atr_stop": 1055400,
+        "obv_divergence": "bearish",
+        "bb_squeeze": true,
+        "vol_annual": 52.8,
+        "vol_spike_ratio": 1.0
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000307"
+    },
+    {
+      "corp_name": "현대로템",
+      "date": "2026.11.02",
+      "days_since": 8,
+      "direction": "매도",
+      "prev_ratio": 7.069999999999999,
+      "curr_ratio": 6.06,
+      "qty_change": -1110736.0,
+      "price": 78700,
+      "current_price": 73100,
+      "since_return": -7.115628970775095,
+      "total_amount": 87414923200.0,
+      "foreign_net": -20851,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -1597
+        },
+        {
+          "date": "1106",
+          "net": -1129
+        },
+        {
+          "date": "1105",
+          "net": -3718
+        },
+        {
+          "date": "1104",
+          "net": -14639
+        },
+        {
+          "date": "1103",
+          "net": 232
+        }
+      ],
+      "frgn_streak": -4,
+      "org_net": 28315,
+      "prsn_net": -7824,
+      "scrt_net": -68,
+      "tech": {
+        "current_price": 73100,
+        "rsi": 32.0,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -57.5,
+        "week52_pos": 1.8,
+        "week52_low": 69500,
+        "week52_high": 269000,
+        "rs_vs_kospi": -114.5,
+        "atr": 5329,
+        "atr_stop": 62442,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 71.1,
+        "vol_spike_ratio": 0.7
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000293"
+    },
+    {
+      "corp_name": "한화오션",
+      "date": "2026.11.02",
+      "days_since": 8,
+      "direction": "매도",
+      "prev_ratio": 6.66,
+      "curr_ratio": 5.64,
+      "qty_change": -3141824.0,
+      "price": 55400,
+      "current_price": 48100,
+      "since_return": -13.176895306859207,
+      "total_amount": 174057049600.0,
+      "foreign_net": -18128,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -3216
+        },
+        {
+          "date": "1106",
+          "net": 1358
+        },
+        {
+          "date": "1105",
+          "net": -8647
+        },
+        {
+          "date": "1104",
+          "net": 4610
+        },
+        {
+          "date": "1103",
+          "net": -12233
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": -2581,
+      "prsn_net": 21908,
+      "scrt_net": 658,
+      "tech": {
+        "current_price": 48100,
+        "rsi": 29.0,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -54.5,
+        "week52_pos": 2.9,
+        "week52_low": 45100,
+        "week52_high": 149900,
+        "rs_vs_kospi": -112.0,
+        "atr": 3633,
+        "atr_stop": 40834,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 72.5,
+        "vol_spike_ratio": 0.4
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
+    },
+    {
+      "corp_name": "유한양행",
+      "date": "2026.11.02",
+      "days_since": 8,
+      "direction": "매수",
+      "prev_ratio": 6.83,
+      "curr_ratio": 7.94,
+      "qty_change": 406969.0,
+      "price": 76700,
+      "current_price": 78600,
+      "since_return": 2.4771838331160363,
+      "total_amount": 31214522300.0,
+      "foreign_net": -11183,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -3146
+        },
+        {
+          "date": "1106",
+          "net": -3871
+        },
+        {
+          "date": "1105",
+          "net": -3098
+        },
+        {
+          "date": "1104",
+          "net": -704
+        },
+        {
+          "date": "1103",
+          "net": -364
+        }
+      ],
+      "frgn_streak": -5,
+      "org_net": 22750,
+      "prsn_net": -11762,
+      "scrt_net": 5797,
+      "tech": {
+        "current_price": 78600,
+        "rsi": 51.6,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -9.0,
+        "week52_pos": 20.8,
+        "week52_low": 66400,
+        "week52_high": 125000,
+        "rs_vs_kospi": -78.3,
+        "atr": 3555,
+        "atr_stop": 71490,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 42.4,
+        "vol_spike_ratio": 0.6
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000287"
+    },
+    {
+      "corp_name": "SNT모티브",
+      "date": "2026.10.30",
+      "days_since": 11,
+      "direction": "매도",
+      "prev_ratio": 10.02,
+      "curr_ratio": 10.0,
+      "qty_change": -5854.0,
+      "price": 23850,
+      "current_price": 24750,
+      "since_return": 3.7735849056603774,
+      "total_amount": 139617900.0,
+      "foreign_net": -4087,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -230
+        },
+        {
+          "date": "1106",
+          "net": -835
+        },
+        {
+          "date": "1105",
+          "net": -1614
+        },
+        {
+          "date": "1104",
+          "net": -1542
+        },
+        {
+          "date": "1103",
+          "net": 134
+        }
+      ],
+      "frgn_streak": -4,
+      "org_net": 516,
+      "prsn_net": -1262,
+      "scrt_net": 45,
+      "tech": {
+        "current_price": 24750,
+        "rsi": 47.0,
+        "ma20_above": true,
+        "ma200_above": false,
+        "ma200_gap_pct": -17.4,
+        "week52_pos": 9.5,
+        "week52_low": 23200,
+        "week52_high": 39450,
+        "rs_vs_kospi": -72.6,
+        "atr": 997,
+        "atr_stop": 22756,
+        "obv_divergence": null,
+        "bb_squeeze": true,
+        "vol_annual": 45.8,
+        "vol_spike_ratio": 0.7
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000370"
+    },
+    {
+      "corp_name": "LX인터내셔널",
+      "date": "2026.10.30",
+      "days_since": 11,
+      "direction": "매도",
+      "prev_ratio": 10.02,
+      "curr_ratio": 9.98,
+      "qty_change": -14911.0,
+      "price": 39700,
+      "current_price": 34750,
+      "since_return": -12.468513853904282,
+      "total_amount": 591966700.0,
+      "foreign_net": 36,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -566
+        },
+        {
+          "date": "1106",
+          "net": -277
+        },
+        {
+          "date": "1105",
+          "net": -3921
+        },
+        {
+          "date": "1104",
+          "net": 910
+        },
+        {
+          "date": "1103",
+          "net": 3890
+        }
+      ],
+      "frgn_streak": -3,
+      "org_net": -7132,
+      "prsn_net": 6713,
+      "scrt_net": 685,
+      "tech": {
+        "current_price": 34750,
+        "rsi": 33.8,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -17.0,
+        "week52_pos": 19.2,
+        "week52_low": 29550,
+        "week52_high": 56700,
+        "rs_vs_kospi": -30.6,
+        "atr": 1914,
+        "atr_stop": 30922,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 47.0,
+        "vol_spike_ratio": 1.3
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000366"
+    },
+    {
+      "corp_name": "현대건설",
+      "date": "2026.10.30",
+      "days_since": 11,
+      "direction": "매도",
+      "prev_ratio": 10.56,
+      "curr_ratio": 9.93,
+      "qty_change": -704459.0,
+      "price": 82000,
+      "current_price": 84200,
+      "since_return": 2.682926829268293,
+      "total_amount": 57765638000.0,
+      "foreign_net": 10696,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 3081
+        },
+        {
+          "date": "1106",
+          "net": 6297
+        },
+        {
+          "date": "1105",
+          "net": 3742
+        },
+        {
+          "date": "1104",
+          "net": -191
+        },
+        {
+          "date": "1103",
+          "net": -2233
         }
       ],
       "frgn_streak": 3,
-      "org_net": 95453,
-      "prsn_net": -118120,
-      "scrt_net": -1331,
+      "org_net": -10684,
+      "prsn_net": 444,
+      "scrt_net": 17406,
       "tech": {
-        "current_price": 29050,
-        "rsi": 50.4,
-        "ma20_above": true,
-        "ma200_above": true,
-        "ma200_gap_pct": 9.9,
-        "week52_pos": 72.9,
-        "week52_low": 21000,
-        "week52_high": 32050,
-        "rs_vs_kospi": -9.5,
-        "atr": 1310,
-        "atr_stop": 26430,
+        "current_price": 84200,
+        "rsi": 37.9,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -33.6,
+        "week52_pos": 19.2,
+        "week52_low": 59300,
+        "week52_high": 188700,
+        "rs_vs_kospi": -23.9,
+        "atr": 7372,
+        "atr_stop": 69456,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 48.8,
-        "vol_spike_ratio": 2.3
+        "vol_annual": 88.3,
+        "vol_spike_ratio": 1.9
       },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020000050"
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000359"
+    },
+    {
+      "corp_name": "S-Oil",
+      "date": "2026.10.28",
+      "days_since": 13,
+      "direction": "매도",
+      "prev_ratio": 9.88,
+      "curr_ratio": 9.63,
+      "qty_change": -288964.0,
+      "price": 125300,
+      "current_price": 105900,
+      "since_return": -15.482841181165202,
+      "total_amount": 36207189200.0,
+      "foreign_net": -6596,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -3170
+        },
+        {
+          "date": "1106",
+          "net": 932
+        },
+        {
+          "date": "1105",
+          "net": 13471
+        },
+        {
+          "date": "1104",
+          "net": 2955
+        },
+        {
+          "date": "1103",
+          "net": -20784
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": -9191,
+      "prsn_net": 12802,
+      "scrt_net": 13212,
+      "tech": {
+        "current_price": 105900,
+        "rsi": 25.6,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -14.7,
+        "week52_pos": 34.4,
+        "week52_low": 71800,
+        "week52_high": 170800,
+        "rs_vs_kospi": -0.8,
+        "atr": 8563,
+        "atr_stop": 88774,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 67.6,
+        "vol_spike_ratio": 1.2
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000180"
+    },
+    {
+      "corp_name": "두산",
+      "date": "2026.10.28",
+      "days_since": 13,
+      "direction": "매도",
+      "prev_ratio": 8.05,
+      "curr_ratio": 7.75,
+      "qty_change": -56013.0,
+      "price": 1017000,
+      "current_price": 636000,
+      "since_return": -37.46312684365782,
+      "total_amount": 56965221000.0,
+      "foreign_net": 27321,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -1366
+        },
+        {
+          "date": "1106",
+          "net": 11946
+        },
+        {
+          "date": "1105",
+          "net": 8737
+        },
+        {
+          "date": "1104",
+          "net": 1144
+        },
+        {
+          "date": "1103",
+          "net": 6860
+        }
+      ],
+      "frgn_streak": -1,
+      "org_net": -64475,
+      "prsn_net": 35437,
+      "scrt_net": 12914,
+      "tech": {
+        "current_price": 636000,
+        "rsi": 27.7,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -49.2,
+        "week52_pos": 2.5,
+        "week52_low": 595000,
+        "week52_high": 2203000,
+        "rs_vs_kospi": -79.1,
+        "atr": 95603,
+        "atr_stop": 444794,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 95.8,
+        "vol_spike_ratio": 0.8
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000179"
+    },
+    {
+      "corp_name": "삼성E&A",
+      "date": "2026.10.28",
+      "days_since": 13,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.0,
+      "qty_change": 19600844.0,
+      "price": 63400,
+      "current_price": 64600,
+      "since_return": 1.8927444794952681,
+      "total_amount": 1242693509600.0,
+      "foreign_net": -90215,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -11542
+        },
+        {
+          "date": "1106",
+          "net": -24890
+        },
+        {
+          "date": "1105",
+          "net": -32919
+        },
+        {
+          "date": "1104",
+          "net": -11770
+        },
+        {
+          "date": "1103",
+          "net": -9094
+        }
+      ],
+      "frgn_streak": -5,
+      "org_net": 71337,
+      "prsn_net": -59866,
+      "scrt_net": 14743,
+      "tech": {
+        "current_price": 64600,
+        "rsi": 62.0,
+        "ma20_above": true,
+        "ma200_above": true,
+        "ma200_gap_pct": 42.7,
+        "week52_pos": 94.7,
+        "week52_low": 23250,
+        "week52_high": 66900,
+        "rs_vs_kospi": 89.7,
+        "atr": 3805,
+        "atr_stop": 56990,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 71.3,
+        "vol_spike_ratio": 1.2
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000177"
+    },
+    {
+      "corp_name": "빙그레",
+      "date": "2026.10.22",
+      "days_since": 19,
+      "direction": "매수",
+      "prev_ratio": 0.0,
+      "curr_ratio": 10.02,
+      "qty_change": 885651.0,
+      "price": 78400,
+      "current_price": 79400,
+      "since_return": 1.2755102040816326,
+      "total_amount": 69435038400.0,
+      "foreign_net": 1101,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 701
+        },
+        {
+          "date": "1106",
+          "net": 121
+        },
+        {
+          "date": "1105",
+          "net": 371
+        },
+        {
+          "date": "1104",
+          "net": 100
+        },
+        {
+          "date": "1103",
+          "net": -192
+        }
+      ],
+      "frgn_streak": 4,
+      "org_net": 777,
+      "prsn_net": -1820,
+      "scrt_net": 171,
+      "tech": {
+        "current_price": 79400,
+        "rsi": 44.2,
+        "ma20_above": false,
+        "ma200_above": true,
+        "ma200_gap_pct": 4.3,
+        "week52_pos": 54.0,
+        "week52_low": 61900,
+        "week52_high": 94300,
+        "rs_vs_kospi": -35.0,
+        "atr": 3504,
+        "atr_stop": 72392,
+        "obv_divergence": "bullish",
+        "bb_squeeze": false,
+        "vol_annual": 41.4,
+        "vol_spike_ratio": 1.1
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000457"
+    },
+    {
+      "corp_name": "키움증권",
+      "date": "2026.10.20",
+      "days_since": 21,
+      "direction": "매도",
+      "prev_ratio": 10.190000000000001,
+      "curr_ratio": 9.97,
+      "qty_change": -57552.0,
+      "price": 218500,
+      "current_price": 184700,
+      "since_return": -15.469107551487415,
+      "total_amount": 12575112000.0,
+      "foreign_net": -17732,
+      "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -1838
+        },
+        {
+          "date": "1106",
+          "net": -11966
+        },
+        {
+          "date": "1105",
+          "net": -1928
+        },
+        {
+          "date": "1104",
+          "net": -1057
+        },
+        {
+          "date": "1103",
+          "net": -943
+        }
+      ],
+      "frgn_streak": -5,
+      "org_net": 2510,
+      "prsn_net": 6480,
+      "scrt_net": 3179,
+      "tech": {
+        "current_price": 184700,
+        "rsi": 29.6,
+        "ma20_above": false,
+        "ma200_above": false,
+        "ma200_gap_pct": -46.8,
+        "week52_pos": 1.1,
+        "week52_low": 181400,
+        "week52_high": 495500,
+        "rs_vs_kospi": -84.4,
+        "atr": 12043,
+        "atr_stop": 160614,
+        "obv_divergence": null,
+        "bb_squeeze": false,
+        "vol_annual": 70.6,
+        "vol_spike_ratio": 0.7
+      },
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020000051"
     },
     {
       "corp_name": "진성티이씨",
       "date": "2026.10.20",
-      "days_since": 20,
+      "days_since": 21,
       "direction": "매수",
       "prev_ratio": 0.0,
       "curr_ratio": 10.1,
       "qty_change": 2224844.0,
       "price": 9220,
-      "current_price": 9170,
-      "since_return": -0.5422993492407809,
+      "current_price": 9620,
+      "since_return": 4.3383947939262475,
       "total_amount": 20513061680.0,
-      "foreign_net": 191,
+      "foreign_net": 157,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 53
+        },
         {
           "date": "1106",
           "net": -34
@@ -1015,31 +1135,27 @@
         {
           "date": "1103",
           "net": -9
-        },
-        {
-          "date": "1102",
-          "net": 87
         }
       ],
-      "frgn_streak": -2,
-      "org_net": -379,
-      "prsn_net": 209,
-      "scrt_net": 4,
+      "frgn_streak": 1,
+      "org_net": -399,
+      "prsn_net": 262,
+      "scrt_net": 5,
       "tech": {
-        "current_price": 9170,
-        "rsi": 36.1,
-        "ma20_above": false,
+        "current_price": 9620,
+        "rsi": 44.4,
+        "ma20_above": true,
         "ma200_above": false,
-        "ma200_gap_pct": -35.3,
-        "week52_pos": 4.8,
+        "ma200_gap_pct": -32.0,
+        "week52_pos": 8.5,
         "week52_low": 8600,
         "week52_high": 20550,
-        "rs_vs_kospi": -72.4,
-        "atr": 472,
-        "atr_stop": 8226,
+        "rs_vs_kospi": -74.2,
+        "atr": 488,
+        "atr_stop": 8644,
         "obv_divergence": null,
         "bb_squeeze": true,
-        "vol_annual": 66.3,
+        "vol_annual": 66.6,
         "vol_spike_ratio": 1.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020000046"
@@ -1047,17 +1163,21 @@
     {
       "corp_name": "이수페타시스",
       "date": "2026.10.12",
-      "days_since": 28,
+      "days_since": 29,
       "direction": "매도",
       "prev_ratio": 10.02,
       "curr_ratio": 10.0,
       "qty_change": -17732.0,
       "price": 119900,
-      "current_price": 64200,
-      "since_return": -46.45537948290242,
+      "current_price": 68700,
+      "since_return": -42.7022518765638,
       "total_amount": 2126066800.0,
-      "foreign_net": -7578,
+      "foreign_net": -8432,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 1876
+        },
         {
           "date": "1106",
           "net": 11080
@@ -1073,31 +1193,27 @@
         {
           "date": "1103",
           "net": -6369
-        },
-        {
-          "date": "1102",
-          "net": 2730
         }
       ],
-      "frgn_streak": 1,
-      "org_net": -19927,
-      "prsn_net": 27826,
-      "scrt_net": 7020,
+      "frgn_streak": 2,
+      "org_net": -22431,
+      "prsn_net": 30928,
+      "scrt_net": 6120,
       "tech": {
-        "current_price": 64200,
-        "rsi": 30.5,
+        "current_price": 68700,
+        "rsi": 36.2,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -42.3,
-        "week52_pos": 4.9,
+        "ma200_gap_pct": -38.1,
+        "week52_pos": 9.3,
         "week52_low": 59200,
         "week52_high": 161400,
-        "rs_vs_kospi": -81.5,
-        "atr": 8846,
-        "atr_stop": 46508,
+        "rs_vs_kospi": -82.2,
+        "atr": 8735,
+        "atr_stop": 51230,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 97.8,
+        "vol_annual": 98.0,
         "vol_spike_ratio": 1.9
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000354"
@@ -1105,17 +1221,21 @@
     {
       "corp_name": "NC",
       "date": "2026.10.12",
-      "days_since": 28,
+      "days_since": 29,
       "direction": "매수",
       "prev_ratio": 0.0,
       "curr_ratio": 10.14,
       "qty_change": 2184397.0,
       "price": 209000,
-      "current_price": 211500,
-      "since_return": 1.1961722488038278,
+      "current_price": 213500,
+      "since_return": 2.15311004784689,
       "total_amount": 456538973000.0,
-      "foreign_net": 11366,
+      "foreign_net": 5744,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -3792
+        },
         {
           "date": "1106",
           "net": 1404
@@ -1131,28 +1251,24 @@
         {
           "date": "1103",
           "net": 337
-        },
-        {
-          "date": "1102",
-          "net": 1830
         }
       ],
-      "frgn_streak": 5,
-      "org_net": -1066,
-      "prsn_net": -10202,
-      "scrt_net": 2835,
+      "frgn_streak": -1,
+      "org_net": 9257,
+      "prsn_net": -14892,
+      "scrt_net": 2738,
       "tech": {
-        "current_price": 211500,
-        "rsi": 53.0,
+        "current_price": 213500,
+        "rsi": 54.3,
         "ma20_above": true,
         "ma200_above": false,
-        "ma200_gap_pct": -9.7,
-        "week52_pos": 16.2,
+        "ma200_gap_pct": -8.7,
+        "week52_pos": 17.5,
         "week52_low": 187000,
         "week52_high": 338000,
-        "rs_vs_kospi": -45.3,
-        "atr": 9963,
-        "atr_stop": 191574,
+        "rs_vs_kospi": -49.7,
+        "atr": 9930,
+        "atr_stop": 193640,
         "obv_divergence": "bearish",
         "bb_squeeze": true,
         "vol_annual": 57.3,
@@ -1163,17 +1279,21 @@
     {
       "corp_name": "비에이치",
       "date": "2026.10.12",
-      "days_since": 28,
+      "days_since": 29,
       "direction": "매도",
       "prev_ratio": 10.03,
       "curr_ratio": 9.99,
       "qty_change": -14319.0,
       "price": 18990,
-      "current_price": 14490,
-      "since_return": -23.696682464454977,
+      "current_price": 15440,
+      "since_return": -18.694049499736703,
       "total_amount": 271917810.0,
-      "foreign_net": -201,
+      "foreign_net": 71,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 413
+        },
         {
           "date": "1106",
           "net": 1550
@@ -1189,31 +1309,27 @@
         {
           "date": "1103",
           "net": -747
-        },
-        {
-          "date": "1102",
-          "net": 141
         }
       ],
-      "frgn_streak": 1,
-      "org_net": 444,
-      "prsn_net": -313,
-      "scrt_net": 156,
+      "frgn_streak": 2,
+      "org_net": 649,
+      "prsn_net": -802,
+      "scrt_net": 143,
       "tech": {
-        "current_price": 14490,
-        "rsi": 35.3,
+        "current_price": 15440,
+        "rsi": 41.5,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -32.5,
-        "week52_pos": 5.1,
+        "ma200_gap_pct": -28.1,
+        "week52_pos": 8.6,
         "week52_low": 13100,
         "week52_high": 40200,
-        "rs_vs_kospi": -61.0,
-        "atr": 1323,
-        "atr_stop": 11844,
-        "obv_divergence": null,
+        "rs_vs_kospi": -59.4,
+        "atr": 1322,
+        "atr_stop": 12796,
+        "obv_divergence": "bullish",
         "bb_squeeze": true,
-        "vol_annual": 89.1,
+        "vol_annual": 89.4,
         "vol_spike_ratio": 1.1
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000342"
@@ -1221,17 +1337,21 @@
     {
       "corp_name": "DL이앤씨",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매수",
       "prev_ratio": 10.45,
       "curr_ratio": 12.0,
       "qty_change": 667477.0,
       "price": 74200,
-      "current_price": 50500,
-      "since_return": -31.940700808625337,
+      "current_price": 55900,
+      "since_return": -24.663072776280323,
       "total_amount": 49526793400.0,
-      "foreign_net": 1304,
+      "foreign_net": 1213,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -211
+        },
         {
           "date": "1106",
           "net": -513
@@ -1247,31 +1367,27 @@
         {
           "date": "1103",
           "net": -748
-        },
-        {
-          "date": "1102",
-          "net": -120
         }
       ],
-      "frgn_streak": -2,
-      "org_net": -4204,
-      "prsn_net": 2762,
-      "scrt_net": 1652,
+      "frgn_streak": -3,
+      "org_net": -3770,
+      "prsn_net": 2500,
+      "scrt_net": 2290,
       "tech": {
-        "current_price": 50500,
-        "rsi": 22.0,
+        "current_price": 55900,
+        "rsi": 36.7,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -25.4,
-        "week52_pos": 18.5,
+        "ma200_gap_pct": -17.5,
+        "week52_pos": 27.0,
         "week52_low": 38700,
         "week52_high": 102500,
-        "rs_vs_kospi": -27.0,
-        "atr": 3843,
-        "atr_stop": 42814,
-        "obv_divergence": null,
+        "rs_vs_kospi": -15.2,
+        "atr": 3997,
+        "atr_stop": 47906,
+        "obv_divergence": "bullish",
         "bb_squeeze": true,
-        "vol_annual": 76.9,
+        "vol_annual": 77.5,
         "vol_spike_ratio": 0.8
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000244"
@@ -1279,17 +1395,21 @@
     {
       "corp_name": "IPARK현대산업개발",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매수",
       "prev_ratio": 10.129999999999999,
       "curr_ratio": 12.02,
       "qty_change": 1242672.0,
       "price": 21750,
-      "current_price": 23500,
-      "since_return": 8.045977011494253,
+      "current_price": 24700,
+      "since_return": 13.563218390804598,
       "total_amount": 27028116000.0,
-      "foreign_net": -1835,
+      "foreign_net": -1631,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 44
+        },
         {
           "date": "1106",
           "net": 711
@@ -1305,31 +1425,27 @@
         {
           "date": "1103",
           "net": -1576
-        },
-        {
-          "date": "1102",
-          "net": -160
         }
       ],
-      "frgn_streak": 1,
-      "org_net": 7795,
-      "prsn_net": -6015,
-      "scrt_net": 50,
+      "frgn_streak": 2,
+      "org_net": 5585,
+      "prsn_net": -3994,
+      "scrt_net": 27,
       "tech": {
-        "current_price": 23500,
-        "rsi": 49.1,
+        "current_price": 24700,
+        "rsi": 56.5,
         "ma20_above": true,
         "ma200_above": true,
-        "ma200_gap_pct": 8.5,
-        "week52_pos": 79.2,
+        "ma200_gap_pct": 13.9,
+        "week52_pos": 94.3,
         "week52_low": 17210,
         "week52_high": 25150,
-        "rs_vs_kospi": -22.9,
-        "atr": 1219,
-        "atr_stop": 21062,
+        "rs_vs_kospi": -17.2,
+        "atr": 1250,
+        "atr_stop": 22200,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 47.1,
+        "vol_annual": 47.5,
         "vol_spike_ratio": 0.6
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000242"
@@ -1337,17 +1453,21 @@
     {
       "corp_name": "HD건설기계",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매수",
       "prev_ratio": 12.07,
       "curr_ratio": 13.39,
       "qty_change": 574138.0,
       "price": 118500,
-      "current_price": 83100,
-      "since_return": -29.873417721518987,
+      "current_price": 92200,
+      "since_return": -22.19409282700422,
       "total_amount": 68035353000.0,
-      "foreign_net": -19695,
+      "foreign_net": -26023,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -4359
+        },
         {
           "date": "1106",
           "net": -3630
@@ -1363,31 +1483,27 @@
         {
           "date": "1103",
           "net": -5514
-        },
-        {
-          "date": "1102",
-          "net": 1969
         }
       ],
-      "frgn_streak": -4,
-      "org_net": 14514,
-      "prsn_net": 19921,
-      "scrt_net": 2480,
+      "frgn_streak": -5,
+      "org_net": 17509,
+      "prsn_net": 8021,
+      "scrt_net": 1562,
       "tech": {
-        "current_price": 83100,
-        "rsi": 29.2,
-        "ma20_above": false,
+        "current_price": 92200,
+        "rsi": 43.7,
+        "ma20_above": true,
         "ma200_above": false,
-        "ma200_gap_pct": -37.8,
-        "week52_pos": 6.0,
+        "ma200_gap_pct": -30.9,
+        "week52_pos": 13.5,
         "week52_low": 75700,
         "week52_high": 198100,
-        "rs_vs_kospi": -66.4,
-        "atr": 6236,
-        "atr_stop": 70628,
+        "rs_vs_kospi": -56.8,
+        "atr": 6555,
+        "atr_stop": 79090,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 72.1,
+        "vol_annual": 73.0,
         "vol_spike_ratio": 1.4
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000238"
@@ -1395,17 +1511,21 @@
     {
       "corp_name": "코스메카코리아",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매도",
       "prev_ratio": 12.870000000000001,
       "curr_ratio": 10.91,
       "qty_change": -209792.0,
       "price": 110000,
-      "current_price": 85900,
-      "since_return": -21.90909090909091,
+      "current_price": 92300,
+      "since_return": -16.090909090909093,
       "total_amount": 23077120000.0,
-      "foreign_net": -8205,
+      "foreign_net": -4951,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 4447
+        },
         {
           "date": "1106",
           "net": -5551
@@ -1421,31 +1541,27 @@
         {
           "date": "1103",
           "net": -1963
-        },
-        {
-          "date": "1102",
-          "net": 1193
         }
       ],
-      "frgn_streak": -2,
-      "org_net": 11016,
-      "prsn_net": -2367,
-      "scrt_net": 3261,
+      "frgn_streak": 1,
+      "org_net": 4047,
+      "prsn_net": 1312,
+      "scrt_net": 3647,
       "tech": {
-        "current_price": 85900,
-        "rsi": 29.7,
+        "current_price": 92300,
+        "rsi": 38.0,
         "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -6.5,
-        "week52_pos": 24.4,
+        "ma200_above": true,
+        "ma200_gap_pct": 0.3,
+        "week52_pos": 31.6,
         "week52_low": 63900,
         "week52_high": 153900,
-        "rs_vs_kospi": -9.4,
-        "atr": 8348,
-        "atr_stop": 69204,
+        "rs_vs_kospi": -7.9,
+        "atr": 8373,
+        "atr_stop": 75554,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 71.1,
+        "vol_annual": 71.5,
         "vol_spike_ratio": 2.4
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000237"
@@ -1453,17 +1569,21 @@
     {
       "corp_name": "HL만도",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매도",
       "prev_ratio": 10.6,
       "curr_ratio": 10.56,
       "qty_change": -20749.0,
       "price": 47800,
-      "current_price": 32000,
-      "since_return": -33.054393305439326,
+      "current_price": 33950,
+      "since_return": -28.97489539748954,
       "total_amount": 991802200.0,
-      "foreign_net": 1307,
+      "foreign_net": 6084,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 1018
+        },
         {
           "date": "1106",
           "net": -470
@@ -1479,31 +1599,27 @@
         {
           "date": "1103",
           "net": 2368
-        },
-        {
-          "date": "1102",
-          "net": -3759
         }
       ],
-      "frgn_streak": -1,
-      "org_net": -4891,
-      "prsn_net": 2839,
-      "scrt_net": 1927,
+      "frgn_streak": 1,
+      "org_net": -5902,
+      "prsn_net": -1063,
+      "scrt_net": 1934,
       "tech": {
-        "current_price": 32000,
-        "rsi": 26.1,
+        "current_price": 33950,
+        "rsi": 35.0,
         "ma20_above": false,
         "ma200_above": false,
-        "ma200_gap_pct": -38.8,
-        "week52_pos": 0.0,
-        "week52_low": 32000,
+        "ma200_gap_pct": -34.8,
+        "week52_pos": 5.1,
+        "week52_low": 31650,
         "week52_high": 76900,
-        "rs_vs_kospi": -54.8,
-        "atr": 2215,
-        "atr_stop": 27570,
+        "rs_vs_kospi": -52.9,
+        "atr": 2232,
+        "atr_stop": 29486,
         "obv_divergence": null,
         "bb_squeeze": false,
-        "vol_annual": 75.2,
+        "vol_annual": 75.5,
         "vol_spike_ratio": 1.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000234"
@@ -1511,17 +1627,21 @@
     {
       "corp_name": "코스맥스",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매수",
       "prev_ratio": 12.57,
       "curr_ratio": 12.93,
       "qty_change": 41559.0,
       "price": 300000,
-      "current_price": 242000,
-      "since_return": -19.333333333333332,
+      "current_price": 240000,
+      "since_return": -20.0,
       "total_amount": 12467700000.0,
-      "foreign_net": -15775,
+      "foreign_net": -8451,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": 6586
+        },
         {
           "date": "1106",
           "net": -6593
@@ -1537,28 +1657,24 @@
         {
           "date": "1103",
           "net": -856
-        },
-        {
-          "date": "1102",
-          "net": -738
         }
       ],
-      "frgn_streak": -5,
-      "org_net": 14711,
-      "prsn_net": 1183,
-      "scrt_net": 1146,
+      "frgn_streak": 1,
+      "org_net": 7241,
+      "prsn_net": 1290,
+      "scrt_net": 1128,
       "tech": {
-        "current_price": 242000,
-        "rsi": 41.2,
+        "current_price": 240000,
+        "rsi": 41.0,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 14.4,
-        "week52_pos": 58.6,
+        "ma200_gap_pct": 13.3,
+        "week52_pos": 57.4,
         "week52_low": 144900,
         "week52_high": 310500,
-        "rs_vs_kospi": -22.3,
-        "atr": 18264,
-        "atr_stop": 205472,
+        "rs_vs_kospi": -27.3,
+        "atr": 17852,
+        "atr_stop": 204296,
         "obv_divergence": null,
         "bb_squeeze": false,
         "vol_annual": 57.3,
@@ -1569,17 +1685,21 @@
     {
       "corp_name": "한국콜마",
       "date": "2026.10.06",
-      "days_since": 34,
+      "days_since": 35,
       "direction": "매도",
       "prev_ratio": 12.799999999999999,
       "curr_ratio": 12.12,
       "qty_change": -160054.0,
       "price": 138100,
-      "current_price": 104500,
-      "since_return": -24.33019551049964,
+      "current_price": 105800,
+      "since_return": -23.38884866039102,
       "total_amount": 22103457400.0,
-      "foreign_net": -26474,
+      "foreign_net": -22392,
       "foreign_daily": [
+        {
+          "date": "1109",
+          "net": -1263
+        },
         {
           "date": "1106",
           "net": -4843
@@ -1595,151 +1715,31 @@
         {
           "date": "1103",
           "net": -3449
-        },
-        {
-          "date": "1102",
-          "net": -5345
         }
       ],
       "frgn_streak": -5,
-      "org_net": 18552,
-      "prsn_net": 6952,
-      "scrt_net": 530,
+      "org_net": 15701,
+      "prsn_net": 5903,
+      "scrt_net": 2119,
       "tech": {
-        "current_price": 104500,
-        "rsi": 31.3,
+        "current_price": 105800,
+        "rsi": 33.0,
         "ma20_above": false,
         "ma200_above": true,
-        "ma200_gap_pct": 4.8,
-        "week52_pos": 43.1,
+        "ma200_gap_pct": 5.9,
+        "week52_pos": 44.4,
         "week52_low": 61100,
         "week52_high": 161700,
-        "rs_vs_kospi": -3.6,
-        "atr": 8672,
-        "atr_stop": 87156,
+        "rs_vs_kospi": -7.6,
+        "atr": 8453,
+        "atr_stop": 88894,
         "obv_divergence": null,
-        "bb_squeeze": true,
+        "bb_squeeze": false,
         "vol_annual": 56.5,
         "vol_spike_ratio": 2.0
       },
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000232"
-    },
-    {
-      "corp_name": "한미약품",
-      "date": "2026.10.06",
-      "days_since": 34,
-      "direction": "매수",
-      "prev_ratio": 10.040000000000001,
-      "curr_ratio": 10.15,
-      "qty_change": 14263.0,
-      "price": 529000,
-      "current_price": 480500,
-      "since_return": -9.168241965973536,
-      "total_amount": 7545127000.0,
-      "foreign_net": -56915,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": -33247
-        },
-        {
-          "date": "1105",
-          "net": -16218
-        },
-        {
-          "date": "1104",
-          "net": -1599
-        },
-        {
-          "date": "1103",
-          "net": -2261
-        },
-        {
-          "date": "1102",
-          "net": -3590
-        }
-      ],
-      "frgn_streak": -5,
-      "org_net": 116882,
-      "prsn_net": -58892,
-      "scrt_net": -13293,
-      "tech": {
-        "current_price": 480500,
-        "rsi": 58.9,
-        "ma20_above": true,
-        "ma200_above": true,
-        "ma200_gap_pct": 3.5,
-        "week52_pos": 53.7,
-        "week52_low": 311500,
-        "week52_high": 626000,
-        "rs_vs_kospi": -18.8,
-        "atr": 30054,
-        "atr_stop": 420392,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 75.2,
-        "vol_spike_ratio": 0.9
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000230"
-    },
-    {
-      "corp_name": "코오롱인더",
-      "date": "2026.10.06",
-      "days_since": 34,
-      "direction": "매수",
-      "prev_ratio": 10.05,
-      "curr_ratio": 11.91,
-      "qty_change": 610231.0,
-      "price": 58200,
-      "current_price": 36350,
-      "since_return": -37.54295532646048,
-      "total_amount": 35515444200.0,
-      "foreign_net": 3119,
-      "foreign_daily": [
-        {
-          "date": "1106",
-          "net": 702
-        },
-        {
-          "date": "1105",
-          "net": 432
-        },
-        {
-          "date": "1104",
-          "net": 307
-        },
-        {
-          "date": "1103",
-          "net": -638
-        },
-        {
-          "date": "1102",
-          "net": 2316
-        }
-      ],
-      "frgn_streak": 3,
-      "org_net": -1922,
-      "prsn_net": -1267,
-      "scrt_net": -945,
-      "tech": {
-        "current_price": 36350,
-        "rsi": 25.6,
-        "ma20_above": false,
-        "ma200_above": false,
-        "ma200_gap_pct": -41.9,
-        "week52_pos": 2.9,
-        "week52_low": 34450,
-        "week52_high": 100900,
-        "rs_vs_kospi": -43.0,
-        "atr": 2674,
-        "atr_stop": 31002,
-        "obv_divergence": null,
-        "bb_squeeze": false,
-        "vol_annual": 71.4,
-        "vol_spike_ratio": 1.2
-      },
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006000227"
     }
   ],
-  "updated": "2026-11-09"
+  "updated": "2026-11-10"
 }
